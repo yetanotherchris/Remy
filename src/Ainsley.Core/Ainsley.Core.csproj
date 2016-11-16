@@ -48,12 +48,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Config\IConfiguration.cs" />
+    <Compile Include="Config\ITaskConfig.cs" />
+    <Compile Include="Config\WindowsFeatureTaskConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Config\ConfigFileReader.cs" />
+    <Compile Include="Config\Configuration.cs" />
+    <Compile Include="Config\IConfigFileReader.cs" />
+    <Compile Include="Config\Yaml\IYamlConfigParser.cs" />
+    <Compile Include="Config\Yaml\YamlConfigParser.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="CommandLine\" />
     <Folder Include="Tasks\" />
-    <Folder Include="Yaml\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
