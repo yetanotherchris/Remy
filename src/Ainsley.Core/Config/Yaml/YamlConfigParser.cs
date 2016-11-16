@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using YamlDotNet.Core;
-using YamlDotNet.RepresentationModel;
 using YamlDotNet.Serialization;
 
-namespace Ainsley.Core.Yaml
+namespace Ainsley.Core.Config.Yaml
 {
 	public class YamlConfigParser : IYamlConfigParser
 	{

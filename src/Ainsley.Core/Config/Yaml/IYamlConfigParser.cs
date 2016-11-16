@@ -1,4 +1,4 @@
-﻿namespace Ainsley.Core.Yaml
+﻿namespace Ainsley.Core.Config.Yaml
 {
 	public interface IYamlConfigParser
 	{

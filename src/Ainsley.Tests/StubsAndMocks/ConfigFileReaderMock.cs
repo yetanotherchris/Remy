@@ -1,4 +1,4 @@
-﻿using Ainsley.Core.Yaml;
+﻿using Ainsley.Core.Config;
 
 namespace Ainsley.Tests.StubsAndMocks
 {

@@ -1,4 +1,4 @@
-﻿namespace Ainsley.Core.Yaml
+﻿namespace Ainsley.Core.Config
 {
 	public class ConfigFileReader : IConfigFileReader
 	{

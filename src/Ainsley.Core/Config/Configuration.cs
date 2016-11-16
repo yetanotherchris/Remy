@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
-namespace Ainsley.Core.Yaml
+namespace Ainsley.Core.Config
 {
 	public class Configuration : IConfiguration
 	{

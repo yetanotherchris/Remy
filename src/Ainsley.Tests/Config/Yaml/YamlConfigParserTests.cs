@@ -1,8 +1,8 @@
-﻿using Ainsley.Core.Yaml;
+﻿using Ainsley.Core.Config.Yaml;
 using Ainsley.Tests.StubsAndMocks;
 using NUnit.Framework;
 
-namespace Ainsley.Tests.Yaml
+namespace Ainsley.Tests.Config.Yaml
 {
 	[TestFixture]
 	public class YamlConfigParserTests
