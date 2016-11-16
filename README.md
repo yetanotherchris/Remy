@@ -8,7 +8,7 @@ Its not a replacement nor trying to compete with: Chef, Ansible, Puppet or Salt.
 
 All tasks are defined in a YAML file, similarly to Ansible. By default it will look in the current directory for "ainsley.yml" and use this for configuration. You can also specify a path for the configuration:
 
-  ainsley --config=c:\somepath\config.yml
+    ainsley --config=c:\somepath\config.yml
   
 ## Example YAML configuration
 
