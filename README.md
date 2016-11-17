@@ -15,7 +15,7 @@ All tasks are defined in a YAML file. By default Ainsley will look in the curren
   
 ## Example YAML configuration
 
-**NOTE
+**NOTE: YAML requires indentation with spaces**
 
 A basic example, this installs IIS and .NET:
 
