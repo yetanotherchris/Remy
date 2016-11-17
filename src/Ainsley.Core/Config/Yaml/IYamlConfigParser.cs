@@ -1,7 +1,10 @@
-﻿namespace Ainsley.Core.Config.Yaml
+﻿using System.Collections.Generic;
+using Ainsley.Core.Tasks;
+
+namespace Ainsley.Core.Config.Yaml
 {
 	public interface IYamlConfigParser
 	{
-		IConfiguration Parse(string filename);
+        List<ITask> Parse(string filename);
 	}
 }

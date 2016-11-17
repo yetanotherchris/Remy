@@ -22,78 +22,98 @@ namespace Ainsley.Core.Config.Yaml
 
 		private string GetOptionalKey(Dictionary<object, object> dictionary, string key)
 		{
-			if (dictionary.ContainsKey("name"))
+			if (dictionary.ContainsKey(key))
 			{
-				return dictionary["name"].ToString();
+				return dictionary[key].ToString();
 			}
 
 			return "";
 		}
 
-		public IConfiguration Parse(string filename)
+		public List<ITask> Parse(string filename)
 		{
-			string yaml = _configFileReader.Read(filename);
+		    var tasks = new List<ITask>();
+
+            string yaml = _configFileReader.Read(filename);
 			var input = new StringReader(yaml);
 
-			// There's no auto serialization as YamlDotNet doesn't support down casting
 			var deserializer = new Deserializer();
 			var children = deserializer.Deserialize(input) as Dictionary<object, object>;
 
-			var configuration = new Configuration();
-			configuration.Tasks = new List<ITaskConfig>();
-			configuration.Name = GetOptionalKey(children, "name");
-
-			if (children.ContainsKey("tasks"))
+			if (children != null && children.ContainsKey("tasks"))
 			{
-				ParseTasks(children, configuration);
+                tasks = ParseTasks(children);
 			}
 
-			return configuration;
+		    return tasks;
 		}
 
-		private void ParseTasks(Dictionary<object, object> children, Configuration configuration)
+		private List<ITask> ParseTasks(Dictionary<object, object> children)
 		{
 			List<object> tasks = children["tasks"] as List<object>;
+		    if (tasks == null)
+		        return new List<ITask>();
 
-			foreach (var taskNode in tasks)
+		    var registeredTasks = new List<ITask>();
+
+            foreach (var taskNode in tasks)
 			{
 				Dictionary<object, object> taskProperties = taskNode as Dictionary<object, object>;
-				string runner = taskProperties["runner"].ToString();
+
 				if (taskProperties.ContainsKey("runner"))
 				{
-					if (_registeredTasks.ContainsKey(runner))
+                    string runner = taskProperties["runner"].ToString();
+
+                    if (_registeredTasks.ContainsKey(runner))
 					{ 
 						ITask task = _registeredTasks[runner];
-						Type imp = task.GetType().GetProperty("Config").GetType();
 
 						ITaskConfig taskConfig = new TaskConfig();
 						taskConfig.Description = GetOptionalKey(taskProperties, "description");
 						taskConfig.Runner = runner;
-						task.SetConfiguration(taskConfig, taskProperties);
 
-
-						// config: element, eg environmental variables
-						taskConfig.Config = new Dictionary<object, object>();
+						// "config:" element, eg environmental variables
+						taskConfig.Config = new Dictionary<string, object>();
 						if (taskProperties.ContainsKey("config"))
 						{
-							List<object> config = taskProperties["config"] as List<object>;
-							foreach (var configItem in config)
-							{
-								Dictionary<object, object> keyValue = configItem as Dictionary<object, object>;
-								//taskConfig.Config.Add(keyValue)
-							}
+						    ParseConfigSection(taskProperties, taskConfig.Config);
 						}
-					}
+
+                        task.SetConfiguration(taskConfig, taskProperties);
+                        registeredTasks.Add(task);
+                    }
 					else
 					{
-						_logger.Warning("No plugin found for {runner}", runner);
+						_logger.Warning("No task plugin found for '{runner}'", runner);
 					}
 				}
 				else
 				{
-					_logger.Warning("No runner was found for a task.");
+					_logger.Warning("'runner' key was missing for a task.");
 				}
 			}
+
+		    return registeredTasks;
 		}
+
+	    private void ParseConfigSection(Dictionary<object, object> taskProperties, Dictionary<string, object> configDictionary)
+	    {
+            List<object> config = taskProperties["config"] as List<object>;
+
+            foreach (var configItem in config)
+	        {
+	            Dictionary<object, object> keyValue = configItem as Dictionary<object, object>;
+
+	            if (keyValue != null && keyValue.ContainsKey("name") && keyValue.ContainsKey("value"))
+	            {
+	                string keyName = keyValue["name"].ToString();
+
+	                if (!string.IsNullOrEmpty(keyName) && !configDictionary.ContainsKey(keyName))
+	                {
+                        configDictionary.Add(keyName, keyValue["value"]);
+	                }
+	            }
+	        }
+	    }
 	}
 }

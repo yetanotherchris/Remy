@@ -6,13 +6,13 @@ namespace Ainsley.Core.Config
 	{
 		string Description { get; set; }
 		string Runner { get; set; }
-		Dictionary<object, object> Config { get; set; }
+		Dictionary<string, object> Config { get; set; }
 	}
 
 	public class TaskConfig : ITaskConfig
 	{
 		public string Description { get; set; }
 		public string Runner { get; set; }
-		public Dictionary<object, object> Config { get; set; }
+		public Dictionary<string, object> Config { get; set; }
 	}
 }
