@@ -3,7 +3,7 @@ using Ainsley.Core.Config;
 using Ainsley.Core.Tasks;
 using NUnit.Framework;
 
-namespace Ainsley.Tests.Tasks
+namespace Ainsley.Tests.Unit.Tasks
 {
     [TestFixture]
 	public class WindowsFeatureTaskTests

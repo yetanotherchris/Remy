@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Ainsley.Core.Config;
 using Ainsley.Core.Tasks;
 
-namespace Ainsley.Tests.Config.Yaml
+namespace Ainsley.Tests.Unit.Config.Yaml
 {
     public class MockTask : ITask
     {

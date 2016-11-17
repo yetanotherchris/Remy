@@ -8,7 +8,7 @@ using NUnit.Framework;
 using Serilog;
 using Serilog.Core;
 
-namespace Ainsley.Tests.Config.Yaml
+namespace Ainsley.Tests.Unit.Config.Yaml
 {
     [TestFixture]
 	public class YamlConfigParserTests

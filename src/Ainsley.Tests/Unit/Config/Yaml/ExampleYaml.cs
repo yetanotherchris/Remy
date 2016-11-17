@@ -1,4 +1,4 @@
-namespace Ainsley.Tests.Config.Yaml
+namespace Ainsley.Tests.Unit.Config.Yaml
 {
     public class ExampleYaml
     {
