@@ -9,13 +9,5 @@ namespace Ainsley.Core.Config
 		public Dictionary<object, object> Config { get; set; }
 
 		public bool IncludeAllSubFeatures { get; set; }
-
-		public ITaskConfig Deserialize(Dictionary<object, object> properties)
-		{
-			if (properties.ContainsKey("includeAllSubFeatures"))
-				IncludeAllSubFeatures = bool.Parse(properties["includeAllSubFeatures"].ToString());
-
-			return this;
-		}
 	}
 }

@@ -1,4 +1,7 @@
-﻿using Ainsley.Core.Config.Yaml;
+﻿using System.Collections.Generic;
+using Ainsley.Core.Config;
+using Ainsley.Core.Config.Yaml;
+using Ainsley.Core.Tasks;
 using Ainsley.Tests.StubsAndMocks;
 using NUnit.Framework;
 
@@ -72,8 +75,10 @@ tasks:
 			// given
 			var readerMock = new ConfigFileReaderMock();
 			readerMock.Yaml = _advancedYml;
+			var registeredTasks = new Dictionary<string, ITask>();
+			registeredTasks.Add("windows-features", )
 
-			var yamlParser = new YamlConfigParser(readerMock);
+			var yamlParser = new YamlConfigParser(readerMock,);
 
 			// when
 			yamlParser.Parse("not used");
@@ -81,5 +86,9 @@ tasks:
 			// then
 		}
 
+		// should_use_task_to_parse_additional_properties
+		// should_parse_config_section
+		// should_ignore_missing_task_optional_properties
+		// should_throw_when_task_runner_is_missing
 	}
 }

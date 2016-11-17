@@ -7,7 +7,12 @@ namespace Ainsley.Core.Config
 		string Description { get; set; }
 		string Runner { get; set; }
 		Dictionary<object, object> Config { get; set; }
+	}
 
-		ITaskConfig Deserialize(Dictionary<object, object> properties);
+	public class TaskConfig : ITaskConfig
+	{
+		public string Description { get; set; }
+		public string Runner { get; set; }
+		public Dictionary<object, object> Config { get; set; }
 	}
 }
