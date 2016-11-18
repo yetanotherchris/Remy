@@ -68,6 +68,7 @@
     <Compile Include="Unit\Config\Yaml\YamlConfigParserTests.cs" />
     <Compile Include="StubsAndMocks\ConfigFileReaderMock.cs" />
     <Compile Include="Unit\Tasks\PowershellTaskConfigTests.cs" />
+    <Compile Include="Unit\Tasks\PowershellRunnerTests.cs" />
     <Compile Include="Unit\Tasks\WindowsFeatureTaskTests.cs" />
   </ItemGroup>
   <ItemGroup>
