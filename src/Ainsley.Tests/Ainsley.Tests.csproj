@@ -60,6 +60,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Integration\ReaderTests.cs" />
     <Compile Include="Unit\Config\Yaml\ExampleYaml.cs" />
     <Compile Include="Unit\Config\Yaml\MockTask.cs" />
     <Compile Include="Unit\Config\Yaml\MockTaskConfig.cs" />
@@ -79,11 +80,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Integration\" />
     <Folder Include="Unit\CommandLine\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Integration\test-config.yml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

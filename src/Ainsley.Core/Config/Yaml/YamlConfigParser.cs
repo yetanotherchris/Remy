@@ -30,11 +30,11 @@ namespace Ainsley.Core.Config.Yaml
 			return "";
 		}
 
-		public List<ITask> Parse(string filename)
+		public List<ITask> Parse(Uri uri)
 		{
 		    var tasks = new List<ITask>();
 
-            string yaml = _configFileReader.Read(filename);
+            string yaml = _configFileReader.Read(uri);
 			var input = new StringReader(yaml);
 
 			var deserializer = new Deserializer();

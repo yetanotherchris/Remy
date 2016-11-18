@@ -1,4 +1,5 @@
-﻿using Ainsley.Core.Config;
+﻿using System;
+using Ainsley.Core.Config;
 
 namespace Ainsley.Tests.StubsAndMocks
 {
@@ -6,7 +7,7 @@ namespace Ainsley.Tests.StubsAndMocks
 	{
 		public string Yaml { get; set; }
 
-		public string Read(string filename)
+		public string Read(Uri uri)
 		{
 			return Yaml;
 		}

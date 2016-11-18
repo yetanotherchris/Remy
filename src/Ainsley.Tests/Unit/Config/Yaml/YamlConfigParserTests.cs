@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Ainsley.Core.Config;
 using Ainsley.Core.Config.Yaml;
@@ -23,6 +24,7 @@ namespace Ainsley.Tests.Unit.Config.Yaml
                 .LiterateConsole()
                 .CreateLogger();
         }
+
         [Test]
         public void move_this_test_to_windows_feature()
         {
@@ -38,7 +40,7 @@ namespace Ainsley.Tests.Unit.Config.Yaml
             var yamlParser = new YamlConfigParser(readerMock, registeredTasks, _logger);
 
             // when
-            List<ITask> tasks = yamlParser.Parse("filename");
+            List<ITask> tasks = yamlParser.Parse(new Uri("filename"));
 
             // then
             Assert.That(tasks.Count, Is.EqualTo(1));
@@ -71,7 +73,7 @@ namespace Ainsley.Tests.Unit.Config.Yaml
             var yamlParser = new YamlConfigParser(readerMock, registeredTasks, _logger);
 
             // when
-            List<ITask> tasks = yamlParser.Parse("filename");
+            List<ITask> tasks = yamlParser.Parse(new Uri("filename"));
 
             // then
             Assert.That(tasks.Count, Is.EqualTo(1));
@@ -95,7 +97,7 @@ namespace Ainsley.Tests.Unit.Config.Yaml
             var yamlParser = new YamlConfigParser(readerMock, registeredTasks, _logger);
 
             // when
-            List<ITask> tasks = yamlParser.Parse("filename");
+            List<ITask> tasks = yamlParser.Parse(new Uri("filename"));
 
             // then
             Assert.That(tasks.Count, Is.EqualTo(1));
@@ -122,7 +124,7 @@ namespace Ainsley.Tests.Unit.Config.Yaml
             var yamlParser = new YamlConfigParser(readerMock, registeredTasks, _logger);
 
             // when
-            List<ITask> tasks = yamlParser.Parse("filename");
+            List<ITask> tasks = yamlParser.Parse(new Uri("filename"));
 
             // then
             ITask task = tasks.First();
@@ -145,7 +147,7 @@ namespace Ainsley.Tests.Unit.Config.Yaml
             var yamlParser = new YamlConfigParser(readerMock, registeredTasks, _logger);
 
             // when
-            List<ITask> tasks = yamlParser.Parse("filename");
+            List<ITask> tasks = yamlParser.Parse(new Uri("filename"));
 
             // then
             ITask task = tasks.First();
@@ -167,7 +169,7 @@ namespace Ainsley.Tests.Unit.Config.Yaml
             var yamlParser = new YamlConfigParser(readerMock, registeredTasks, _logger);
 
             // when
-            List<ITask> tasks = yamlParser.Parse("filename");
+            List<ITask> tasks = yamlParser.Parse(new Uri("filename"));
 
             // then
             ITask task = tasks.First();
@@ -189,7 +191,7 @@ namespace Ainsley.Tests.Unit.Config.Yaml
             var yamlParser = new YamlConfigParser(readerMock, registeredTasks, _logger);
 
             // when
-            List<ITask> tasks = yamlParser.Parse("filename");
+            List<ITask> tasks = yamlParser.Parse(new Uri("filename"));
 
             // then
             Assert.That(tasks.Count, Is.EqualTo(0));

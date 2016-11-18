@@ -1,7 +1,9 @@
-﻿namespace Ainsley.Core.Config
+﻿using System;
+
+namespace Ainsley.Core.Config
 {
 	public interface IConfigFileReader
 	{
-		string Read(string filename);
+		string Read(Uri uri);
 	}
 }
