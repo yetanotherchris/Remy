@@ -55,6 +55,7 @@
     <Compile Include="AinsleyException.cs" />
     <Compile Include="Config\ITaskConfig.cs" />
     <Compile Include="Config\PowershellTaskConfig.cs" />
+    <Compile Include="Config\TaskConfig.cs" />
     <Compile Include="Config\WindowsFeatureTaskConfig.cs" />
     <Compile Include="Tasks\InstallChocolateyTask.cs" />
     <Compile Include="Tasks\ITask.cs" />

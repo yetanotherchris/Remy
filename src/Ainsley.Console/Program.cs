@@ -37,6 +37,8 @@ namespace Ainsley.Console
                     {
                         task.Run(logger);
                     }
+
+                    System.Console.WriteLine("");
                 });
         }
     }
