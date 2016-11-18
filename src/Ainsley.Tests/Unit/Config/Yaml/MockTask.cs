@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Ainsley.Core.Config;
 using Ainsley.Core.Tasks;
+using Serilog;
 
 namespace Ainsley.Tests.Unit.Config.Yaml
 {
@@ -8,6 +9,7 @@ namespace Ainsley.Tests.Unit.Config.Yaml
     {
         private MockTaskConfig _config;
         public ITaskConfig Config => _config;
+        public string YamlName => "mock-task";
 
         public void SetConfiguration(ITaskConfig config, Dictionary<object, object> properties)
         {
@@ -18,8 +20,9 @@ namespace Ainsley.Tests.Unit.Config.Yaml
             _config.Config = config.Config;
         }
 
-        public void Run()
+        public void Run(ILogger logger)
         {
+            throw new System.NotImplementedException();
         }
     }
 }

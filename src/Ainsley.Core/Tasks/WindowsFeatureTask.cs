@@ -7,7 +7,9 @@ namespace Ainsley.Core.Tasks
     public class WindowsFeatureTask : ITask
     {
         private WindowsFeatureTaskConfig _config;
+
         public ITaskConfig Config => _config;
+        public string YamlName => "windows-feature";
 
         public void SetConfiguration(ITaskConfig config, Dictionary<object, object> properties)
         {
@@ -20,7 +22,7 @@ namespace Ainsley.Core.Tasks
 
             _config.Features = new List<string>();
 
-            if (properties["features"] != null)
+            if (properties.ContainsKey("features") && properties["features"] != null)
             {
                 var features = properties["features"] as List<object>;
 
@@ -34,13 +36,8 @@ namespace Ainsley.Core.Tasks
             }
         }
 
-        public void Run()
+        public void Run(ILogger logger)
         {
-            var logger = new LoggerConfiguration()
-                            .WriteTo
-                            .LiterateConsole()
-                            .CreateLogger();
-
             var runner = new PowershellRunner(logger);
 
             var commands = new List<string>();

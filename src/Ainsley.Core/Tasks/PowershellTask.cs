@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics;
 using Ainsley.Core.Config;
 using Serilog;
 
@@ -8,7 +7,9 @@ namespace Ainsley.Core.Tasks
     public class PowershellTask : ITask
     {
         private PowershellTaskConfig _config;
+
         public ITaskConfig Config => _config;
+        public string YamlName => "powershell";
 
         public void SetConfiguration(ITaskConfig config, Dictionary<object, object> properties)
         {
@@ -18,7 +19,7 @@ namespace Ainsley.Core.Tasks
 
             _config.Commands = new List<string>();
 
-            if (properties["commands"] != null)
+            if (properties.ContainsKey("commands") && properties["commands"] != null)
             {
                 var commands = properties["commands"] as List<object>;
 
@@ -32,12 +33,13 @@ namespace Ainsley.Core.Tasks
             }
         }
 
-        public void Run()
+        public void Run(ILogger logger)
         {
-            var logger = new LoggerConfiguration()
-                .WriteTo
-                .LiterateConsole()
-                .CreateLogger();
+            if (_config.Commands.Count == 0)
+            {
+                logger.Warning($"Skipping task '{_config.Description}' as no commands set for task.");
+                return;
+            }
 
             var runner = new PowershellRunner(logger);
             runner.RunCommands(_config.Commands.ToArray());

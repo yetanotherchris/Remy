@@ -61,6 +61,7 @@ namespace Ainsley.Core.Tasks
             process.EnableRaisingEvents = true;
             process.StartInfo = startInfo;
 
+            _logger.Information($"Running powershell.exe {startInfo.Arguments}");
             process.Start();
             process.BeginErrorReadLine();
             process.BeginOutputReadLine();

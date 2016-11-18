@@ -6,8 +6,14 @@ using NUnit.Framework;
 namespace Ainsley.Tests.Unit.Tasks
 {
     [TestFixture]
-	public class PowershellTaskConfigTests
+	public class PowershellTaskTests
     {
+        [Test]
+        public void should_have_yaml_name()
+        {
+            Assert.That(new WindowsFeatureTask().YamlName, Is.EqualTo("windows-feature"));
+        }
+
         [Test]
         public void SetConfiguration_should_set_config_from_properties()
         {
