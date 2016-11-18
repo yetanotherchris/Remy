@@ -5,19 +5,18 @@ namespace Ainsley.Core.Tasks
 {
     public class WindowsFeatureTask : ITask
     {
-        private WindowsFeatureTaskConfig _config;
-        public ITaskConfig Config => _config;
+        public ITaskConfig Config { get; private set; }
 
         public void SetConfiguration(ITaskConfig config, Dictionary<object, object> properties)
         {
-            _config = new WindowsFeatureTaskConfig();
-            _config.Description = config.Description;
-            _config.Runner = config.Runner;
+            var taskConfig = new WindowsFeatureTaskConfig();
+            taskConfig.Description = config.Description;
+            taskConfig.Runner = config.Runner;
 
             if (properties.ContainsKey("includeAllSubFeatures"))
-                _config.IncludeAllSubFeatures = bool.Parse(properties["includeAllSubFeatures"].ToString());
+                taskConfig.IncludeAllSubFeatures = bool.Parse(properties["includeAllSubFeatures"].ToString());
 
-            _config.Features = new List<string>();
+            taskConfig.Features = new List<string>();
 
             if (properties["features"] != null)
             {
@@ -27,10 +26,12 @@ namespace Ainsley.Core.Tasks
                 {
                     foreach (object feature in features)
                     {
-                        _config.Features.Add(feature.ToString());
+                        taskConfig.Features.Add(feature.ToString());
                     }
                 }
             }
+
+            Config = taskConfig;
         }
 
         public void Run()
