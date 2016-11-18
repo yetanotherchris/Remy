@@ -1,19 +1,22 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 using Ainsley.Core.Config;
+using Serilog;
 
 namespace Ainsley.Core.Tasks
 {
     public class PowershellTask : ITask
     {
-        public ITaskConfig Config { get; private set; }
+        private PowershellTaskConfig _config;
+        public ITaskConfig Config => _config;
+
         public void SetConfiguration(ITaskConfig config, Dictionary<object, object> properties)
         {
-            var taskConfig = new PowershellTaskConfig();
-            taskConfig.Description = config.Description;
-            taskConfig.Runner = config.Runner;
-            
-            taskConfig.Commands = new List<string>();
+            _config = new PowershellTaskConfig();
+            _config.Description = config.Description;
+            _config.Runner = config.Runner;
+
+            _config.Commands = new List<string>();
 
             if (properties["commands"] != null)
             {
@@ -23,17 +26,21 @@ namespace Ainsley.Core.Tasks
                 {
                     foreach (object command in commands)
                     {
-                        taskConfig.Commands.Add(command.ToString());
+                        _config.Commands.Add(command.ToString());
                     }
                 }
             }
-
-            Config = taskConfig;
         }
 
         public void Run()
         {
-            var processInfo = new ProcessStartInfo();
+            var logger = new LoggerConfiguration()
+                .WriteTo
+                .LiterateConsole()
+                .CreateLogger();
+
+            var runner = new PowershellRunner(logger);
+            runner.RunCommands(_config.Commands.ToArray());
         }
     }
 }

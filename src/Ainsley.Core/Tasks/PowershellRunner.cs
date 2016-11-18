@@ -15,8 +15,11 @@ namespace Ainsley.Core.Tasks
             _logger = logger;
         }
 
-        public bool RunCommand(string[] commands)
+        public bool RunCommands(string[] commands)
         {
+            if (commands == null && commands.Length == 0)
+                return false;
+
             string tempFilename = "";
             try
             {

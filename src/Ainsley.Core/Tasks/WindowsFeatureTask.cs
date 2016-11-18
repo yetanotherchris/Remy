@@ -1,22 +1,24 @@
 using System.Collections.Generic;
 using Ainsley.Core.Config;
+using Serilog;
 
 namespace Ainsley.Core.Tasks
 {
     public class WindowsFeatureTask : ITask
     {
-        public ITaskConfig Config { get; private set; }
+        private WindowsFeatureTaskConfig _config;
+        public ITaskConfig Config => _config;
 
         public void SetConfiguration(ITaskConfig config, Dictionary<object, object> properties)
         {
-            var taskConfig = new WindowsFeatureTaskConfig();
-            taskConfig.Description = config.Description;
-            taskConfig.Runner = config.Runner;
+            _config = new WindowsFeatureTaskConfig();
+            _config.Description = config.Description;
+            _config.Runner = config.Runner;
 
             if (properties.ContainsKey("includeAllSubFeatures"))
-                taskConfig.IncludeAllSubFeatures = bool.Parse(properties["includeAllSubFeatures"].ToString());
+                _config.IncludeAllSubFeatures = bool.Parse(properties["includeAllSubFeatures"].ToString());
 
-            taskConfig.Features = new List<string>();
+            _config.Features = new List<string>();
 
             if (properties["features"] != null)
             {
@@ -26,17 +28,30 @@ namespace Ainsley.Core.Tasks
                 {
                     foreach (object feature in features)
                     {
-                        taskConfig.Features.Add(feature.ToString());
+                        _config.Features.Add(feature.ToString());
                     }
                 }
             }
-
-            Config = taskConfig;
         }
 
         public void Run()
         {
+            var logger = new LoggerConfiguration()
+                            .WriteTo
+                            .LiterateConsole()
+                            .CreateLogger();
 
+            var runner = new PowershellRunner(logger);
+
+            var commands = new List<string>();
+            string includeAllSubfeature = (_config.IncludeAllSubFeatures) ? " -IncludeAllSubFeature" : "";
+            foreach (string feature in _config.Features)
+            {
+                string command = $"Install-WindowsFeature {feature}{includeAllSubfeature}";
+                commands.Add(command);
+            }
+
+            runner.RunCommands(commands.ToArray());
         }
     }
 }
