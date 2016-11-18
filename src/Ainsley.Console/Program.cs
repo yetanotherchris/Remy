@@ -10,6 +10,9 @@ namespace Ainsley.Console
 	{
 		static void Main(string[] args)
 		{
-		}
+            var options = new Options();
+
+            var isValid = CommandLineParser.Parser.Default.ParseArgumentsStrict(args, options);
+        }
 	}
 }
