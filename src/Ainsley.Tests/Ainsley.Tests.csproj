@@ -46,6 +46,10 @@
       <HintPath>..\..\packages\Serilog.Sinks.Literate.2.0.0\lib\net45\Serilog.Sinks.Literate.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Serilog.Sinks.TextWriter, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Serilog.Sinks.TextWriter.2.1.0\lib\net45\Serilog.Sinks.TextWriter.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -68,7 +72,7 @@
     <Compile Include="Unit\Config\Yaml\YamlConfigParserTests.cs" />
     <Compile Include="StubsAndMocks\ConfigFileReaderMock.cs" />
     <Compile Include="Unit\Tasks\PowershellTaskConfigTests.cs" />
-    <Compile Include="Unit\Tasks\PowershellRunnerTests.cs" />
+    <Compile Include="Integration\PowershellRunnerTests.cs" />
     <Compile Include="Unit\Tasks\WindowsFeatureTaskTests.cs" />
   </ItemGroup>
   <ItemGroup>

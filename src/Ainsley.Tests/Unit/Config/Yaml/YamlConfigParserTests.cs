@@ -26,41 +26,6 @@ namespace Ainsley.Tests.Unit.Config.Yaml
         }
 
         [Test]
-        public void move_this_test_to_windows_feature()
-        {
-            // TODO: This is testing WindowsFeatureTask instead of a mockedTask
-
-            // given
-            var readerMock = new ConfigFileReaderMock();
-            readerMock.Yaml = ExampleYaml.SimpleYaml;
-
-            var registeredTasks = new Dictionary<string, ITask>();
-            registeredTasks.Add("windows-feature", new WindowsFeatureTask());
-
-            var yamlParser = new YamlConfigParser(readerMock, registeredTasks, _logger);
-
-            // when
-            List<ITask> tasks = yamlParser.Parse(new Uri("file://filename"));
-
-            // then
-            Assert.That(tasks.Count, Is.EqualTo(1));
-
-            ITask task = tasks.First();
-            WindowsFeatureTaskConfig config = task.Config as WindowsFeatureTaskConfig;
-            Assert.That(config, Is.Not.Null);
-
-            Assert.That(config.IncludeAllSubFeatures, Is.True);
-            Assert.That(config.Features.Count, Is.EqualTo(7));
-            Assert.That(config.Features[0], Is.EqualTo("NET-Framework-Core"));
-            Assert.That(config.Features[1], Is.EqualTo("Web-Server"));
-            Assert.That(config.Features[2], Is.EqualTo("NET-Framework-Features"));
-            Assert.That(config.Features[3], Is.EqualTo("NET-Framework-45-ASPNET"));
-            Assert.That(config.Features[4], Is.EqualTo("Application-Server"));
-            Assert.That(config.Features[5], Is.EqualTo("MSMQ"));
-            Assert.That(config.Features[6], Is.EqualTo("WAS"));
-        }
-
-        [Test]
         public void should_use_registeredTasks_to_get_task_from_name_in_config()
         {
             // given
