@@ -60,7 +60,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Integration\ReaderTests.cs" />
+    <Compile Include="Integration\ConfigFileReaderTests.cs" />
     <Compile Include="Unit\Config\Yaml\ExampleYaml.cs" />
     <Compile Include="Unit\Config\Yaml\MockTask.cs" />
     <Compile Include="Unit\Config\Yaml\MockTaskConfig.cs" />

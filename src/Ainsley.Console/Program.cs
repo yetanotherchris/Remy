@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CommandLine;
 
 namespace Ainsley.Console
 {
@@ -10,9 +6,7 @@ namespace Ainsley.Console
 	{
 		static void Main(string[] args)
 		{
-            var options = new Options();
-
-            var isValid = CommandLineParser.Parser.Default.ParseArgumentsStrict(args, options);
+            ParserResult<Options> result = CommandLine.Parser.Default.ParseArguments<Options>(args);
         }
 	}
 }
