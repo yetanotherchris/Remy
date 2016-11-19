@@ -17,8 +17,8 @@ namespace Ainsley.Core.Tasks
 
         public bool RunCommands(string[] commands)
         {
-            if (commands == null && commands.Length == 0)
-                return false;
+            if (commands == null || commands.Length == 0)
+                return true;
 
             string tempFilename = "";
             try

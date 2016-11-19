@@ -36,7 +36,6 @@ namespace Ainsley.Tests.Integration
 
             // then
             Assert.That(result, Is.True);
-            Assert.That(_logStringBuilder.ToString(), Is.Empty.Or.Null);
         }
 
         [Test]
