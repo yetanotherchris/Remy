@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Reflection;
 using Ainsley.Core.Config;
 using Ainsley.Core.Config.Yaml;
 using Ainsley.Core.Tasks;
@@ -22,10 +24,21 @@ namespace Ainsley.Console
                                     .CreateLogger();
 
 
-                    var registeredTasks = new Dictionary<string, ITask>();
-                    registeredTasks.Add("powershell", new PowershellTask());
-                    registeredTasks.Add("windows-feature", new WindowsFeatureTask());
+                    Type type = typeof(ITask);
+                    IEnumerable<Type> taskTypes = type.Assembly
+                        .GetTypes()
+                        .Where(x => type.IsAssignableFrom(x) && x.IsClass);
 
+                    var registeredTasks = new Dictionary<string, ITask>();
+                    foreach (Type taskType in taskTypes)
+                    {
+                        var instance = Activator.CreateInstance(taskType);
+
+                        ITask taskInstance = instance as ITask;
+                        registeredTasks.Add(taskInstance.YamlName, taskInstance);
+
+                        logger.Information($"Registered '{taskType.Name}' as '{taskInstance.YamlName}'");
+                    }
 
                     var configReader = new ConfigFileReader();
                     var parser = new YamlConfigParser(configReader, registeredTasks, logger);
