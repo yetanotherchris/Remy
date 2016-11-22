@@ -71,7 +71,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Unit\Config\Yaml\YamlConfigParserTests.cs" />
     <Compile Include="StubsAndMocks\ConfigFileReaderMock.cs" />
-    <Compile Include="Unit\Console\ProgramTests.cs" />
+    <Compile Include="Integration\CommandLineRunnerTests.cs" />
+    <Compile Include="Integration\ProgramTests.cs" />
     <Compile Include="Unit\Tasks\TypeManagerTests.cs" />
     <Compile Include="Unit\Tasks\PowershellTaskTests.cs" />
     <Compile Include="Integration\PowershellRunnerTests.cs" />
