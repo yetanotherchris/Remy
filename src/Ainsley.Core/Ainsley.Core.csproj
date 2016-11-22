@@ -67,6 +67,7 @@
     <Compile Include="Tasks\PowershellRunner.cs" />
     <Compile Include="Tasks\PowershellTask.cs" />
     <Compile Include="Tasks\WindowsFeatureTask.cs" />
+    <Compile Include="Tasks\TypeManager.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
