@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
 using Ainsley.Core.Config;
 using Ainsley.Core.Config.Yaml;
 using Ainsley.Core.Tasks;
@@ -161,5 +163,38 @@ namespace Ainsley.Tests.Unit.Config.Yaml
             // then
             Assert.That(tasks.Count, Is.EqualTo(0));
         }
-    }
+
+        [Test]
+        [TestCase(ExampleYaml.InvalidYaml)]
+        [TestCase(ExampleYaml.InvalidYamlWithTabs)]
+        public void should_log_invalid_yml_and_return_empty_list(string yaml)
+        {
+            var logStringBuilder = new StringBuilder();
+            var logMessages = new StringWriter(logStringBuilder);
+
+            var logger = new LoggerConfiguration()
+                .WriteTo
+                .TextWriter(logMessages)
+                .CreateLogger();
+        
+            // given
+            var readerMock = new ConfigFileReaderMock();
+            readerMock.Yaml = yaml;
+
+            var registeredTasks = new Dictionary<string, ITask>();
+            registeredTasks.Add("windows-feature", new WindowsFeatureTask());
+
+            var yamlParser = new YamlConfigParser(readerMock, registeredTasks, logger);
+
+            // when
+            List<ITask> tasks = yamlParser.Parse(new Uri("file://myfilename.txt"));
+
+            // then
+            Assert.That(tasks.Count, Is.EqualTo(0));
+
+	        string logText = logStringBuilder.ToString();
+			Assert.That(logText, Does.Contain("An error occurred parsing the Yaml"), logText);
+			Assert.That(logText, Does.Contain("myfilename.txt"), logText);
+		}
+	}
 }

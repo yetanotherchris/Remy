@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using Ainsley.Core.Tasks;
 using Serilog;
+using YamlDotNet.Core;
 using YamlDotNet.Serialization;
 
 namespace Ainsley.Core.Config.Yaml
@@ -34,18 +35,29 @@ namespace Ainsley.Core.Config.Yaml
 		{
 		    var tasks = new List<ITask>();
 
-            string yaml = _configFileReader.Read(uri);
-			var input = new StringReader(yaml);
+		    try
+		    {
+		        string yaml = _configFileReader.Read(uri);
+		        var input = new StringReader(yaml);
 
-			var deserializer = new Deserializer();
-			var children = deserializer.Deserialize(input) as Dictionary<object, object>;
+		        var deserializer = new Deserializer();
+		        var children = deserializer.Deserialize(input) as Dictionary<object, object>;
 
-			if (children != null && children.ContainsKey("tasks"))
-			{
-                tasks = ParseTasks(children);
-			}
+		        if (children != null && children.ContainsKey("tasks"))
+		        {
+		            tasks = ParseTasks(children);
+		        }
+		    }
+		    catch (AinsleyException ex)
+		    {
+		        _logger.Error(ex.Message);
+            }
+            catch (SyntaxErrorException ex)
+            {
+                _logger.Error($"An error occurred parsing the Yaml' in '{uri}': {ex.Message}");
+            }
 
-		    return tasks;
+            return tasks;
 		}
 
 		private List<ITask> ParseTasks(Dictionary<object, object> children)

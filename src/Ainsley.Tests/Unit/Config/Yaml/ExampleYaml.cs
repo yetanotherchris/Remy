@@ -2,6 +2,17 @@ namespace Ainsley.Tests.Unit.Config.Yaml
 {
     public class ExampleYaml
     {
+        public const string InvalidYaml = @"
+Some text
+dd:- dsds : -";
+
+        public const string InvalidYamlWithTabs = @"
+name: ""Basic example""
+tasks:
+			-
+description: ""invalid""
+		runner: invalid";
+
         public const string SimpleYaml = @"
 name: ""Basic example""
 tasks:
