@@ -7,7 +7,7 @@ namespace Ainsley.Console
 {
     public class Options
     {
-        [Option('f', "configfile", Required = false, HelpText = "The YAML configuration file to use.")]
+        [Option('c', "configfile", Required = false, HelpText = "The YAML configuration file to use.")]
         public string ConfigFile { get; set; }
 
         [Option('v', "verbose", Required = false, HelpText = "Verbose output (warnings and info).")]

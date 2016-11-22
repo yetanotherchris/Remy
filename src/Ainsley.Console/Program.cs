@@ -15,44 +15,73 @@ namespace Ainsley.Console
     {
         static void Main(string[] args)
         {
-            Parser.Default.ParseArguments<Options>(args)
+			Parser.Default.ParseArguments<Options>(args)
                 .WithParsed(options =>
-                {
-                    var logger = new LoggerConfiguration()
-                                    .WriteTo
-                                    .LiterateConsole()
-                                    .CreateLogger();
+				{
+					var logger = new LoggerConfiguration()
+									.WriteTo
+									.LiterateConsole()
+									.CreateLogger();
 
+					Dictionary<string, ITask> registeredTasks = GetTaskInstances(logger);
 
-                    Type type = typeof(ITask);
-                    IEnumerable<Type> taskTypes = type.Assembly
-                        .GetTypes()
-                        .Where(x => type.IsAssignableFrom(x) && x.IsClass);
+					var configReader = new ConfigFileReader();
+					var parser = new YamlConfigParser(configReader, registeredTasks, logger);
 
-                    var registeredTasks = new Dictionary<string, ITask>();
-                    foreach (Type taskType in taskTypes)
-                    {
-                        var instance = Activator.CreateInstance(taskType);
+					string fullPath = options.ConfigFile;
+					if (string.IsNullOrEmpty(fullPath))
+					{
+						fullPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ainsley.yml");
+					}
 
-                        ITask taskInstance = instance as ITask;
-                        registeredTasks.Add(taskInstance.YamlName, taskInstance);
+					try
+					{
+						if (!fullPath.StartsWith("http"))
+						{
+							fullPath = "file://" + fullPath;
+						}
 
-                        logger.Information($"Registered '{taskType.Name}' as '{taskInstance.YamlName}'");
-                    }
+						Uri uriPath = new Uri(fullPath);
+						if (uriPath.IsAbsoluteUri && !File.Exists(uriPath.ToString()))
+						{
+							logger.Error($"The Yaml configuration '{uriPath}' does not exist");
+							return;
+						}
 
-                    var configReader = new ConfigFileReader();
-                    var parser = new YamlConfigParser(configReader, registeredTasks, logger);
+						var tasks = parser.Parse(new Uri(fullPath));
+						foreach (ITask task in tasks)
+						{
+							task.Run(logger);
+						}
+					}
+					catch (FormatException ex)
+					{
+						logger.Error($"The Yaml configuration '{options.ConfigFile}' is not a valid path or url.");
+					}
 
-                    string fullPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ainsley.yml");
-                    var tasks = parser.Parse(new Uri(fullPath));
-
-                    foreach (ITask task in tasks)
-                    {
-                        task.Run(logger);
-                    }
-
-                    System.Console.WriteLine("");
-                });
+					System.Console.WriteLine("");
+				});
         }
-    }
+
+		private static Dictionary<string, ITask> GetTaskInstances(Serilog.Core.Logger logger)
+		{
+			Type type = typeof(ITask);
+			IEnumerable<Type> taskTypes = type.Assembly
+				.GetTypes()
+				.Where(x => type.IsAssignableFrom(x) && x.IsClass);
+
+			var registeredTasks = new Dictionary<string, ITask>();
+			foreach (Type taskType in taskTypes)
+			{
+				var instance = Activator.CreateInstance(taskType);
+
+				ITask taskInstance = instance as ITask;
+				registeredTasks.Add(taskInstance.YamlName, taskInstance);
+
+				logger.Information($"Registered '{taskType.Name}' as '{taskInstance.YamlName}'");
+			}
+
+			return registeredTasks;
+		}
+	}
 }
