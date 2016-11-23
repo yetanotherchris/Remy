@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
-using System.Text;
 using Serilog;
 
-namespace Ainsley.Core.Tasks
+namespace Ainsley.Core.Tasks.Plugins
 {
     public class PowershellRunner
     {

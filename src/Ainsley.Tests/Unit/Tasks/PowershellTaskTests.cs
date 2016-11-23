@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Ainsley.Core.Config;
 using Ainsley.Core.Tasks;
+using Ainsley.Core.Tasks.Plugins;
 using NUnit.Framework;
 
 namespace Ainsley.Tests.Unit.Tasks

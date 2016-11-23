@@ -1,6 +1,7 @@
 using System.IO;
 using System.Text;
 using Ainsley.Core.Tasks;
+using Ainsley.Core.Tasks.Plugins;
 using NUnit.Framework;
 using Serilog;
 using Serilog.Core;

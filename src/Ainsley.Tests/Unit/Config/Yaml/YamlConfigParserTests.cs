@@ -6,6 +6,7 @@ using System.Text;
 using Ainsley.Core.Config;
 using Ainsley.Core.Config.Yaml;
 using Ainsley.Core.Tasks;
+using Ainsley.Core.Tasks.Plugins;
 using Ainsley.Tests.StubsAndMocks;
 using NUnit.Framework;
 using Serilog;

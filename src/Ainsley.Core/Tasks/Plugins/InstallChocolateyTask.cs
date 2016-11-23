@@ -2,7 +2,7 @@
 using Ainsley.Core.Config;
 using Serilog;
 
-namespace Ainsley.Core.Tasks
+namespace Ainsley.Core.Tasks.Plugins
 {
     public class InstallChocolateyTask : ITask
     {
