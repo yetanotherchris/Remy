@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Ainsley.Core.Config;
 
-namespace Ainsley.Tests.Unit.Config.Yaml
+namespace Ainsley.Tests.StubsAndMocks
 {
     public class MockTaskConfig : ITaskConfig
     {

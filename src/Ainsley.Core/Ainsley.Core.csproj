@@ -44,9 +44,9 @@
   <ItemGroup>
     <Compile Include="AinsleyException.cs" />
     <Compile Include="Config\ITaskConfig.cs" />
-    <Compile Include="Config\PowershellTaskConfig.cs" />
+    <Compile Include="Tasks\Plugins\PowershellTaskConfig.cs" />
     <Compile Include="Config\TaskConfig.cs" />
-    <Compile Include="Config\WindowsFeatureTaskConfig.cs" />
+    <Compile Include="Tasks\Plugins\WindowsFeatureTaskConfig.cs" />
     <Compile Include="Tasks\Plugins\InstallChocolateyTask.cs" />
     <Compile Include="Tasks\ITask.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

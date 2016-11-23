@@ -1,6 +1,7 @@
 using System.Collections.Generic;
+using Ainsley.Core.Config;
 
-namespace Ainsley.Core.Config
+namespace Ainsley.Core.Tasks.Plugins
 {
 	public class PowershellTaskConfig : ITaskConfig
 	{
