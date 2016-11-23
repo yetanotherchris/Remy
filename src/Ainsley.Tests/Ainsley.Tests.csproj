@@ -63,6 +63,7 @@
     <Compile Include="Unit\Config\Yaml\YamlConfigParserTests.cs" />
     <Compile Include="StubsAndMocks\ConfigFileReaderMock.cs" />
     <Compile Include="Integration\CommandLineRunnerTests.cs" />
+    <Compile Include="Unit\Tasks\Plugins\PowershellFileTaskTests.cs" />
     <Compile Include="Unit\Tasks\TypeManagerTests.cs" />
     <Compile Include="Unit\Tasks\Plugins\PowershellTaskTests.cs" />
     <Compile Include="Integration\PowershellRunnerTests.cs" />

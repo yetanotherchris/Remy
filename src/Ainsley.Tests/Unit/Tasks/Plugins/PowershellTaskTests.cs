@@ -11,7 +11,7 @@ namespace Ainsley.Tests.Unit.Tasks.Plugins
         [Test]
         public void should_have_yaml_name()
         {
-            Assert.That(new WindowsFeatureTask().YamlName, Is.EqualTo("windows-feature"));
+            Assert.That(new PowershellTask().YamlName, Is.EqualTo("powershell"));
         }
 
         [Test]

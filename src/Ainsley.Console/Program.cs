@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 using Ainsley.Core.Config;
 using Ainsley.Core.Config.Yaml;
@@ -16,12 +17,19 @@ namespace Ainsley.Console
                                 .LiterateConsole()
                                 .CreateLogger();
 
-            Dictionary<string, ITask> registeredTasks = TypeManager.GetRegisteredTaskInstances(logger);
-            var configReader = new ConfigFileReader();
-            var parser = new YamlConfigParser(configReader, registeredTasks, logger);
+	        try
+	        {
+				Dictionary<string, ITask> registeredTasks = TypeManager.GetRegisteredTaskInstances(logger);
+				var configReader = new ConfigFileReader();
+				var parser = new YamlConfigParser(configReader, registeredTasks, logger);
 
-            var commandLineRunner = new CommandLineRunner(logger, parser);
-            commandLineRunner.Run(args);
+				var commandLineRunner = new CommandLineRunner(logger, parser);
+				commandLineRunner.Run(args);
+	        }
+	        catch (Exception e)
+	        {
+		        logger.Error($"Unhandled error: {e.Message}");
+	        }
         }
 	}
 }

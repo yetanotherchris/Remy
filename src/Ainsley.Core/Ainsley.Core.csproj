@@ -44,6 +44,8 @@
   <ItemGroup>
     <Compile Include="AinsleyException.cs" />
     <Compile Include="Config\ITaskConfig.cs" />
+    <Compile Include="Tasks\Plugins\PowershellFileTask.cs" />
+    <Compile Include="Tasks\Plugins\PowershellFileTaskConfig.cs" />
     <Compile Include="Tasks\Plugins\PowershellTaskConfig.cs" />
     <Compile Include="Config\TaskConfig.cs" />
     <Compile Include="Tasks\Plugins\WindowsFeatureTaskConfig.cs" />

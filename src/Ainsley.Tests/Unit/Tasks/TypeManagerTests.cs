@@ -28,7 +28,7 @@ namespace Ainsley.Tests.Unit.Tasks
 	        Dictionary<string, ITask> tasks = TypeManager.GetRegisteredTaskInstances(_logger);
 
 	        // then
-			Assert.That(tasks.Count, Is.EqualTo(3));
+			Assert.That(tasks.Count, Is.EqualTo(4));
 
 	        KeyValuePair<string, ITask> task = tasks.First();
 	        Assert.That(task.Value, Is.Not.Null);
