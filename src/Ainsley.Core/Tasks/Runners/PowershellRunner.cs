@@ -14,29 +14,34 @@ namespace Ainsley.Core.Tasks.Runners
             _logger = logger;
         }
 
-        public bool RunCommands(string[] commands)
+	    public bool RunCommands(string[] commands)
+	    {
+			if (commands == null || commands.Length == 0)
+				return true;
+
+			string tempFilename = "";
+			try
+			{
+				tempFilename = Path.GetTempFileName() + ".ps1";
+				File.WriteAllLines(tempFilename, commands);
+			}
+			catch (IOException e)
+			{
+				_logger.Error(e.Message);
+				return false;
+			}
+
+			if (string.IsNullOrEmpty(tempFilename))
+			{
+				_logger.Error("Unable to run powershell script - temp file name creation failed.");
+				return false;
+			}
+
+		    return RunFile(tempFilename);
+	    }
+
+	    public bool RunFile(string tempFilename)
         {
-            if (commands == null || commands.Length == 0)
-                return true;
-
-            string tempFilename = "";
-            try
-            {
-                tempFilename = Path.GetTempFileName() + ".ps1";
-                File.WriteAllLines(tempFilename, commands);
-            }
-            catch (IOException e)
-            {
-                _logger.Error(e.Message);
-                return false;
-            }
-
-            if (string.IsNullOrEmpty(tempFilename))
-            {
-                _logger.Error("Unable to run powershell script - temp file name creation failed.");
-                return false;
-            }
-
             var startInfo = new ProcessStartInfo("powershell.exe");
             startInfo.Arguments = "-File " + tempFilename;
             startInfo.RedirectStandardOutput = true;
