@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Ainsley.Core.Config;
+using Ainsley.Core.Tasks.Runners;
 using Serilog;
 
 namespace Ainsley.Core.Tasks.Plugins

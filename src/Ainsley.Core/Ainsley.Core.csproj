@@ -64,8 +64,8 @@
     <Compile Include="Config\IConfigFileReader.cs" />
     <Compile Include="Config\Yaml\IYamlConfigParser.cs" />
     <Compile Include="Config\Yaml\YamlConfigParser.cs" />
-    <Compile Include="Tasks\Plugins\PowershellRunner.cs" />
-    <Compile Include="Tasks\PowershellTask.cs" />
+    <Compile Include="Tasks\Runners\PowershellRunner.cs" />
+    <Compile Include="Tasks\Plugins\PowershellTask.cs" />
     <Compile Include="Tasks\Plugins\WindowsFeatureTask.cs" />
     <Compile Include="Tasks\TypeManager.cs" />
   </ItemGroup>

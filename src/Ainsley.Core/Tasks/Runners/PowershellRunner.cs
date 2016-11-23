@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using Serilog;
 
-namespace Ainsley.Core.Tasks.Plugins
+namespace Ainsley.Core.Tasks.Runners
 {
     public class PowershellRunner
     {

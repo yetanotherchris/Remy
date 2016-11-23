@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using Ainsley.Core.Config;
-using Ainsley.Core.Tasks.Plugins;
+using Ainsley.Core.Tasks.Runners;
 using Serilog;
 
-namespace Ainsley.Core.Tasks
+namespace Ainsley.Core.Tasks.Plugins
 {
     public class PowershellTask : ITask
     {
