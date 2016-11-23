@@ -30,8 +30,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CommandLine, Version=1.9.71.2, Culture=neutral, PublicKeyToken=de6f01bd326f8c32, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\CommandLineParser.1.9.71\lib\net45\CommandLine.dll</HintPath>
+    <Reference Include="CommandLine, Version=2.0.275.0, Culture=neutral, PublicKeyToken=de6f01bd326f8c32, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\CommandLineParser.2.1.1-beta\lib\net45\CommandLine.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="nunit.framework, Version=3.5.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
@@ -65,6 +65,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Integration\ConfigFileReaderTests.cs" />
+    <Compile Include="StubsAndMocks\MockTask.cs" />
+    <Compile Include="StubsAndMocks\YamlConfigParserMock.cs" />
     <Compile Include="Unit\Config\Yaml\ExampleYaml.cs" />
     <Compile Include="Unit\Config\Yaml\MockTask.cs" />
     <Compile Include="Unit\Config\Yaml\MockTaskConfig.cs" />
@@ -72,7 +74,6 @@
     <Compile Include="Unit\Config\Yaml\YamlConfigParserTests.cs" />
     <Compile Include="StubsAndMocks\ConfigFileReaderMock.cs" />
     <Compile Include="Integration\CommandLineRunnerTests.cs" />
-    <Compile Include="Integration\ProgramTests.cs" />
     <Compile Include="Unit\Tasks\TypeManagerTests.cs" />
     <Compile Include="Unit\Tasks\PowershellTaskTests.cs" />
     <Compile Include="Integration\PowershellRunnerTests.cs" />
@@ -90,12 +91,13 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Integration\test-config.yml">
+    <Content Include="ainsley.yml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    </Content>
+    <None Include="packages.config" />
+    <Content Include="test-config.yml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -7,5 +7,9 @@ namespace Ainsley.Core
         public AinsleyException(string message)
         {
         }
-    }
+
+		public AinsleyException(string message, Exception innerException) : base(message, innerException)
+		{
+		}
+	}
 }

@@ -1,48 +1,95 @@
-﻿using NUnit.Framework;
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Text;
+using Ainsley.Console;
+using Ainsley.Core.Tasks;
+using Ainsley.Tests.StubsAndMocks;
+using NUnit.Framework;
+using Serilog;
+using Serilog.Core;
 
 namespace Ainsley.Tests.Integration
 {
     [TestFixture]
     public class CommandLineRunnerTests
 	{
-        [Test]
-        public void should_use_ainsley_yaml_file_by_default()
+		private ILogger _logger;
+		private StringBuilder _logStringBuilder;
+
+		[SetUp]
+		public void Setup()
+		{
+			_logStringBuilder = new StringBuilder();
+			var logMessages = new StringWriter(_logStringBuilder);
+
+			_logger = new LoggerConfiguration()
+				.WriteTo
+				.TextWriter(logMessages)
+				.WriteTo
+				.LiterateConsole()
+				.CreateLogger();
+		}
+
+		[Test]
+        public void should_run_tasks_using_ainsley_yml_as_fallback()
         {
             // given
+			var mockTask = new MockTask();
+			var yamlConfigReader = new YamlConfigParserMock();
+			yamlConfigReader.ExpectedTasks = new List<ITask>()
+			{
+				mockTask
+			};
 
-            // when
+			var runner = new CommandLineRunner(_logger, yamlConfigReader);
 
-            // then
+			// when
+			runner.Run(new string[0]);
+
+			// then
+			Assert.That(mockTask.HasRun, Is.True);
         }
 
 		[Test]
-		public void should_check_local_yaml_file_exists()
+		public void should_run_tasks_for_alternative_config()
 		{
 			// given
+			var mockTask = new MockTask();
+			var yamlConfigReader = new YamlConfigParserMock();
+			yamlConfigReader.ExpectedTasks = new List<ITask>()
+			{
+				mockTask
+			};
+
+			var runner = new CommandLineRunner(_logger, yamlConfigReader);
 
 			// when
+			runner.Run(new string[] {"-c", "test-config.yml" });
 
 			// then
+			Assert.That(mockTask.HasRun, Is.True);
 		}
 
 		[Test]
-		public void should_log_bad_config_file_format()
+		public void should_log_file_not_format()
 		{
 			// given
+			var mockTask = new MockTask();
+			var yamlConfigReader = new YamlConfigParserMock();
+			yamlConfigReader.ExpectedTasks = new List<ITask>()
+			{
+				mockTask
+			};
+
+			var runner = new CommandLineRunner(_logger, yamlConfigReader);
 
 			// when
+			runner.Run(new string[] { "-c", "doesnt-exist.yml" });
 
 			// then
-		}
-
-		[Test]
-		public void should_run_tasks()
-		{
-			// given
-
-			// when
-
-			// then
+			Assert.That(mockTask.HasRun, Is.False);
+			Assert.That(_logStringBuilder.ToString(), Does.Contain("The Yaml config file"));
+			Assert.That(_logStringBuilder.ToString(), Does.Contain("doesnt-exist.yml' does not exist"));
 		}
 	}
 }

@@ -1,0 +1,5 @@
+﻿name: "Command line runner example"
+tasks:
+  -
+    description: "foo"
+	runner: "mock-runner"

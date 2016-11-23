@@ -13,14 +13,14 @@ namespace Ainsley.Tests.Integration
 		public void should_read_file_from_disk()
 		{
 			// Arrange
-			string configPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Integration", "test-config.yml");
+			string configPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "test-config.yml");
 			var fileReader = new ConfigFileReader();
 
 			// Act
 			string actualContent = fileReader.Read(new Uri(configPath));
 
 			// Assert
-			Assert.That(actualContent, Is.EqualTo("name: \"Text example\""));
+			Assert.That(actualContent, Does.Contain("name: \"Text example\""));
 		}
 
 		[Test]

@@ -17,7 +17,7 @@ namespace Ainsley.Core.Config
 			    }
                 catch (IOException e)
 				{
-                    throw new AinsleyException($"Unable to download open file '{uri}' - {e.Message}");
+                    throw new AinsleyException($"Unable to download open file '{uri}' - {e.Message}", e);
 				}
 			}
 			else if (uri.Scheme.StartsWith("http"))
@@ -28,7 +28,7 @@ namespace Ainsley.Core.Config
 				}
 				catch (WebException e)
 				{
-                    throw new AinsleyException("Unable to download '{uri}' - {e.Message}");
+                    throw new AinsleyException($"Unable to download '{uri}' - {e.Message}", e);
 				}
 			}
 

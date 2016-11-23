@@ -10,7 +10,7 @@ namespace Ainsley.Tests.Integration
     [TestFixture]
     public class PowershellRunnerTests
     {
-        private Logger _logger;
+        private ILogger _logger;
         private StringBuilder _logStringBuilder;
 
         [SetUp]

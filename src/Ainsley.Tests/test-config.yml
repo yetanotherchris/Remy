@@ -1,0 +1,5 @@
+﻿name: "Text example"
+tasks:
+  -
+    description: "foo"
+	runner: "mock-runner"
