@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Remy.Console", "src\Remy.Console\Remy.Console.csproj", "{0EB3E373-80FB-42E8-91E5-E01791FED207}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Remy.Core", "src\Remy.Core\Remy.Core.csproj", "{8B73FD1C-33A5-4911-9AD9-632DA90CD8C8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Remy.Tests", "src\Remy.Tests\Remy.Tests.csproj", "{0A32F3F9-2F46-4525-9C41-B27F323EE104}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0EB3E373-80FB-42E8-91E5-E01791FED207}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0EB3E373-80FB-42E8-91E5-E01791FED207}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0EB3E373-80FB-42E8-91E5-E01791FED207}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0EB3E373-80FB-42E8-91E5-E01791FED207}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B73FD1C-33A5-4911-9AD9-632DA90CD8C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B73FD1C-33A5-4911-9AD9-632DA90CD8C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B73FD1C-33A5-4911-9AD9-632DA90CD8C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B73FD1C-33A5-4911-9AD9-632DA90CD8C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A32F3F9-2F46-4525-9C41-B27F323EE104}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A32F3F9-2F46-4525-9C41-B27F323EE104}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A32F3F9-2F46-4525-9C41-B27F323EE104}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A32F3F9-2F46-4525-9C41-B27F323EE104}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
