@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package >
+	<metadata>
+		<id>$id$</id>
+		<version>$version$</version>
+		<title>$title$</title>
+		<authors>C.Small</authors>
+		<owners>C.Small</owners>
+		<licenseUrl>http://LICENSE_URL_HERE_OR_DELETE_THIS_LINE</licenseUrl>
+		<projectUrl>https://github.com/yetanotherchris/Remy/</projectUrl>
+		<iconUrl>https://github.com/yetanotherchris/Remy/raw/master/icon.png</iconUrl>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<description>A lightweight YAML-based Windows server configuration tool - this is the library used for custom task plugins.</description>
+		<copyright>Copyright 2016</copyright>
+		<tags>remy configuration yaml</tags>
+	</metadata>
+</package>
