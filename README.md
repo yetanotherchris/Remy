@@ -1,6 +1,6 @@
-# Ainsley
+# Remy
 
-Ainsley (like the TV Chef) is a lightweight YAML-based Windows server configuration tool, written in C#. Its sole purpose is to provision a Windows Server 2012 upwards, running on the server itself.
+Remy (like the rat Chef) is a lightweight YAML-based Windows server configuration tool, written in C#. Its sole purpose is to provision a Windows Server 2012 upwards, running on the server itself.
 
 It's heavily inspired by Travis and Appveyor YML configuration files, and design goal is to be as simple to use as possible.
 
@@ -10,8 +10,8 @@ Its not a replacement nor trying to compete with: Chef, Ansible, Puppet or Salt.
 
 All tasks are defined in a YAML file. By default Ainsley will look in the current directory for "ainsley.yml" and use this for configuration. You can also specify a path for the configuration:
 
-    ainsley --config=c:\somepath\config.yml
-    ainsley --config=https://raw.githubusercontent.com/yetanotherchris/Ainsley/master/someconfig.yml
+    .\remy.exe --config=c:\somepath\config.yml
+    .\remy.exe --config=https://raw.githubusercontent.com/yetanotherchris/Ainsley/master/someconfig.yml
   
 ## Example YAML configuration
 
@@ -45,19 +45,6 @@ This is a more advanced example
       - 
         description: "Install chocolatey"
         runner: install-chocolatey
-      - 
-        description: "Update machine keys"
-        runner: machine-keys
-        config:
-          -
-            name: "KEY1"
-            value: "xyz"
-          -
-            name: "KEY2"
-            value: "xyz"
-      - 
-        description: "Update SMTP config"
-        runner: smtp-config
       -
         description: "Install IIS, .NET framework"
         runner: windows-feature
