@@ -6,7 +6,7 @@
 		<title>$title$</title>
 		<authors>C.Small</authors>
 		<owners>C.Small</owners>
-		<licenseUrl>http://LICENSE_URL_HERE_OR_DELETE_THIS_LINE</licenseUrl>
+		<licenseUrl>https://github.com/yetanotherchris/Remy/raw/master/LICENSE</licenseUrl>
 		<projectUrl>https://github.com/yetanotherchris/Remy/</projectUrl>
 		<iconUrl>https://github.com/yetanotherchris/Remy/raw/master/icon.png</iconUrl>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
