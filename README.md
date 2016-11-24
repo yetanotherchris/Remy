@@ -11,7 +11,7 @@ Its not a replacement nor trying to compete with: Chef, Ansible, Puppet or Salt.
 All tasks are defined in a YAML file. By default Ainsley will look in the current directory for "ainsley.yml" and use this for configuration. You can also specify a path for the configuration:
 
     .\remy.exe --config=c:\somepath\config.yml
-    .\remy.exe --config=https://raw.githubusercontent.com/yetanotherchris/Ainsley/master/someconfig.yml
+    .\remy.exe --config=https://raw.githubusercontent.com/yetanotherchris/Remy/master/someconfig.yml
   
 ## Example YAML configuration
 
