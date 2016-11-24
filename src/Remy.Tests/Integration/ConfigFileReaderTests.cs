@@ -50,34 +50,34 @@ namespace Remy.Tests.Integration
         }
 
         [Test]
-		public void should_throw_ainsleyexception_for_bad_filepath()
+		public void should_throw_remyexception_for_bad_filepath()
 		{
             // Arrange
             string configPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "doesnexist");
             var fileReader = new ConfigFileReader();
 
             // Act + Assert
-		    Assert.Throws<AinsleyException>(() => fileReader.Read(new Uri(configPath)));
+		    Assert.Throws<RemyException>(() => fileReader.Read(new Uri(configPath)));
 		}
 
         [Test]
-        public void should_throw_ainsleyexception_for_invalid_uri()
+        public void should_throw_remyexception_for_invalid_uri()
         {
             // Arrange
             var fileReader = new ConfigFileReader();
 
             // Act + Assert
-            Assert.Throws<AinsleyException>(() => fileReader.Read(new Uri("http://bleh")));
+            Assert.Throws<RemyException>(() => fileReader.Read(new Uri("http://bleh")));
         }
 
         [Test]
-        public void should_throw_ainsleyexception_for_unsupported_scheme()
+        public void should_throw_remyexception_for_unsupported_scheme()
         {
             // Arrange
             var fileReader = new ConfigFileReader();
 
             // Act + Assert
-            Assert.Throws<AinsleyException>(() => fileReader.Read(new Uri("ftp://warezplace")));
+            Assert.Throws<RemyException>(() => fileReader.Read(new Uri("ftp://warezplace")));
         }
     }
 }

@@ -48,7 +48,7 @@ namespace Remy.Core.Config.Yaml
 		            tasks = ParseTasks(children);
 		        }
 		    }
-		    catch (AinsleyException ex)
+		    catch (RemyException ex)
 		    {
 		        _logger.Error(ex.Message);
             }

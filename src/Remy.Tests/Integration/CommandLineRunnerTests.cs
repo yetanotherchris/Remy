@@ -31,7 +31,7 @@ namespace Remy.Tests.Integration
 		}
 
 		[Test]
-        public void should_run_tasks_using_ainsley_yml_as_fallback()
+        public void should_run_tasks_using_remy_yml_as_fallback()
         {
             // given
 			var mockTask = new MockTask();

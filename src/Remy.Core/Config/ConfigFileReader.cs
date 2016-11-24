@@ -17,7 +17,7 @@ namespace Remy.Core.Config
 			    }
                 catch (IOException e)
 				{
-                    throw new AinsleyException($"Unable to download open file '{uri}' - {e.Message}", e);
+                    throw new RemyException($"Unable to download open file '{uri}' - {e.Message}", e);
 				}
 			}
 			else if (uri.Scheme.StartsWith("http"))
@@ -28,11 +28,11 @@ namespace Remy.Core.Config
 				}
 				catch (WebException e)
 				{
-                    throw new AinsleyException($"Unable to download '{uri}' - {e.Message}", e);
+                    throw new RemyException($"Unable to download '{uri}' - {e.Message}", e);
 				}
 			}
 
-			throw new AinsleyException($"The scheme {uri.Scheme} for {uri} is not supported");
+			throw new RemyException($"The scheme {uri.Scheme} for {uri} is not supported");
 		}
 
 	    public static string GetFullPathForFile(string filename)

@@ -46,7 +46,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AinsleyException.cs" />
+    <Compile Include="RemyException.cs" />
     <Compile Include="Config\ITaskConfig.cs" />
     <Compile Include="Tasks\Plugins\PowershellFileTask.cs" />
     <Compile Include="Tasks\Plugins\PowershellFileTaskConfig.cs" />
