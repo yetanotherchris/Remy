@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Integration\ConfigFileReaderTests.cs" />
+    <Compile Include="Integration\PluginInstallerTests.cs" />
     <Compile Include="Integration\ScriptCsRunnerTests.cs" />
     <Compile Include="StubsAndMocks\YamlConfigParserMock.cs" />
     <Compile Include="Unit\Config\Yaml\ExampleYaml.cs" />
