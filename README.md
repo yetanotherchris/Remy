@@ -84,11 +84,11 @@ You can load custom tasks via plugins in Remy. There are various commands availa
 
 ```
 remy.exe plugins list
-remy.exe plugins configure --source=http://mynugetserver
-remy.exe plugins install --name=MyPlugin
+remy.exe plugins source add http://my-nuget-server
+remy.exe plugins install MyPlugin
 ```
 
-Remy uses Nuget to download and install plugins into the `plugins/` directory where it is current running. To find plugins, Remy search nuget.org for all packages with the `remy-plugin` tags.
+Remy uses Nuget to download and install plugins into the `plugins/` under the directory remy.exe is running from. To find plugins, Remy searches nuget.org (or your custom nuget repository) for all packages with the `remy-plugin` tags.
 
 
 ### Writing your own Plugin
