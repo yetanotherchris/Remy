@@ -8,7 +8,7 @@ Its not a replacement nor trying to compete with: Chef, Ansible, Puppet or Salt.
 
 ## Getting started
 
-All tasks are defined in a YAML file. By default Ainsley will look in the current directory for "ainsley.yml" and use this for configuration. You can also specify a path for the configuration:
+All tasks are defined in a YAML file. By default Remy will look in the current directory for "remy.yml" and use this for configuration. You can also specify a path for the configuration from a file or url:
 
     .\remy.exe --config=c:\somepath\config.yml
     .\remy.exe --config=https://raw.githubusercontent.com/yetanotherchris/Remy/master/someconfig.yml
@@ -78,6 +78,25 @@ This is a more advanced example
         description: "Install WebApi"
         runner: install-webpi
     
-## Extensions
+## Plugins
 
-Ainsley runs using a simple `Command` pattern. Although not implemented yet, future versions will allow for plugins to register custom tasks by simplying implementing the `ITask` interface, which as a plugin author gives you access to the YAML parser.
+You can load custom tasks via plugins in Remy. There are various commands available:
+
+```
+remy.exe plugins list
+remy.exe plugins configure --source=http://mynugetserver
+remy.exe plugins install --name=MyPlugin
+```
+
+Remy uses Nuget to download and install plugins into the `plugins/` directory where it is current running. To find plugins, Remy search nuget.org for all packages with the `remy-plugin` tags.
+
+
+### Writing your own Plugin
+
+Plugins are simple to write:
+
+1. `install-package Remy.Core`
+2. Implement `ITask`
+3. If you require custom elements in the YAML file for your task, implement `ITaskConfig`. See the [WindowsFeatureTask](https://github.com/yetanotherchris/Remy/blob/master/src/Remy.Core/Tasks/Plugins/WindowsFeatureTask.cs) and [WindowsFeatureTaskConfig](https://github.com/yetanotherchris/Remy/blob/master/src/Remy.Core/Tasks/Plugins/WindowsFeatureTaskConfig.cs) files for examples. The `SetConfiguration` method is the important part.
+
+You should then pack and push your plugin onto nuget.org or your custom nuget server, and tag it with "remy-plugin" in the nuspec file.
