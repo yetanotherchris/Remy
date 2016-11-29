@@ -21,6 +21,15 @@ namespace Remy.Console
 
 		public void Run(string[] args)
 		{
+			if (args.Length == 0)
+				return;
+
+			if (args[0] == "plugins")
+			{
+				ParsePluginsCommand(args);
+				return;
+			}
+
 			Parser.Default.ParseArguments<Options>(args)
 				.WithParsed(options =>
 				{
@@ -36,6 +45,34 @@ namespace Remy.Console
 
 					System.Console.WriteLine("");
 				});
+		}
+
+		private void ParsePluginsCommand(string[] args)
+		{
+			if (args.Length == 1 || args[1] == "list")
+			{
+				// remy plugins list
+			}
+			else
+			{
+				if (args[1] == "source")
+				{
+					// remy plugins source add {url}
+					// remy plugins source remove {url}
+					if (args[2] == "add")
+					{
+						
+					}
+					else if (args[2] == "remove")
+					{
+
+					}
+				}
+				else if (args[1] == "install")
+				{
+					// remy plugins install {NugetId}
+				}
+			}
 		}
 
 		private static Uri ParseConfigPath(string configPath, ILogger logger)
