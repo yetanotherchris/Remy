@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using NuGet;
+using Remy.Core.Tasks;
 
 namespace Remy.Tests.StubsAndMocks
 {
@@ -15,6 +16,16 @@ namespace Remy.Tests.StubsAndMocks
 		public PackageRepositoryMock()
 		{
 			Packages = new List<IPackage>();
+		}
+
+		public void AddPackage(string id, string tags = null, bool isLatestVersion = true)
+		{
+			Packages.Add(new DataServicePackage()
+			{
+				Id = id,
+				Tags = tags ?? PluginManager.TAGNAME,
+				IsLatestVersion = isLatestVersion
+			});
 		}
 
 		public IQueryable<IPackage> GetPackages()

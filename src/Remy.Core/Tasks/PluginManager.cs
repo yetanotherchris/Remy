@@ -9,6 +9,8 @@ namespace Remy.Core.Tasks
 	public class PluginManager
 	{
 		private readonly IPackageRepository _packageRepository;
+		public static readonly string TAGNAME = "remy-plugin";
+
 		public PluginManager(IPackageRepository packageRepository)
 		{
 			_packageRepository = packageRepository;
@@ -17,10 +19,9 @@ namespace Remy.Core.Tasks
 		public IEnumerable<IPackage> List()
 		{
 			var list = new List<IPackage>();
-			string tagName = "remy-plugin";
 
 			IEnumerable<IPackage> packages = _packageRepository.GetPackages()
-												.Where(p => p.IsLatestVersion && p.Tags.Contains(tagName));
+												.Where(p => p.IsLatestVersion && p.Tags.Contains(TAGNAME));
 
 			foreach (IPackage package in packages)
 			{
