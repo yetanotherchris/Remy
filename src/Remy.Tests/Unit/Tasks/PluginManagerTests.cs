@@ -10,21 +10,20 @@ namespace Remy.Tests.Unit.Tasks
 	[TestFixture]
 	public class PluginManagerTests
 	{
-		//string repositoryUrl = "https://packages.nuget.org/api/v2";
-		//IPackageRepository repo = PackageRepositoryFactory.Default.CreateRepository(repositoryUrl);
-
 		[Test]
 		public void List_should_only_return_packages_for_remy_plugin_tags()
 		{
 			// given
 			var repository = new PackageRepositoryMock();
+			var packageManager = new PackageManagerMock();
+
 			repository.AddPackage("id-1");
 			repository.AddPackage("id-2");
 			repository.AddPackage("id-3");
 			repository.AddPackage("not remy", "other-tag");
 			repository.AddPackage("not latest version", null, false);
 
-			var pluginInstaller = new PluginManager(repository);
+			var pluginInstaller = new PluginManager(repository, packageManager);
 
 			// when
 			IEnumerable<IPackage> list = pluginInstaller.List();
@@ -35,25 +34,23 @@ namespace Remy.Tests.Unit.Tasks
 		}
 
 		[Test]
-		public void blah()
+		public void DownloadAndUnzip_should_get_latestid_version_and_install()
 		{
 			// given
 			var repository = new PackageRepositoryMock();
+			var packageManager = new PackageManagerMock();
 			repository.AddPackage("id-1");
+			repository.AddPackage("id-1", null, false);
 			repository.AddPackage("id-2");
-			repository.AddPackage("id-3");
-			repository.AddPackage("blah-id", "other-tag");
-			repository.AddPackage("blah-id", null);
 
-
-			var pluginInstaller = new PluginManager(repository);
+			var pluginInstaller = new PluginManager(repository, packageManager);
 
 			// when
-			IEnumerable<IPackage> list = pluginInstaller.List();
+			pluginInstaller.DownloadAndUnzip("id-1");
 
 			// then
-			Assert.That(list.Count(), Is.EqualTo(3));
-			Assert.That(list.FirstOrDefault().Id, Is.EqualTo("id-1"));
+			Assert.That(packageManager.InstalledIds.Count, Is.EqualTo(1));
+			Assert.That(packageManager.InstalledIds, Contains.Item("id-1"));
 		}
 	}
 }

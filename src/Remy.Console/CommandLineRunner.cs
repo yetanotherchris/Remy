@@ -2,9 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using CommandLine;
+using NuGet;
 using Remy.Core.Config.Yaml;
 using Remy.Core.Tasks;
-using Serilog;
+using ILogger = Serilog.ILogger;
 
 namespace Remy.Console
 {
@@ -49,29 +50,31 @@ namespace Remy.Console
 
 		private void ParsePluginsCommand(string[] args)
 		{
+			string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "plugins");
+
+			string repositoryUrl = "https://packages.nuget.org/api/v2";
+			IPackageRepository packageRepository = PackageRepositoryFactory.Default.CreateRepository(repositoryUrl);
+			var packageManager = new PackageManager(packageRepository, path);
+			var pluginManager = new PluginManager(packageRepository, packageManager);
+
 			if (args.Length == 1 || args[1] == "list")
 			{
-				// remy plugins list
-			}
-			else
-			{
-				if (args[1] == "source")
-				{
-					// remy plugins source add {url}
-					// remy plugins source remove {url}
-					if (args[2] == "add")
-					{
-						
-					}
-					else if (args[2] == "remove")
-					{
+				// remy.exe plugins list
+				_logger.Information("Plugins available (tagged 'remy-plugin' on nuget.org):");
 
-					}
-				}
-				else if (args[1] == "install")
+				IEnumerable <IPackage> plugins = pluginManager.List();
+				foreach (IPackage package in plugins)
 				{
-					// remy plugins install {NugetId}
+					_logger.Information($"{package.Id} - {package.Description}");
 				}
+			}
+			else if (args[1] == "install" && args.Length > 2)
+			{
+				// remy.exe plugins install {NugetId}
+				string nugetId = args[2];
+				_logger.Information($"Downloading plugin '{nugetId}'");
+
+				pluginManager.DownloadAndUnzip(args[2]);
 			}
 		}
 

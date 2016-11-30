@@ -8,12 +8,15 @@ namespace Remy.Core.Tasks
 {
 	public class PluginManager
 	{
-		private readonly IPackageRepository _packageRepository;
 		public static readonly string TAGNAME = "remy-plugin";
 
-		public PluginManager(IPackageRepository packageRepository)
+		private readonly IPackageRepository _packageRepository;
+		private readonly IPackageManager _packageManager;
+
+		public PluginManager(IPackageRepository packageRepository, IPackageManager packageManager)
 		{
 			_packageRepository = packageRepository;
+			_packageManager = packageManager;
 		}
 
 		public IEnumerable<IPackage> List()
@@ -31,21 +34,26 @@ namespace Remy.Core.Tasks
 			return list;
 		}
 
-		public void Install(string packageId)
-		{
-			string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "plugins");
-
-			if (!Directory.Exists(path))
-				Directory.CreateDirectory(path);
-
+		public void DownloadAndUnzip(string packageId)
+		{ 
 			IEnumerable<IPackage> packages = _packageRepository.FindPackagesById(packageId)
 												.Where(p => p.IsLatestVersion);
 
 			foreach (IPackage package in packages)
 			{
-				PackageManager packageManager = new PackageManager(_packageRepository, path);
-				packageManager.InstallPackage(package, true, false);
+				_packageManager.InstallPackage(package, true, false);
 			}
+		}
+
+		public void CopyAssemblies()
+		{
+			// TODO
+		}
+
+		public void EnsurePluginDirectoryExists(string path)
+		{
+			if (!Directory.Exists(path))
+				Directory.CreateDirectory(path);
 		}
 	}
 }
