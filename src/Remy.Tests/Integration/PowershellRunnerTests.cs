@@ -79,11 +79,11 @@ namespace Remy.Tests.Integration
         }
 
 		[Test]
-		public void RunFile_should_capture_stderr()
+		public void RunFile_should_run_script_that_require_permissions()
 		{
 			// given
 			string path = Path.GetTempFileName() +".ps1";
-			File.WriteAllText(path, @"write-host ""this tdd stuff is harder than writing an ANN needs 10 years atleast""");
+			File.WriteAllText(path, @"echo blah > blah.txt; write-host ""this tdd stuff is harder than writing an ANN needs 10 years atleast""");
 
 			var runner = new PowershellRunner(_logger);
 
