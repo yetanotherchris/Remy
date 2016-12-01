@@ -43,7 +43,7 @@ namespace Remy.Core.Tasks.Runners
 	    public bool RunFile(string tempFilename)
         {
             var startInfo = new ProcessStartInfo("powershell.exe");
-            startInfo.Arguments = "-File " + tempFilename;
+            startInfo.Arguments = "-ExecutionPolicy Unrestricted -File " + tempFilename;
             startInfo.RedirectStandardOutput = true;
             startInfo.RedirectStandardError = true;
             startInfo.CreateNoWindow = true;
