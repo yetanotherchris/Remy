@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using NuGet;
+using ILogger = Serilog.ILogger;
 
 namespace Remy.Core.Tasks
 {
@@ -12,11 +13,13 @@ namespace Remy.Core.Tasks
 
 		private readonly IPackageRepository _packageRepository;
 		private readonly IPackageManager _packageManager;
+		private readonly ILogger _logger;
 
-		public PluginManager(IPackageRepository packageRepository, IPackageManager packageManager)
+		public PluginManager(IPackageRepository packageRepository, IPackageManager packageManager, ILogger logger)
 		{
 			_packageRepository = packageRepository;
 			_packageManager = packageManager;
+			_logger = logger;
 		}
 
 		public IEnumerable<IPackage> List()
@@ -36,18 +39,17 @@ namespace Remy.Core.Tasks
 
 		public void DownloadAndUnzip(string packageId)
 		{ 
-			IEnumerable<IPackage> packages = _packageRepository.FindPackagesById(packageId)
-												.Where(p => p.IsLatestVersion);
+			IList<IPackage> packages = _packageRepository.FindPackagesById(packageId)
+												.Where(p => p.IsLatestVersion)
+												.ToList();
+
+			_logger.Information($"Found {packages.Count} packages with id '{packageId}'");
 
 			foreach (IPackage package in packages)
 			{
+				_logger.Information($" - Installing '{package.Id}'");
 				_packageManager.InstallPackage(package, true, false);
 			}
-		}
-
-		public void CopyAssemblies()
-		{
-			// TODO
 		}
 
 		public void EnsurePluginDirectoryExists(string path)

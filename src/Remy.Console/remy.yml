@@ -2,5 +2,5 @@
 tasks:
   -
     runner: powershell
-	commands:
-	  - write-host "hello xyz"
+    commands:
+      - 'write-host "hello world"'

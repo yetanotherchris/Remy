@@ -1,15 +1,32 @@
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using NuGet;
 using NUnit.Framework;
 using Remy.Core.Tasks;
 using Remy.Tests.StubsAndMocks;
+using Serilog;
+using ILogger = Serilog.ILogger;
 
 namespace Remy.Tests.Unit.Tasks
 {
 	[TestFixture]
 	public class PluginManagerTests
 	{
+		private ILogger _logger;
+		private string _currentDir;
+		private string _pluginsDirectory;
+
+		[SetUp]
+		public void Setup()
+		{
+			_logger = new LoggerConfiguration()
+				.WriteTo
+				.LiterateConsole()
+				.CreateLogger();
+		}
+
 		[Test]
 		public void List_should_only_return_packages_for_remy_plugin_tags()
 		{
@@ -23,7 +40,7 @@ namespace Remy.Tests.Unit.Tasks
 			repository.AddPackage("not remy", "other-tag");
 			repository.AddPackage("not latest version", null, false);
 
-			var pluginInstaller = new PluginManager(repository, packageManager);
+			var pluginInstaller = new PluginManager(repository, packageManager, _logger);
 
 			// when
 			IEnumerable<IPackage> list = pluginInstaller.List();
@@ -43,7 +60,7 @@ namespace Remy.Tests.Unit.Tasks
 			repository.AddPackage("id-1", null, false);
 			repository.AddPackage("id-2");
 
-			var pluginInstaller = new PluginManager(repository, packageManager);
+			var pluginInstaller = new PluginManager(repository, packageManager, _logger);
 
 			// when
 			pluginInstaller.DownloadAndUnzip("id-1");

@@ -19,12 +19,18 @@ namespace Remy.Core.Tasks
 			string pluginDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "plugins");
 	        if (Directory.Exists(pluginDirectory))
 	        {
-		        var pluginAssemblies = Directory.EnumerateFiles(pluginDirectory, "*.dll", SearchOption.AllDirectories)
-												.Select(Assembly.LoadFrom);
-				
-				assemblies.AddRange(pluginAssemblies);
-	        }
+		        IEnumerable<string> assemblyPaths = Directory.EnumerateFiles(pluginDirectory, "*.dll", SearchOption.AllDirectories);
 
+				// .Select(Assembly.LoadFrom);
+		        foreach (string path in assemblyPaths)
+		        {
+			        var fullPath = new FileInfo(path);
+			        if (fullPath.Directory.Name == "net461")
+			        {
+						assemblies.Add(Assembly.LoadFrom(path));
+					}
+				}
+	        }
 
 			Type type = typeof(ITask);
 			var builder = new ContainerBuilder();

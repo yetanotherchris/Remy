@@ -19,6 +19,12 @@ namespace Remy.Console
 
 	        try
 	        {
+				if (args.Length == 1 && args[0] == "plugins")
+				{
+					CommandLineRunner.ParsePluginsCommandLine(logger, args);
+					return;
+				}
+
 				Dictionary<string, ITask> registeredTasks = TypeManager.GetRegisteredTaskInstances(logger);
 				var configReader = new ConfigFileReader();
 				var parser = new YamlConfigParser(configReader, registeredTasks, logger);
