@@ -28,7 +28,7 @@ namespace Remy.Tests.Integration
         }
 
         [Test]
-        public void should_ignore_empty_command_list()
+        public void RunCommands_should_ignore_empty_command_list()
         {
             // given
             var runner = new PowershellRunner(_logger);
@@ -41,7 +41,7 @@ namespace Remy.Tests.Integration
         }
 
         [Test]
-        public void should_capture_stdout()
+        public void RunCommands_should_capture_stdout()
         {
             // given
             var runner = new PowershellRunner(_logger);
@@ -61,7 +61,7 @@ namespace Remy.Tests.Integration
         }
 
         [Test]
-        public void should_capture_stderr()
+        public void RunCommands_should_capture_stderr()
         {
             // given
             var runner = new PowershellRunner(_logger);
@@ -77,5 +77,22 @@ namespace Remy.Tests.Integration
             Assert.That(result, Is.False);
             Assert.That(_logStringBuilder.ToString(), Does.Contain("sparklingdietcoke"));
         }
-    }
+
+		[Test]
+		public void RunFile_should_capture_stderr()
+		{
+			// given
+			string path = Path.GetTempFileName() +".ps1";
+			File.WriteAllText(path, @"write-host ""this tdd stuff is harder than writing an ANN needs 10 years atleast""");
+
+			var runner = new PowershellRunner(_logger);
+
+			// when
+			bool result = runner.RunFile(path);
+
+			// then
+			Assert.That(result, Is.True);
+			Assert.That(_logStringBuilder.ToString(), Does.Contain("this tdd stuff is harder than writing an ANN needs 10 years atleast"));
+		}
+	}
 }
