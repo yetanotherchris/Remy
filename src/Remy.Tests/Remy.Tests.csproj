@@ -72,23 +72,25 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Integration\ConfigFileReaderTests.cs" />
+    <Compile Include="Integration\Console\DefaultRunnerTests.cs" />
     <Compile Include="StubsAndMocks\PackageManagerMock.cs" />
     <Compile Include="StubsAndMocks\PackageRepositoryMock.cs" />
     <Compile Include="Integration\ScriptCsRunnerTests.cs" />
     <Compile Include="StubsAndMocks\YamlConfigParserMock.cs" />
-    <Compile Include="Unit\Config\Yaml\ExampleYaml.cs" />
+    <Compile Include="Unit\Console\PluginRunnerTests.cs" />
+    <Compile Include="StubsAndMocks\PluginManagerMock.cs" />
+    <Compile Include="Unit\Core\Config\Yaml\ExampleYaml.cs" />
     <Compile Include="StubsAndMocks\MockTask.cs" />
     <Compile Include="StubsAndMocks\MockTaskConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Unit\Config\Yaml\YamlConfigParserTests.cs" />
+    <Compile Include="Unit\Core\Config\Yaml\YamlConfigParserTests.cs" />
     <Compile Include="StubsAndMocks\ConfigFileReaderMock.cs" />
-    <Compile Include="Integration\CommandLineRunnerTests.cs" />
-    <Compile Include="Unit\Tasks\PluginManagerTests.cs" />
-    <Compile Include="Unit\Tasks\Plugins\PowershellFileTaskTests.cs" />
-    <Compile Include="Unit\Tasks\TypeManagerTests.cs" />
-    <Compile Include="Unit\Tasks\Plugins\PowershellTaskTests.cs" />
+    <Compile Include="Unit\Core\Tasks\PluginManagerTests.cs" />
+    <Compile Include="Unit\Core\Tasks\Plugins\PowershellFileTaskTests.cs" />
+    <Compile Include="Unit\Core\Tasks\TypeManagerTests.cs" />
+    <Compile Include="Unit\Core\Tasks\Plugins\PowershellTaskTests.cs" />
     <Compile Include="Integration\PowershellRunnerTests.cs" />
-    <Compile Include="Unit\Tasks\Plugins\WindowsFeatureTaskTests.cs" />
+    <Compile Include="Unit\Core\Tasks\Plugins\WindowsFeatureTaskTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Remy.Console\Remy.Console.csproj">

@@ -6,12 +6,11 @@ using Remy.Console;
 using Remy.Core.Tasks;
 using Remy.Tests.StubsAndMocks;
 using Serilog;
-using Serilog.Core;
 
-namespace Remy.Tests.Integration
+namespace Remy.Tests.Integration.Console
 {
     [TestFixture]
-    public class CommandLineRunnerTests
+    public class DefaultRunnerTests
 	{
 		private ILogger _logger;
 		private StringBuilder _logStringBuilder;
@@ -31,7 +30,7 @@ namespace Remy.Tests.Integration
 		}
 
 		[Test]
-        public void should_run_tasks_using_remy_yml_as_fallback()
+        public void Run_should_use_remy_yml_by_default()
         {
             // given
 			var mockTask = new MockTask();
@@ -41,7 +40,7 @@ namespace Remy.Tests.Integration
 				mockTask
 			};
 
-			var runner = new CommandLineRunner(_logger, yamlConfigReader);
+			var runner = new DefaultRunner(_logger, yamlConfigReader);
 
 			// when
 			runner.Run(new string[0]);
@@ -51,7 +50,7 @@ namespace Remy.Tests.Integration
         }
 
 		[Test]
-		public void should_run_tasks_for_alternative_config()
+		public void Run_should_execute_tasks_from_custom_config()
 		{
 			// given
 			var mockTask = new MockTask();
@@ -61,7 +60,7 @@ namespace Remy.Tests.Integration
 				mockTask
 			};
 
-			var runner = new CommandLineRunner(_logger, yamlConfigReader);
+			var runner = new DefaultRunner(_logger, yamlConfigReader);
 
 			// when
 			runner.Run(new string[] {"-c", "test-config.yml" });
@@ -71,7 +70,7 @@ namespace Remy.Tests.Integration
 		}
 
 		[Test]
-		public void should_log_file_not_format()
+		public void Run_should_log_file_not_found()
 		{
 			// given
 			var mockTask = new MockTask();
@@ -81,7 +80,7 @@ namespace Remy.Tests.Integration
 				mockTask
 			};
 
-			var runner = new CommandLineRunner(_logger, yamlConfigReader);
+			var runner = new DefaultRunner(_logger, yamlConfigReader);
 
 			// when
 			runner.Run(new string[] { "-c", "doesnt-exist.yml" });

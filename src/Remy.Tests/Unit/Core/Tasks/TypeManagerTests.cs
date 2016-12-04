@@ -7,7 +7,7 @@ using Remy.Core.Tasks;
 using Remy.Tests.StubsAndMocks;
 using Serilog;
 
-namespace Remy.Tests.Unit.Tasks
+namespace Remy.Tests.Unit.Core.Tasks
 {
 	[TestFixture]
 	public class TypeManagerTests

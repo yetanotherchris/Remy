@@ -7,7 +7,7 @@ using ILogger = Serilog.ILogger;
 
 namespace Remy.Core.Tasks
 {
-	public class PluginManager
+	public class PluginManager : IPluginManager
 	{
 		public static readonly string TAGNAME = "remy-plugin";
 

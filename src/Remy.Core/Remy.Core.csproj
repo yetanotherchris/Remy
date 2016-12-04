@@ -122,6 +122,7 @@
   <ItemGroup>
     <Compile Include="RemyException.cs" />
     <Compile Include="Config\ITaskConfig.cs" />
+    <Compile Include="Tasks\IPluginManager.cs" />
     <Compile Include="Tasks\PluginManager.cs" />
     <Compile Include="Tasks\Plugins\PowershellFileTask.cs" />
     <Compile Include="Tasks\Plugins\PowershellFileTaskConfig.cs" />

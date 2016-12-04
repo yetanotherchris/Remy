@@ -1,20 +1,18 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
 using CommandLine;
-using NuGet;
 using Remy.Core.Config.Yaml;
 using Remy.Core.Tasks;
 using ILogger = Serilog.ILogger;
 
 namespace Remy.Console
 {
-	public class CommandLineRunner
+	public class DefaultRunner
 	{
 		private readonly ILogger _logger;
 		private readonly IYamlConfigParser _yamlParser;
 
-		public CommandLineRunner(ILogger logger, IYamlConfigParser yamlParser)
+		public DefaultRunner(ILogger logger, IYamlConfigParser yamlParser)
 		{
 			_logger = logger;
 			_yamlParser = yamlParser;
@@ -72,38 +70,6 @@ namespace Remy.Console
 			{
 				logger.Error($"The Yaml config file '{configPath}' is not a valid path or url.");
 				return null;
-			}
-		}
-
-		public static void ParsePluginsCommandLine(ILogger logger, string[] args)
-		{
-			string pluginsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "plugins");
-			string repositoryUrl = "https://packages.nuget.org/api/v2";
-
-			IPackageRepository packageRepository = PackageRepositoryFactory.Default.CreateRepository(repositoryUrl);
-			var packageManager = new PackageManager(packageRepository, pluginsPath);
-
-			var pluginManager = new PluginManager(packageRepository, packageManager, logger);
-			pluginManager.EnsurePluginDirectoryExists(pluginsPath);
-
-			if (args.Length == 1 || args[1] == "list")
-			{
-				// remy.exe plugins list
-				logger.Information("Plugins available (tagged 'remy-plugin' on nuget.org):");
-
-				IEnumerable<IPackage> plugins = pluginManager.List();
-				foreach (IPackage package in plugins)
-				{
-					logger.Information($"{package.Id} - {package.Description}");
-				}
-			}
-			else if (args[1] == "install" && args.Length > 2)
-			{
-				// remy.exe plugins install {NugetId}
-				string nugetId = args[2];
-				logger.Information($"Downloading plugin '{nugetId}'");
-
-				pluginManager.DownloadAndUnzip(args[2]);
 			}
 		}
 	}

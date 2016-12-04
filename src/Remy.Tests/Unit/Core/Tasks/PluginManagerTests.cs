@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using NuGet;
 using NUnit.Framework;
@@ -9,14 +7,12 @@ using Remy.Tests.StubsAndMocks;
 using Serilog;
 using ILogger = Serilog.ILogger;
 
-namespace Remy.Tests.Unit.Tasks
+namespace Remy.Tests.Unit.Core.Tasks
 {
 	[TestFixture]
 	public class PluginManagerTests
 	{
 		private ILogger _logger;
-		private string _currentDir;
-		private string _pluginsDirectory;
 
 		[SetUp]
 		public void Setup()

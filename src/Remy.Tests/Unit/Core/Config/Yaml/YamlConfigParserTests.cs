@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using Remy.Core.Config;
 using NUnit.Framework;
 using Remy.Core.Config.Yaml;
 using Remy.Core.Tasks;
@@ -12,7 +11,7 @@ using Remy.Tests.StubsAndMocks;
 using Serilog;
 using Serilog.Core;
 
-namespace Remy.Tests.Unit.Config.Yaml
+namespace Remy.Tests.Unit.Core.Config.Yaml
 {
     [TestFixture]
 	public class YamlConfigParserTests

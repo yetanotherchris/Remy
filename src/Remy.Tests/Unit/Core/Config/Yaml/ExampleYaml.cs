@@ -1,4 +1,4 @@
-namespace Remy.Tests.Unit.Config.Yaml
+namespace Remy.Tests.Unit.Core.Config.Yaml
 {
     public class ExampleYaml
     {

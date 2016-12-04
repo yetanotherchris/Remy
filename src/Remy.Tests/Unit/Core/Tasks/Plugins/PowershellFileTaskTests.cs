@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using Remy.Core.Config;
 using NUnit.Framework;
 using Remy.Core.Tasks.Plugins;
 using Serilog;
 
-namespace Remy.Tests.Unit.Tasks.Plugins
+namespace Remy.Tests.Unit.Core.Tasks.Plugins
 {
     [TestFixture]
 	public class PowershellFileTaskTests
