@@ -19,7 +19,6 @@ namespace Remy.Core.Tasks.Plugins
         {
             _config = new PowershellFileTaskConfig();
             _config.Description = config.Description;
-            _config.Runner = config.Runner;
 	        _config.Uri = properties["uri"].ToString();
         }
 

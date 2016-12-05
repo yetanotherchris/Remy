@@ -57,7 +57,9 @@ namespace Remy.Tests.Unit.Core.Tasks
 		public void should_add_tasks_from_plugins_directory()
 		{
 			// given - copy MockTask (Remy.tests.dll) into plugins/
-			File.Copy(Path.Combine(_currentDir, "Remy.tests.dll"), Path.Combine(_pluginsDirectory, "Remy.tests.dll"));
+			string nugetFolder = Path.Combine(_pluginsDirectory, "Remy.tests", "lib", "net461");
+			Directory.CreateDirectory(nugetFolder);
+			File.Copy(Path.Combine(_currentDir, "Remy.tests.dll"), Path.Combine(nugetFolder, "Remy.tests.dll"));
 
 			// when
 			Dictionary<string, ITask> tasks = TypeManager.GetRegisteredTaskInstances(_logger);

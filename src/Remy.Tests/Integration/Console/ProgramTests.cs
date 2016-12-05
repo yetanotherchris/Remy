@@ -27,9 +27,19 @@ namespace Remy.Tests.Integration.Console
 			Program.Main(args);
 
 			// Assert
-			IEnumerable<string> files = Directory.EnumerateFiles(pluginsPath);
+			IEnumerable<string> files = Directory.EnumerateFiles(pluginsPath, "*.dll", SearchOption.AllDirectories);
 			Assert.That(files.Count(), Is.GreaterThan(5));
-			Assert.That(files, Does.Contain("Nunit.dll"));
+
+			bool containsDll = false;
+			foreach (string file in files)
+			{
+				if (file.EndsWith("nunit.framework.dll"))
+				{
+					containsDll = true;
+				}
+			}
+
+			Assert.True(containsDll);
 		}
 	}
 }

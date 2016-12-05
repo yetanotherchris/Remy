@@ -82,7 +82,6 @@ namespace Remy.Core.Config.Yaml
 
 						ITaskConfig taskConfig = new TaskConfig();
 						taskConfig.Description = GetOptionalKey(taskProperties, "description");
-						taskConfig.Runner = runner;
 
 						// "config:" element, eg environmental variables
 						taskConfig.Config = new Dictionary<string, object>();

@@ -16,7 +16,6 @@ namespace Remy.Core.Tasks.Plugins
         {
             _config = new PowershellTaskConfig();
             _config.Description = config.Description;
-            _config.Runner = config.Runner;
 
             _config.Commands = new List<string>();
 

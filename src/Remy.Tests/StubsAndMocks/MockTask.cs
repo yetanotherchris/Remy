@@ -17,7 +17,6 @@ namespace Remy.Tests.StubsAndMocks
         {
             _config = new MockTaskConfig();
             _config.Description = config.Description;
-            _config.Runner = config.Runner;
             _config.CustomProperty = properties["customProperty"].ToString();
             _config.Config = config.Config;
         }

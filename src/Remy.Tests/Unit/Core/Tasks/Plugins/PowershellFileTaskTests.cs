@@ -70,7 +70,7 @@ namespace Remy.Tests.Unit.Core.Tasks.Plugins
 			task.Run(_logger);
 
 			// then
-			Assert.That(_logStringBuilder.ToString(), Does.Match(@"Running powershell.exe \-File .*.tmp\.ps1"));
+			Assert.That(_logStringBuilder.ToString(), Does.Match(@"Running powershell.exe \-ExecutionPolicy Unrestricted \-File .*.tmp\.ps1"));
 			Assert.That(_logStringBuilder.ToString(), Does.Contain("hello world"));
 		}
 	}

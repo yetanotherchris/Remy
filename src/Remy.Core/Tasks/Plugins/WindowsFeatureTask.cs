@@ -16,7 +16,6 @@ namespace Remy.Core.Tasks.Plugins
         {
             _config = new WindowsFeatureTaskConfig();
             _config.Description = config.Description;
-            _config.Runner = config.Runner;
 
             if (properties.ContainsKey("includeAllSubFeatures"))
                 _config.IncludeAllSubFeatures = bool.Parse(properties["includeAllSubFeatures"].ToString());
