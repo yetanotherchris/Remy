@@ -36,7 +36,13 @@ namespace Remy.Tests.Unit.Core.Tasks
 		[TearDown]
 		public void TearDown()
 		{
-			Directory.Delete(_pluginsDirectory, true);
+			try
+			{
+				Directory.Delete(_pluginsDirectory, true);
+			}
+			catch
+			{
+			}
 		}
 
 		[Test]
