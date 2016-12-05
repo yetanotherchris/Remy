@@ -27,10 +27,16 @@ namespace Remy.Tests.Unit.Core.Tasks
 			_currentDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory);
 			_pluginsDirectory = Path.Combine(_currentDir, "plugins");
 
-			if (Directory.Exists(_pluginsDirectory))
-				Directory.Delete(_pluginsDirectory, true);
-			else
+			try
+			{
+				if (Directory.Exists(_pluginsDirectory))
+					Directory.Delete(_pluginsDirectory, true);
+				
 				Directory.CreateDirectory(_pluginsDirectory);
+			}
+			catch
+			{
+			}
 		}
 
 		[TearDown]
