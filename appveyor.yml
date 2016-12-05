@@ -1,0 +1,42 @@
+version: 1.0.{build}
+skip_tags: true
+shallow_clone: true
+clone_depth: 1
+
+cache:
+  - packages ->  **\packages.config
+
+branches:
+  only:
+    - master
+
+# Update the assembly version numbers with the Appveyor version
+assembly_info:
+  patch: true
+  file: '**\AssemblyInfo.*'
+  assembly_version: '{version}'
+  assembly_file_version: '{version}'
+  assembly_informational_version: '{version}'
+
+# Run grunt, and then the custom build script that runs Octopack
+build_script:
+    - ps: .\build\build.ps1
+
+# Copy and convert all Octopack generated nupkg files into zip files
+after_build:
+  - ps: .\build\nupkg-to-zip.ps1
+  - 7z a Remy-%APPVEYOR_BUILD_VERSION%.zip .\src\Remy.Console\bin\Release\*.*
+
+artifacts:
+  - path: Remy-$(APPVEYOR_BUILD_VERSION).zip
+    name: CurrentVersionZip
+
+deploy:
+- provider: GitHub
+  auth_token:
+    secure: o7IPOvYdwf7l0ubnXjnh0elKfbptZQbAWGlY4Jgrhl/SILegK9x+nzLhWYlDYbQg
+  artifact: CurrentVersionZip
+  draft: true
+  force_update: false
+  on:
+    branch: master
