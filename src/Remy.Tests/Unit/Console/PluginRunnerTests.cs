@@ -83,5 +83,37 @@ namespace Remy.Tests.Unit.Console
 			Assert.That(_logStringBuilder.ToString(), Does.Contain("Downloading plugin 'DonkeyKong'"));
 			Assert.True(pluginManager.Downloaded);
 		}
+
+		[Test]
+		public void GetNugetSource_should_default_to_nuget_repo()
+		{
+			// Arrange
+			var parser = new PluginRunner(_logger);
+			var pluginManager = new PluginManagerMock();
+
+			string[] args = { "plugins", "install", "ThePackage" };
+
+			// Act
+			string nugetSource = parser.GetNugetSource(args);
+
+			// Assert
+			Assert.That(nugetSource, Is.EqualTo("https://packages.nuget.org/api/v2"));
+		}
+
+		[Test]
+		public void GetNugetSource_should_parse_nuget_source_arg()
+		{
+			// Arrange
+			var parser = new PluginRunner(_logger);
+			var pluginManager = new PluginManagerMock();
+
+			string[] args = { "plugins", "install", "ThePackage", "--source=http://www.example.com" };
+
+			// Act
+			string nugetSource = parser.GetNugetSource(args);
+
+			// Assert
+			Assert.That(nugetSource, Is.EqualTo("http://www.example.com"));
+		}
 	}
 }

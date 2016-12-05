@@ -8,6 +8,8 @@ using ScriptCs.Engine.Roslyn;
 
 namespace Remy.Core.Tasks.Runners
 {
+	// Move this to a plugin
+
 	public class LogP : ILogProvider
 	{
 		private readonly ILogger _logger;
