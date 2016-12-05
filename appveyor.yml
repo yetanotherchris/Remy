@@ -20,7 +20,7 @@ assembly_info:
 
 # Run grunt, and then the custom build script that runs Octopack
 build_script:
-    - ps: .\build\build.ps1
+    - ps: .\build.ps1
 
 # Copy and convert all Octopack generated nupkg files into zip files
 after_build:

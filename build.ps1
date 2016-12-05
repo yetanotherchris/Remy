@@ -1,6 +1,6 @@
 $configuration = "Debug";
 $ErrorActionPreference = "Stop"
-$solutionFile      = "Ainsley.sln"
+$solutionFile      = "Remy.sln"
 $platform          = "Any CPU"
 $msbuild           = "C:\Program Files (x86)\MSBuild\14.0\Bin\MSBuild.exe"
 
@@ -16,7 +16,7 @@ nuget restore $solutionFile
 # Build the sln file
 Write-Host "Building $solutionFile." -ForegroundColor Green
 
-& $msbuild $solutionFile /p:Configuration=$configuration /p:RunOctoPack=true /p:OctoPackPublishPackageToFileShare="$octopackTargetDir" /p:Platform=$platform /target:Build /verbosity:minimal 
+& $msbuild $solutionFile /p:Configuration=$configuration /p:Platform=$platform /target:Build /verbosity:minimal 
 if ($LastExitCode -ne 0)
 {
 	throw "Building solution failed."
