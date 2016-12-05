@@ -24,7 +24,6 @@ build_script:
 
 # Copy and convert all Octopack generated nupkg files into zip files
 after_build:
-  - ps: .\build\nupkg-to-zip.ps1
   - 7z a Remy-%APPVEYOR_BUILD_VERSION%.zip .\src\Remy.Console\bin\Release\*.*
 
 artifacts:
