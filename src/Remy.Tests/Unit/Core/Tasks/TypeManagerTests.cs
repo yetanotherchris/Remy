@@ -29,8 +29,8 @@ namespace Remy.Tests.Unit.Core.Tasks
 
 			if (Directory.Exists(_pluginsDirectory))
 				Directory.Delete(_pluginsDirectory, true);
-
-			Directory.CreateDirectory(_pluginsDirectory);
+			else
+				Directory.CreateDirectory(_pluginsDirectory);
 		}
 
 		[TearDown]
