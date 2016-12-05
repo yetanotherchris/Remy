@@ -1,4 +1,4 @@
-$configuration = "Debug";
+$configuration = "Release";
 $ErrorActionPreference = "Stop"
 $solutionFile      = "Remy.sln"
 $platform          = "Any CPU"
