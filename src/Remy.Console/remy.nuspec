@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Do not remove this test for UTF-8: if “Ω” doesn’t appear as greek uppercase omega letter enclosed in quotation marks, you should use an editor that supports UTF-8, not this one. -->
+<package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
+    <metadata>
+        <id>remy</id>
+        <title>Remy</title>
+        <version>TODO</version>
+        <authors>C.Small</authors>
+        <owners>C.Small</owners>
+        <summary>Remy is a lightweight YAML-based Windows server configuration tool, written in C#. Its sole purpose is to provision a Windows Server 2012 upwards, running on the server itself.</summary>
+        <description>Remy is a lightweight YAML-based Windows server configuration tool, written in C#. Its sole purpose is to provision a Windows Server 2012 upwards, running on the server itself.</description>
+        <projectUrl>https://github.com/yetanotherchris/remy</projectUrl>
+        <packageSourceUrl>https://github.com/yetanotherchris/remy</packageSourceUrl>
+        <tags>remy automation infrastructure</tags>
+        <copyright>Chromedriver authors</copyright>
+        <licenseUrl>https://raw.githubusercontent.com/yetanotherchris/Remy/master/LICENSE</licenseUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <iconUrl>https://github.com/yetanotherchris/Remy/raw/master/icon.png</iconUrl>
+        <releaseNotes>Initial release.</releaseNotes>
+    </metadata>
+    <files>
+        <file src="bin\release\**" target="tools" />
+    </files>
+</package>

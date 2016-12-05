@@ -1,6 +1,0 @@
-﻿description: "Example"
-tasks:
-  -
-    runner: powershell
-    commands:
-      - 'write-host "hello world"'
