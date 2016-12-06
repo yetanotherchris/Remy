@@ -18,18 +18,21 @@ assembly_info:
   assembly_file_version: '{version}'
   assembly_informational_version: '{version}'
 
-# Run grunt, and then the custom build script that runs Octopack
+# Build
 build_script:
     - ps: .\build.ps1
 
-# Copy and convert all Octopack generated nupkg files into zip files
+# Nuget: create the Remy.Core package
+# CLI: copy the release\bin into a zip file
 after_build:
+  - ps: .\nuget.ps1 -apiKey $APPVEYOR_APIKEY
   - 7z a Remy-%APPVEYOR_BUILD_VERSION%.zip .\src\Remy.Console\bin\Release\*.*
 
 artifacts:
   - path: Remy-$(APPVEYOR_BUILD_VERSION).zip
     name: CurrentVersionZip
 
+# Create a Github release
 deploy:
 - provider: GitHub
   release: remy-v$(appveyor_build_version)
