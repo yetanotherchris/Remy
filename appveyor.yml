@@ -3,6 +3,10 @@ skip_tags: true
 shallow_clone: true
 clone_depth: 1
 
+environment:
+  NUGET_API_KEY:
+    secure: o0fXXHFAq6Y4MsYW/Gzz3AQpmEjBp+X4b7Iz0CwySvHJSCbRnYl9svNWJ/fEAh3z
+
 cache:
   - packages ->  **\packages.config
 
@@ -25,7 +29,7 @@ build_script:
 # Nuget: create the Remy.Core package
 # CLI: copy the release\bin into a zip file
 after_build:
-  - ps: .\nuget.ps1 -apiKey $APPVEYOR_APIKEY
+  - ps: .\nuget.ps1 -apiKey $(NUGET_API_KEY)
   - 7z a Remy-%APPVEYOR_BUILD_VERSION%.zip .\src\Remy.Console\bin\Release\*.*
 
 artifacts:
