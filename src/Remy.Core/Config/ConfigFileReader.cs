@@ -37,7 +37,7 @@ namespace Remy.Core.Config
 
 	    public static string GetFullPathForFile(string filename)
 	    {
-			return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, filename);
+			return Path.Combine(Directory.GetCurrentDirectory(), filename);
         }
 	}
 }
