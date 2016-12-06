@@ -4,7 +4,7 @@
     <metadata>
         <id>remy</id>
         <title>Remy</title>
-        <version>TODO</version>
+        <version>1.0.0</version>
         <authors>C.Small</authors>
         <owners>C.Small</owners>
         <summary>Remy is a lightweight YAML-based Windows server configuration tool, written in C#. Its sole purpose is to provision a Windows Server 2012 upwards, running on the server itself.</summary>

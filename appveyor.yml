@@ -6,6 +6,8 @@ clone_depth: 1
 environment:
   NUGET_API_KEY:
     secure: o0fXXHFAq6Y4MsYW/Gzz3AQpmEjBp+X4b7Iz0CwySvHJSCbRnYl9svNWJ/fEAh3z
+  CHOCOLATEY_API_KEY:
+    secure: nl5YRBS+wcVhpEJN3GqQxhqRyOMPgHXmRK6vhhk8oJD6fV3T+ecEpmjlYFthwXRz
 
 cache:
   - packages ->  **\packages.config
@@ -48,3 +50,6 @@ deploy:
   force_update: true
   on:
     branch: master
+
+after_deploy:
+  - ps: .\push-chocolatey.ps1 -apiKey $env:CHOCOLATEY_API_KEY -versionNumber $(APPVEYOR_BUILD_VERSION)
