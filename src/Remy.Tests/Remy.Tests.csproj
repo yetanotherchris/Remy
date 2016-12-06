@@ -124,7 +124,6 @@
     <Compile Include="Integration\Console\ProgramTests.cs" />
     <Compile Include="StubsAndMocks\PackageManagerMock.cs" />
     <Compile Include="StubsAndMocks\PackageRepositoryMock.cs" />
-    <None Include="Integration\ScriptCsRunnerTests.cs" />
     <Compile Include="StubsAndMocks\YamlConfigParserMock.cs" />
     <Compile Include="Unit\Console\PluginRunnerTests.cs" />
     <Compile Include="StubsAndMocks\PluginManagerMock.cs" />

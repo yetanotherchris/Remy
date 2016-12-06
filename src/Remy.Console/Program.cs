@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using NuGet;
+using Remy.Console.Runners;
 using Remy.Core.Config;
 using Remy.Core.Config.Yaml;
 using Remy.Core.Tasks;
@@ -14,6 +15,7 @@ namespace Remy.Console
     {
         public static void Main(string[] args)
         {
+	        System.Console.WriteLine(Directory.GetCurrentDirectory());
             var logger = new LoggerConfiguration()
                                 .WriteTo
                                 .LiterateConsole()

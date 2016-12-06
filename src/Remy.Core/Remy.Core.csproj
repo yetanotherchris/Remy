@@ -128,7 +128,6 @@
     <Compile Include="Config\IConfigFileReader.cs" />
     <Compile Include="Config\Yaml\IYamlConfigParser.cs" />
     <Compile Include="Config\Yaml\YamlConfigParser.cs" />
-    <None Include="Tasks\Runners\ScriptCSRunner.cs" />
     <Compile Include="Tasks\Runners\PowershellRunner.cs" />
     <Compile Include="Tasks\Plugins\PowershellTask.cs" />
     <Compile Include="Tasks\Plugins\WindowsFeatureTask.cs" />

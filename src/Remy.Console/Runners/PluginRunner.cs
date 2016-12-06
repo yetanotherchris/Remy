@@ -1,12 +1,10 @@
-using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Text.RegularExpressions;
 using NuGet;
 using Remy.Core.Tasks;
 using ILogger = Serilog.ILogger;
 
-namespace Remy.Console
+namespace Remy.Console.Runners
 {
 	public class PluginRunner
 	{
