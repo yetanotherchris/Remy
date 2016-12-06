@@ -52,4 +52,4 @@ deploy:
     branch: master
 
 after_deploy:
-  - ps: .\push-chocolatey.ps1 -apiKey $env:CHOCOLATEY_API_KEY -versionNumber $APPVEYOR_BUILD_VERSION
+  - ps: .\push-chocolatey.ps1 -apiKey $env:CHOCOLATEY_API_KEY -versionNumber $env:APPVEYOR_BUILD_VERSION
