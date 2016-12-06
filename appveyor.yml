@@ -31,7 +31,7 @@ build_script:
 # Nuget: create the Remy.Core package
 # CLI: copy the release\bin into a zip file
 after_build:
-  - ps: .\nuget.ps1 -apiKey $env:NUGET_API_KEY
+  - ps: .\push-nuget.ps1 -apiKey $env:NUGET_API_KEY
   - 7z a Remy-%APPVEYOR_BUILD_VERSION%.zip .\src\Remy.Console\bin\Release\*.*
 
 artifacts:
