@@ -3,6 +3,7 @@ using System.Text;
 using NuGet;
 using NUnit.Framework;
 using Remy.Console;
+using Remy.Console.Runners;
 using Remy.Core.Tasks;
 using Remy.Tests.StubsAndMocks;
 using Serilog;
