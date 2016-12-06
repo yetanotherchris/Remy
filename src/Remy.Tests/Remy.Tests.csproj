@@ -136,7 +136,7 @@
     <Compile Include="StubsAndMocks\ConfigFileReaderMock.cs" />
     <Compile Include="Unit\Core\Tasks\PluginManagerTests.cs" />
     <Compile Include="Unit\Core\Tasks\Plugins\PowershellFileTaskTests.cs" />
-    <Compile Include="Unit\Core\Tasks\TypeManagerTests.cs" />
+    <Compile Include="Integration\TypeManagerTests.cs" />
     <Compile Include="Unit\Core\Tasks\Plugins\PowershellTaskTests.cs" />
     <Compile Include="Integration\PowershellRunnerTests.cs" />
     <Compile Include="Unit\Core\Tasks\Plugins\WindowsFeatureTaskTests.cs" />
