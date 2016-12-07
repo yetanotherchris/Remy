@@ -1,8 +1,8 @@
-﻿using NuGet;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using NuGet;
 
-namespace Remy.Tests.StubsAndMocks
+namespace Remy.Tests.StubsAndMocks.Nuget
 {
 	public class PackageManagerMock : IPackageManager
 	{

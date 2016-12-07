@@ -8,6 +8,9 @@ using Remy.Core.Config.Yaml;
 using Remy.Core.Tasks;
 using Remy.Core.Tasks.Plugins;
 using Remy.Tests.StubsAndMocks;
+using Remy.Tests.StubsAndMocks.Core.Config;
+using Remy.Tests.StubsAndMocks.Core.Config.Yaml;
+using Remy.Tests.StubsAndMocks.Core.Tasks;
 using Serilog;
 using Serilog.Core;
 

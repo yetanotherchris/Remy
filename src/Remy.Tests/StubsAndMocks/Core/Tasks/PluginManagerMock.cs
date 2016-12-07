@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using NuGet;
 using Remy.Core.Tasks;
 
-namespace Remy.Tests.StubsAndMocks
+namespace Remy.Tests.StubsAndMocks.Core.Tasks
 {
 	public class PluginManagerMock : IPluginManager
 	{

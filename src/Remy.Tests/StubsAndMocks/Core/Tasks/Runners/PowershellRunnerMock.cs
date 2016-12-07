@@ -1,6 +1,6 @@
 using Remy.Core.Tasks.Runners;
 
-namespace Remy.Tests.StubsAndMocks
+namespace Remy.Tests.StubsAndMocks.Core.Tasks.Runners
 {
 	public class PowershellRunnerMock : IPowershellRunner
 	{
