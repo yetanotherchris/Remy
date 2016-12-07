@@ -5,7 +5,7 @@ using Remy.Core.Config.Yaml;
 using Remy.Core.Tasks;
 using ILogger = Serilog.ILogger;
 
-namespace Remy.Console
+namespace Remy.Console.Runners
 {
 	public class DefaultRunner
 	{

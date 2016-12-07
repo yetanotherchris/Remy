@@ -40,7 +40,7 @@ namespace Remy.Tests.Integration
         public void GetFullPathForFile_should_return_full_path_for_filename()
         {
             // Arrange
-            string expectedPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "myfile.txt");
+            string expectedPath = Path.Combine(Directory.GetCurrentDirectory(), "myfile.txt");
 
             // Act
             string actualPath = ConfigFileReader.GetFullPathForFile("myfile.txt");

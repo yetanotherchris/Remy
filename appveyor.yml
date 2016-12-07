@@ -8,6 +8,8 @@ environment:
     secure: o0fXXHFAq6Y4MsYW/Gzz3AQpmEjBp+X4b7Iz0CwySvHJSCbRnYl9svNWJ/fEAh3z
   CHOCOLATEY_API_KEY:
     secure: nl5YRBS+wcVhpEJN3GqQxhqRyOMPgHXmRK6vhhk8oJD6fV3T+ecEpmjlYFthwXRz
+  COVERALLS_REPO_TOKEN:
+       secure: qOSKjFw9WBUbNjYX1qBl7ydCwfmcZMy6l0fNatR/lCgEsQkYBvAzj1p/obFCoDwR
 
 cache:
   - packages ->  **\packages.config
@@ -33,6 +35,11 @@ build_script:
 after_build:
   - ps: .\push-nuget.ps1 -apiKey $env:NUGET_API_KEY
   - 7z a Remy-%APPVEYOR_BUILD_VERSION%.zip .\src\Remy.Console\bin\Release\*.*
+
+# Generate test coverage and upload it to Coveralls.IO
+after_test:
+    - packages\OpenCover.4.6.166\tools\OpenCover.Console.exe -register:user -filter:"+[Remy*]*" -target:"packages\NUnit.ConsoleRunner.3.5.0\tools\nunit3-console.exe" -targetargs:"/domain:single  src\Remy.Tests\bin\release\Remy.Tests.dll" -output:coverage.xml
+    - packages\coveralls.io.1.3.4\tools\coveralls.net.exe --opencover coverage.xml
 
 artifacts:
   - path: Remy-$(APPVEYOR_BUILD_VERSION).zip

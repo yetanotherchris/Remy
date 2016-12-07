@@ -8,6 +8,10 @@ using Remy.Core.Config.Yaml;
 using Remy.Core.Tasks;
 using Remy.Core.Tasks.Plugins;
 using Remy.Tests.StubsAndMocks;
+using Remy.Tests.StubsAndMocks.Core.Config;
+using Remy.Tests.StubsAndMocks.Core.Config.Yaml;
+using Remy.Tests.StubsAndMocks.Core.Tasks;
+using Remy.Tests.StubsAndMocks.Core.Tasks.Runners;
 using Serilog;
 using Serilog.Core;
 
@@ -35,7 +39,8 @@ namespace Remy.Tests.Unit.Core.Config.Yaml
             readerMock.Yaml = ExampleYaml.AdvancedYaml;
 
             var registeredTasks = new Dictionary<string, ITask>();
-            registeredTasks.Add("windows-feature", new WindowsFeatureTask());
+			var windowsFeatureTask = new WindowsFeatureTask(new PowershellRunnerMock());
+			registeredTasks.Add("windows-feature", windowsFeatureTask);
 
             var yamlParser = new YamlConfigParser(readerMock, registeredTasks, _logger);
 
@@ -182,7 +187,8 @@ namespace Remy.Tests.Unit.Core.Config.Yaml
             readerMock.Yaml = yaml;
 
             var registeredTasks = new Dictionary<string, ITask>();
-            registeredTasks.Add("windows-feature", new WindowsFeatureTask());
+	        var task = new WindowsFeatureTask(new PowershellRunnerMock());
+	        registeredTasks.Add("windows-feature", task);
 
             var yamlParser = new YamlConfigParser(readerMock, registeredTasks, logger);
 

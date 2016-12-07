@@ -39,6 +39,10 @@
       <HintPath>..\..\packages\Autofac.Mef.4.0.0\lib\net45\Autofac.Integration.Mef.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Castle.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Castle.Core.3.3.3\lib\net45\Castle.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Web.XmlTransform, Version=2.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.Web.Xdt.2.1.1\lib\net40\Microsoft.Web.XmlTransform.dll</HintPath>
@@ -122,21 +126,22 @@
     <Compile Include="Integration\ConfigFileReaderTests.cs" />
     <Compile Include="Integration\Console\DefaultRunnerTests.cs" />
     <Compile Include="Integration\Console\ProgramTests.cs" />
-    <Compile Include="StubsAndMocks\PackageManagerMock.cs" />
-    <Compile Include="StubsAndMocks\PackageRepositoryMock.cs" />
-    <None Include="Integration\ScriptCsRunnerTests.cs" />
-    <Compile Include="StubsAndMocks\YamlConfigParserMock.cs" />
+    <Compile Include="StubsAndMocks\Nuget\PackageManagerMock.cs" />
+    <Compile Include="StubsAndMocks\Nuget\PackageRepositoryMock.cs" />
+    <Compile Include="StubsAndMocks\Core\Config\Yaml\YamlConfigParserMock.cs" />
     <Compile Include="Unit\Console\PluginRunnerTests.cs" />
-    <Compile Include="StubsAndMocks\PluginManagerMock.cs" />
+    <Compile Include="StubsAndMocks\Core\Tasks\PluginManagerMock.cs" />
     <Compile Include="Unit\Core\Config\Yaml\ExampleYaml.cs" />
-    <Compile Include="StubsAndMocks\MockTask.cs" />
-    <Compile Include="StubsAndMocks\MockTaskConfig.cs" />
+    <Compile Include="StubsAndMocks\Core\Tasks\MockTask.cs" />
+    <Compile Include="StubsAndMocks\Core\Config\MockTaskConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Unit\Core\Config\Yaml\YamlConfigParserTests.cs" />
-    <Compile Include="StubsAndMocks\ConfigFileReaderMock.cs" />
+    <Compile Include="StubsAndMocks\Core\Config\Yaml\ConfigFileReaderMock.cs" />
     <Compile Include="Unit\Core\Tasks\PluginManagerTests.cs" />
     <Compile Include="Unit\Core\Tasks\Plugins\PowershellFileTaskTests.cs" />
     <Compile Include="Integration\TypeManagerTests.cs" />
+    <Compile Include="Unit\Core\Tasks\Plugins\InstallChocolateyTaskTests.cs" />
+    <Compile Include="StubsAndMocks\Core\Tasks\Runners\PowershellRunnerMock.cs" />
     <Compile Include="Unit\Core\Tasks\Plugins\PowershellTaskTests.cs" />
     <Compile Include="Integration\PowershellRunnerTests.cs" />
     <Compile Include="Unit\Core\Tasks\Plugins\WindowsFeatureTaskTests.cs" />
@@ -151,7 +156,9 @@
       <Name>Ainsley.Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="StubsAndMocks\Core\Tasks\Plugins\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="remy.yml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
