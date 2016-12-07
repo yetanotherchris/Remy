@@ -7,18 +7,23 @@ namespace Remy.Core.Tasks.Plugins
 {
     public class InstallChocolateyTask : ITask
     {
-        public ITaskConfig Config { get; private set; }
+	    private readonly IPowershellRunner _powershellRunner;
+	    public ITaskConfig Config { get; private set; }
         public string YamlName => "install-chocolatey";
 
-        public void SetConfiguration(ITaskConfig config, Dictionary<object, object> properties)
+		public InstallChocolateyTask(IPowershellRunner powershellRunner)
+		{
+			_powershellRunner = powershellRunner;
+		}
+
+	    public void SetConfiguration(ITaskConfig config, Dictionary<object, object> properties)
         {
             Config = config;
         }
 
         public void Run(ILogger logger)
         {
-			var runner = new PowershellRunner(logger);
-	        runner.RunCommands(new string[] { "iwr https://chocolatey.org/install.ps1 -UseBasicParsing | iex" });
+	        _powershellRunner.RunCommands(new string[] { "iwr https://chocolatey.org/install.ps1 -UseBasicParsing | iex" });
         }
     }
 }

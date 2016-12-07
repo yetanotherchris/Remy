@@ -5,8 +5,8 @@ using Serilog;
 
 namespace Remy.Core.Tasks.Runners
 {
-    public class PowershellRunner
-    {
+	public class PowershellRunner : IPowershellRunner
+	{
         private readonly ILogger _logger;
 
         public PowershellRunner(ILogger logger)
