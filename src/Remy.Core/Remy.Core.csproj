@@ -100,6 +100,10 @@
       <HintPath>..\..\packages\Serilog.2.3.0\lib\net45\Serilog.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Serilog.Sinks.Literate, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Serilog.Sinks.Literate.2.0.0\lib\net45\Serilog.Sinks.Literate.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
@@ -128,6 +132,7 @@
     <Compile Include="Config\IConfigFileReader.cs" />
     <Compile Include="Config\Yaml\IYamlConfigParser.cs" />
     <Compile Include="Config\Yaml\YamlConfigParser.cs" />
+    <Compile Include="Tasks\Runners\IPowershellRunner.cs" />
     <Compile Include="Tasks\Runners\PowershellRunner.cs" />
     <Compile Include="Tasks\Plugins\PowershellTask.cs" />
     <Compile Include="Tasks\Plugins\WindowsFeatureTask.cs" />
