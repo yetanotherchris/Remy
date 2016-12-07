@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Remy.Core.Config.Yaml;
 using Remy.Core.Tasks;
 
-namespace Remy.Tests.StubsAndMocks
+namespace Remy.Tests.StubsAndMocks.Core.Config.Yaml
 {
 	public class YamlConfigParserMock : IYamlConfigParser
 	{

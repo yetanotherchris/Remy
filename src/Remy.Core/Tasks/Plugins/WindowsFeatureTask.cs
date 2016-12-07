@@ -8,11 +8,17 @@ namespace Remy.Core.Tasks.Plugins
     public class WindowsFeatureTask : ITask
     {
         private WindowsFeatureTaskConfig _config;
+	    private IPowershellRunner _powershellRunner;
 
-        public ITaskConfig Config => _config;
+	    public ITaskConfig Config => _config;
         public string YamlName => "windows-feature";
 
-        public void SetConfiguration(ITaskConfig config, Dictionary<object, object> properties)
+		public WindowsFeatureTask(IPowershellRunner powershellRunner)
+		{
+			_powershellRunner = powershellRunner;
+		}
+
+		public void SetConfiguration(ITaskConfig config, Dictionary<object, object> properties)
         {
             _config = new WindowsFeatureTaskConfig();
             _config.Description = config.Description;
@@ -38,8 +44,6 @@ namespace Remy.Core.Tasks.Plugins
 
         public void Run(ILogger logger)
         {
-            var runner = new PowershellRunner(logger);
-
             var commands = new List<string>();
             string includeAllSubfeature = (_config.IncludeAllSubFeatures) ? " -IncludeAllSubFeature" : "";
             foreach (string feature in _config.Features)
@@ -48,7 +52,7 @@ namespace Remy.Core.Tasks.Plugins
                 commands.Add(command);
             }
 
-            runner.RunCommands(commands.ToArray());
+			_powershellRunner.RunCommands(commands.ToArray());
         }
     }
 }

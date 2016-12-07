@@ -4,6 +4,7 @@ using NuGet;
 using NUnit.Framework;
 using Remy.Core.Tasks;
 using Remy.Tests.StubsAndMocks;
+using Remy.Tests.StubsAndMocks.Nuget;
 using Serilog;
 using ILogger = Serilog.ILogger;
 

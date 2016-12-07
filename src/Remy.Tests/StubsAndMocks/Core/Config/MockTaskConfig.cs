@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Remy.Core.Config;
 
-namespace Remy.Tests.StubsAndMocks
+namespace Remy.Tests.StubsAndMocks.Core.Config
 {
     public class MockTaskConfig : ITaskConfig
     {

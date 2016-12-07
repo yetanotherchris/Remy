@@ -3,8 +3,11 @@ using System.IO;
 using System.Text;
 using NUnit.Framework;
 using Remy.Console;
+using Remy.Console.Runners;
 using Remy.Core.Tasks;
 using Remy.Tests.StubsAndMocks;
+using Remy.Tests.StubsAndMocks.Core.Config.Yaml;
+using Remy.Tests.StubsAndMocks.Core.Tasks;
 using Serilog;
 
 namespace Remy.Tests.Integration.Console
