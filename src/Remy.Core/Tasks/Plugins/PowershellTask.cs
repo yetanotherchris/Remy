@@ -8,11 +8,17 @@ namespace Remy.Core.Tasks.Plugins
     public class PowershellTask : ITask
     {
         private PowershellTaskConfig _config;
+	    private readonly IPowershellRunner _powershellRunner;
 
-        public ITaskConfig Config => _config;
+	    public ITaskConfig Config => _config;
         public string YamlName => "powershell";
 
-        public void SetConfiguration(ITaskConfig config, Dictionary<object, object> properties)
+		public PowershellTask(IPowershellRunner powershellRunner)
+		{
+			_powershellRunner = powershellRunner;
+		}
+
+		public void SetConfiguration(ITaskConfig config, Dictionary<object, object> properties)
         {
             _config = new PowershellTaskConfig();
             _config.Description = config.Description;
@@ -41,8 +47,7 @@ namespace Remy.Core.Tasks.Plugins
                 return;
             }
 
-            var runner = new PowershellRunner(logger);
-            runner.RunCommands(_config.Commands.ToArray());
+			_powershellRunner.RunCommands(_config.Commands.ToArray());
         }
     }
 }
