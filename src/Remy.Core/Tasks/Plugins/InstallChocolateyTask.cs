@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Remy.Core.Config;
+using Remy.Core.Tasks.Runners;
 using Serilog;
 
 namespace Remy.Core.Tasks.Plugins
@@ -16,6 +17,8 @@ namespace Remy.Core.Tasks.Plugins
 
         public void Run(ILogger logger)
         {
+			var runner = new PowershellRunner(logger);
+	        runner.RunCommands(new string[] { "iwr https://chocolatey.org/install.ps1 -UseBasicParsing | iex" });
         }
     }
 }
