@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using Remy.Core.Config;
 using Remy.Core.Tasks;
+using Remy.Tests.StubsAndMocks.Core.Config;
 using Serilog;
 
-namespace Remy.Tests.StubsAndMocks
+namespace Remy.Tests.StubsAndMocks.Core.Tasks
 {
     public class MockTask : ITask
     {

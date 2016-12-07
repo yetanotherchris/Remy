@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using Moq;
 using NUnit.Framework;
 using Remy.Core.Tasks.Plugins;
-using Remy.Core.Tasks.Runners;
-using Remy.Tests.StubsAndMocks;
+using Remy.Tests.StubsAndMocks.Core.Config;
+using Remy.Tests.StubsAndMocks.Core.Tasks.Runners;
 using Serilog;
 using Serilog.Core;
 

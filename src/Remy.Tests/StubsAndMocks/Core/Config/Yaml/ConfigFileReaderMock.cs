@@ -1,7 +1,7 @@
 ﻿using System;
 using Remy.Core.Config;
 
-namespace Remy.Tests.StubsAndMocks
+namespace Remy.Tests.StubsAndMocks.Core.Config.Yaml
 {
 	public class ConfigFileReaderMock : IConfigFileReader
 	{

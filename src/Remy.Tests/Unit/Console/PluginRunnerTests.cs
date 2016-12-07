@@ -6,6 +6,7 @@ using Remy.Console;
 using Remy.Console.Runners;
 using Remy.Core.Tasks;
 using Remy.Tests.StubsAndMocks;
+using Remy.Tests.StubsAndMocks.Core.Tasks;
 using Serilog;
 using ILogger = Serilog.ILogger;
 

@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using NuGet;
 using Remy.Core.Tasks;
 
-namespace Remy.Tests.StubsAndMocks
+namespace Remy.Tests.StubsAndMocks.Nuget
 {
 	public class PackageRepositoryMock : IPackageRepository
 	{
