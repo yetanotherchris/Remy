@@ -2,8 +2,8 @@
 
 [![Build status](https://ci.appveyor.com/api/projects/status/udw791pwvc8wanf8/branch/master?svg=true)](https://ci.appveyor.com/project/yetanotherchris/remy/branch/master)
 [![Coverage Status](https://coveralls.io/repos/github/yetanotherchris/Remy/badge.svg?branch=master)](https://coveralls.io/github/yetanotherchris/Remy?branch=master)
-[![Chocolatey](https://img.shields.io/chocolatey/dt/scriptcs.svg)](Remy)
-[![NuGet](https://img.shields.io/nuget/v/Nuget.Core.svg)](Remy.Core)
+[![Chocolatey](https://img.shields.io/chocolatey/dt/Remy.svg)](https://chocolatey.org/packages/remy)
+[![Nuget.org](https://img.shields.io/nuget/v/Remy.Core.svg?style=flat)](https://www.nuget.org/packages/Remy.Core)
 
 Remy (like the rat Chef) is a lightweight YAML-based Windows server configuration tool, written in C#. Its sole purpose is to provision a Windows Server 2012 upwards, running on the server itself.
 
