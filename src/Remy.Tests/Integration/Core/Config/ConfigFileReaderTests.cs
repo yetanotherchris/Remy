@@ -1,10 +1,10 @@
 ﻿using System;
-using NUnit.Framework;
 using System.IO;
+using NUnit.Framework;
 using Remy.Core;
 using Remy.Core.Config;
 
-namespace Remy.Tests.Integration
+namespace Remy.Tests.Integration.Core.Config
 {
 	[TestFixture]
 	public class ConfigFileReaderTests
