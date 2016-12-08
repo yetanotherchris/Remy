@@ -30,10 +30,8 @@ assembly_info:
 build_script:
     - ps: .\build.ps1
 
-# Nuget: create the Remy.Core package
-# CLI: copy the release\bin into a zip file
+# (CLI) copy the release\bin into a zip file
 after_build:
-  - ps: .\push-nuget.ps1 -apiKey $env:NUGET_API_KEY
   - 7z a Remy-%APPVEYOR_BUILD_VERSION%.zip .\src\Remy.Console\bin\Release\*.*
 
 # Generate test coverage and upload it to Coveralls.IO
@@ -58,5 +56,8 @@ deploy:
   on:
     branch: master
 
+# 1. Nuget: create the Remy.Core package
+# 2. Chocolatey: push the new choco package
 after_deploy:
+  - ps: .\push-nuget.ps1 -apiKey $env:NUGET_API_KEY
   - ps: .\push-chocolatey.ps1 -apiKey $env:CHOCOLATEY_API_KEY -versionNumber $env:APPVEYOR_BUILD_VERSION
