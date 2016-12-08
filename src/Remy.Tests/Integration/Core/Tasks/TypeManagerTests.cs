@@ -4,11 +4,10 @@ using System.IO;
 using System.Linq;
 using NUnit.Framework;
 using Remy.Core.Tasks;
-using Remy.Tests.StubsAndMocks;
 using Remy.Tests.StubsAndMocks.Core.Tasks;
 using Serilog;
 
-namespace Remy.Tests.Integration
+namespace Remy.Tests.Integration.Core.Tasks
 {
 	[TestFixture]
 	[Category("Foo")]

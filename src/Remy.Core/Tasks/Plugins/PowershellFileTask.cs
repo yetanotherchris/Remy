@@ -11,11 +11,20 @@ namespace Remy.Core.Tasks.Plugins
     public class PowershellFileTask : ITask
     {
         private PowershellFileTaskConfig _config;
+	    private readonly IPowershellRunner _powershellRunner;
 
-        public ITaskConfig Config => _config;
+	    public ITaskConfig Config => _config;
         public string YamlName => "powershell-file";
+		internal Func<Uri, string> DownloadFunc { get; set; }
 
-        public void SetConfiguration(ITaskConfig config, Dictionary<object, object> properties)
+		public PowershellFileTask(IPowershellRunner powershellRunner)
+		{
+			_powershellRunner = powershellRunner;
+
+			DownloadFunc = (uri) => new WebClient().DownloadString(uri);
+		}
+
+		public void SetConfiguration(ITaskConfig config, Dictionary<object, object> properties)
         {
             _config = new PowershellFileTaskConfig();
             _config.Description = config.Description;
@@ -34,8 +43,7 @@ namespace Remy.Core.Tasks.Plugins
 
 	        if (!string.IsNullOrEmpty(powershellFilePath))
 	        {
-		        var runner = new PowershellRunner(logger);
-		        runner.RunFile(powershellFilePath);
+				_powershellRunner.RunFile(powershellFilePath);
 	        }
         }
 
@@ -43,9 +51,9 @@ namespace Remy.Core.Tasks.Plugins
 	    {
 		    if (!uri.StartsWith("http") && !uri.StartsWith("file://"))
 		    {
-			    if (!uri.StartsWith("/") && !uri.StartsWith("./"))
+			    if (!uri.StartsWith("/") && uri.StartsWith("./"))
 			    {
-				    uri = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, uri);
+				    uri = Path.Combine(Directory.GetCurrentDirectory(), uri);
 			    }
 
 				Uri fileUri = new Uri("file://" + uri);
@@ -62,7 +70,7 @@ namespace Remy.Core.Tasks.Plugins
 				try
 				{
 					Uri remoteUri = new Uri(uri);
-					string powershellText = new WebClient().DownloadString(remoteUri);
+					string powershellText = DownloadFunc(remoteUri);
 					string tempFilename = Path.GetTempFileName() + ".ps1";
 					if (string.IsNullOrEmpty(tempFilename))
 					{

@@ -1,13 +1,10 @@
 using System.IO;
 using System.Text;
-using Remy.Core.Tasks;
-using Remy.Core.Tasks.Plugins;
 using NUnit.Framework;
 using Remy.Core.Tasks.Runners;
 using Serilog;
-using Serilog.Core;
 
-namespace Remy.Tests.Integration
+namespace Remy.Tests.Integration.Core.Tasks.Runners
 {
     [TestFixture]
     public class PowershellRunnerTests
