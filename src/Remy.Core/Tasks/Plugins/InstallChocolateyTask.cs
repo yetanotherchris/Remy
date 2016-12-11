@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Remy.Core.Config;
-using Remy.Core.Tasks.Runners;
+using Remy.Core.Tasks.Plugins.Powershell;
 using Serilog;
 
 namespace Remy.Core.Tasks.Plugins

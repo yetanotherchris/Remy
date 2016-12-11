@@ -3,7 +3,7 @@ using System.IO;
 using System.Text;
 using NUnit.Framework;
 using Remy.Core.Tasks.Plugins;
-using Remy.Tests.StubsAndMocks.Core.Tasks.Runners;
+using Remy.Tests.StubsAndMocks.Core.Tasks.Plugins.Powershell;
 using Serilog;
 using Serilog.Core;
 

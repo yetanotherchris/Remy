@@ -1,10 +1,10 @@
 using System.IO;
 using System.Text;
 using NUnit.Framework;
-using Remy.Core.Tasks.Runners;
+using Remy.Core.Tasks.Plugins.Powershell;
 using Serilog;
 
-namespace Remy.Tests.Integration.Core.Tasks.Runners
+namespace Remy.Tests.Integration.Core.Tasks.Plugins.Powershell
 {
     [TestFixture]
     public class PowershellRunnerTests
@@ -66,14 +66,13 @@ namespace Remy.Tests.Integration.Core.Tasks.Runners
             // when
             bool result = runner.RunCommands(new string[]
             {
-                "mkdir ~/remy-sparklingdietcoke",
                 "mkdir ~/remy-sparklingdietcoke"
             });
 
             // then
             Assert.That(result, Is.False);
             Assert.That(_logStringBuilder.ToString(), Does.Contain("sparklingdietcoke"));
-        }
+		}
 
 		[Test]
 		public void RunFile_should_run_script_that_require_permissions()

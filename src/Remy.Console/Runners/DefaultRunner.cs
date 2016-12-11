@@ -42,7 +42,7 @@ namespace Remy.Console.Runners
 			string fullPath = configPath;
 			if (string.IsNullOrEmpty(fullPath))
 			{
-				fullPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "remy.yml");
+				fullPath = Path.Combine(Directory.GetCurrentDirectory(), "remy.yml");
 			}
 
 			try
@@ -51,7 +51,7 @@ namespace Remy.Console.Runners
 				{
 					if (!fullPath.StartsWith("/") && !fullPath.StartsWith("./"))
 					{
-						fullPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fullPath);
+						fullPath = Path.Combine(Directory.GetCurrentDirectory(), fullPath);
 					}
 
 					fullPath = "file://" + fullPath;
