@@ -66,7 +66,7 @@ namespace Remy.Tests.Integration.Core.Tasks.Plugins.Powershell
             // when
             bool result = runner.RunCommands(new string[]
             {
-                "mkdir ~/remy-sparklingdietcoke"
+                "mkdir fappdrive:\\remy-sparklingdietcoke"
             });
 
             // then
