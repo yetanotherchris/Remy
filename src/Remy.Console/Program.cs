@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using NuGet;
 using Remy.Console.Runners;
 using Remy.Core.Config;
@@ -11,6 +12,13 @@ using ILogger = Serilog.ILogger;
 
 namespace Remy.Console
 {
+	//
+	// TODO: readme for usage
+	// TODO: readme for plugin authoring
+	// TODO: add help property for plugins
+	// TODO: help for "remy.exe plugins" in console
+	// TODO: refactor program.cs and defaultrunner 
+	//
     public class Program
     {
         public static void Main(string[] args)
@@ -22,6 +30,25 @@ namespace Remy.Console
 
 	        try
 	        {
+				if (args.Length == 1 && args[0] == "init")
+				{
+					var stringbuilder = new StringBuilder();
+					stringbuilder.AppendLine("name: \"Example file\"");
+					stringbuilder.AppendLine("tasks:");
+					stringbuilder.AppendLine("  -");
+					stringbuilder.AppendLine("    description: \"Says hello in powershell\"");
+					stringbuilder.AppendLine("    runner: powershell");
+					stringbuilder.AppendLine("    commands:");
+					stringbuilder.AppendLine("      - echo 'Hello from Remy!'");
+
+
+					string path = Path.Combine(Directory.GetCurrentDirectory(), "remy.yml");
+					File.WriteAllText(path, stringbuilder.ToString());
+					logger.Information("Example remy.yml file written. Now try running remy.exe again.");
+
+					return;
+				}
+
 				if (args.Length >= 1 && args[0] == "plugins")
 				{
 					// Parse "remy.exe plugins <command>"
