@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Remy.Core.Config;
 
-namespace Remy.Core.Tasks.Plugins
+namespace Remy.Core.Tasks.Plugins.Powershell
 {
 	public class PowershellFileTaskConfig : ITaskConfig
 	{

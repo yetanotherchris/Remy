@@ -2,24 +2,26 @@
 using System.IO;
 using System.Text;
 using NUnit.Framework;
-using Remy.Core.Tasks.Plugins;
-using Remy.Tests.StubsAndMocks.Core.Tasks.Runners;
+using Remy.Core.Tasks.Plugins.Powershell;
+using Remy.Tests.StubsAndMocks.Core.Tasks.Plugins.Powershell;
 using Serilog;
 using Serilog.Core;
 
-namespace Remy.Tests.Unit.Core.Tasks.Plugins
+namespace Remy.Tests.Unit.Core.Tasks.Plugins.Powershell
 {
     [TestFixture]
 	public class PowershellFileTaskTests
     {
-		private PowershellRunnerMock _powershellMock;
+		private PowershellRunnerMock _runnerMock;
+	    private PowershellFileProviderMock _fileProviderMock;
 		private StringBuilder _logStringBuilder;
 		private Logger _logger;
 
-		[SetUp]
+	    [SetUp]
 		public void Setup()
 		{
-			_powershellMock = new PowershellRunnerMock();
+			_runnerMock = new PowershellRunnerMock();
+			_fileProviderMock = new PowershellFileProviderMock();
 
 			_logStringBuilder = new StringBuilder();
 			var logMessages = new StringWriter(_logStringBuilder);
@@ -34,15 +36,16 @@ namespace Remy.Tests.Unit.Core.Tasks.Plugins
 
 		[Test]
         public void should_have_yaml_name()
-        {
-            Assert.That(new PowershellFileTask(_powershellMock).YamlName, Is.EqualTo("powershell-file"));
-        }
+		{
+			var task = new PowershellFileTask(_fileProviderMock, _runnerMock);
+			Assert.That(task.YamlName, Is.EqualTo("powershell-file"));
+		}
 
         [Test]
         public void SetConfiguration_should_set_config_from_properties()
         {
-            // given
-            var task = new PowershellFileTask(_powershellMock);
+			// given
+			var task = new PowershellFileTask(_fileProviderMock, _runnerMock);
             var config = new PowershellFileTaskConfig();
 
             var properties = new Dictionary<object, object>();
@@ -59,31 +62,36 @@ namespace Remy.Tests.Unit.Core.Tasks.Plugins
         }
 
 		[Test]
-		public void Run_should_parse_localfile()
+		[TestCase("c:\\blah\\myscript.ps1", "c:\\blah\\myscript.ps1")]
+		[TestCase("./myscript.ps1", "c:\\currentdir\\myscript.ps1")]
+		[TestCase("c:\\myfolder\\myscript.ps1", "c:\\myfolder\\myscript.ps1")]
+		[TestCase("myscript.ps1", "c:\\currentdir\\myscript.ps1")]
+		[TestCase("file://c:/temp/foo/myscript.ps1", "c:\\temp\\foo\\myscript.ps1")]
+		public void Run_should_parse_localfile_paths(string inputFilePath, string expectedFilePath)
 		{
 			// given
-			var task = new PowershellFileTask(_powershellMock);
-			task.DownloadFunc = (url) => "echo hello-world";
-
+			_fileProviderMock.CurrentDirectory = "c:\\currentdir";
+			var task = new PowershellFileTask(_fileProviderMock, _runnerMock);
 			var config = new PowershellFileTaskConfig();
 
 			var properties = new Dictionary<object, object>();
-			properties["uri"] = "./powershell.ps1";
+			properties["uri"] = inputFilePath;
 			task.SetConfiguration(config, properties);
 
 			// when
 			task.Run(_logger);
 
 			// then
-			Assert.That(_powershellMock.TempFilename, Is.EqualTo("powershell.ps1"));
+			Assert.That(_runnerMock.ActualTempFilename, Is.EqualTo(expectedFilePath));
 		}
 
 		[Test]
-		public void Run_should_parse_remotefile()
+		public void Run_should_parse_and_run_remotefiles()
 		{
 			// given
-			var task = new PowershellFileTask(_powershellMock);
-			task.DownloadFunc = (url) => "echo hello-world";
+			_fileProviderMock.DownloadContent = "echo hello-world";
+			_fileProviderMock.TempFilePath = "expected-tempfilename.ps1";
+			var task = new PowershellFileTask(_fileProviderMock, _runnerMock);
 
 			var config = new PowershellFileTaskConfig();
 
@@ -95,7 +103,7 @@ namespace Remy.Tests.Unit.Core.Tasks.Plugins
 			task.Run(_logger);
 
 			// then
-			Assert.That(_logStringBuilder.ToString(), Does.Contain("hello-world"));
+			Assert.That(_runnerMock.ActualTempFilename, Is.EqualTo(_fileProviderMock.TempFilePath));
 		}
 	}
 }
