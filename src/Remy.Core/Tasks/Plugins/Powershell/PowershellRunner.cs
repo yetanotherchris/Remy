@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using Serilog;
 
-namespace Remy.Core.Tasks.Runners
+namespace Remy.Core.Tasks.Plugins.Powershell
 {
 	public class PowershellRunner : IPowershellRunner
 	{

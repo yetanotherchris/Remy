@@ -11,7 +11,7 @@ using Remy.Tests.StubsAndMocks;
 using Remy.Tests.StubsAndMocks.Core.Config;
 using Remy.Tests.StubsAndMocks.Core.Config.Yaml;
 using Remy.Tests.StubsAndMocks.Core.Tasks;
-using Remy.Tests.StubsAndMocks.Core.Tasks.Runners;
+using Remy.Tests.StubsAndMocks.Core.Tasks.Plugins.Powershell;
 using Serilog;
 using Serilog.Core;
 
