@@ -1,11 +1,11 @@
-using Remy.Core.Tasks.Runners;
+using Remy.Core.Tasks.Plugins.Powershell;
 
-namespace Remy.Tests.StubsAndMocks.Core.Tasks.Runners
+namespace Remy.Tests.StubsAndMocks.Core.Tasks.Plugins.Powershell
 {
 	public class PowershellRunnerMock : IPowershellRunner
 	{
 		public string[] Commands { get; set; }
-		public string TempFilename { get; set; }
+		public string ActualTempFilename { get; set; }
 
 		public bool RunCommands(string[] commands)
 		{
@@ -15,8 +15,8 @@ namespace Remy.Tests.StubsAndMocks.Core.Tasks.Runners
 
 		public bool RunFile(string tempFilename)
 		{
-			TempFilename = tempFilename;
-			return false;
+			ActualTempFilename = tempFilename;
+			return true;
 		}
 	}
 }

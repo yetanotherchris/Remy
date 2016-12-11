@@ -126,7 +126,8 @@
     <Compile Include="Integration\Core\Config\ConfigFileReaderTests.cs" />
     <Compile Include="Integration\Console\DefaultRunnerTests.cs" />
     <Compile Include="Integration\Console\ProgramTests.cs" />
-    <Compile Include="Integration\Core\Tasks\Plugins\PowershellFileTaskTests.cs" />
+    <Compile Include="Integration\Core\Tasks\Plugins\Powershell\PowershellFileProviderTests.cs" />
+    <Compile Include="StubsAndMocks\Core\Tasks\Plugins\Powershell\PowershellFileProviderMock.cs" />
     <Compile Include="StubsAndMocks\Nuget\PackageManagerMock.cs" />
     <Compile Include="StubsAndMocks\Nuget\PackageRepositoryMock.cs" />
     <Compile Include="StubsAndMocks\Core\Config\Yaml\YamlConfigParserMock.cs" />
@@ -139,12 +140,12 @@
     <Compile Include="Unit\Core\Config\Yaml\YamlConfigParserTests.cs" />
     <Compile Include="StubsAndMocks\Core\Config\Yaml\ConfigFileReaderMock.cs" />
     <Compile Include="Unit\Core\Tasks\PluginManagerTests.cs" />
-    <Compile Include="Unit\Core\Tasks\Plugins\PowershellFileTaskTests.cs" />
+    <Compile Include="Unit\Core\Tasks\Plugins\Powershell\PowershellFileTaskTests.cs" />
     <Compile Include="Integration\Core\Tasks\TypeManagerTests.cs" />
     <Compile Include="Unit\Core\Tasks\Plugins\InstallChocolateyTaskTests.cs" />
-    <Compile Include="StubsAndMocks\Core\Tasks\Runners\PowershellRunnerMock.cs" />
-    <Compile Include="Unit\Core\Tasks\Plugins\PowershellTaskTests.cs" />
-    <Compile Include="Integration\Core\Tasks\Runners\PowershellRunnerTests.cs" />
+    <Compile Include="StubsAndMocks\Core\Tasks\Plugins\Powershell\PowershellRunnerMock.cs" />
+    <Compile Include="Unit\Core\Tasks\Plugins\Powershell\PowershellTaskTests.cs" />
+    <Compile Include="Integration\Core\Tasks\Plugins\Powershell\PowershellRunnerTests.cs" />
     <Compile Include="Unit\Core\Tasks\Plugins\WindowsFeatureTaskTests.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -157,9 +158,7 @@
       <Name>Ainsley.Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="StubsAndMocks\Core\Tasks\Plugins\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="remy.yml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

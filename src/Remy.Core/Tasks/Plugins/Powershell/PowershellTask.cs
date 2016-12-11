@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using Remy.Core.Config;
-using Remy.Core.Tasks.Runners;
 using Serilog;
 
-namespace Remy.Core.Tasks.Plugins
+namespace Remy.Core.Tasks.Plugins.Powershell
 {
     public class PowershellTask : ITask
     {

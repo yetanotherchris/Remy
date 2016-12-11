@@ -120,9 +120,11 @@
     <Compile Include="Config\ITaskConfig.cs" />
     <Compile Include="Tasks\IPluginManager.cs" />
     <Compile Include="Tasks\PluginManager.cs" />
-    <Compile Include="Tasks\Plugins\PowershellFileTask.cs" />
-    <Compile Include="Tasks\Plugins\PowershellFileTaskConfig.cs" />
-    <Compile Include="Tasks\Plugins\PowershellTaskConfig.cs" />
+    <Compile Include="Tasks\Plugins\Powershell\IPowershellFileProvider.cs" />
+    <Compile Include="Tasks\Plugins\Powershell\PowershellFileProvider.cs" />
+    <Compile Include="Tasks\Plugins\Powershell\PowershellFileTask.cs" />
+    <Compile Include="Tasks\Plugins\Powershell\PowershellFileTaskConfig.cs" />
+    <Compile Include="Tasks\Plugins\Powershell\PowershellTaskConfig.cs" />
     <Compile Include="Config\TaskConfig.cs" />
     <Compile Include="Tasks\Plugins\WindowsFeatureTaskConfig.cs" />
     <Compile Include="Tasks\Plugins\InstallChocolateyTask.cs" />
@@ -132,9 +134,9 @@
     <Compile Include="Config\IConfigFileReader.cs" />
     <Compile Include="Config\Yaml\IYamlConfigParser.cs" />
     <Compile Include="Config\Yaml\YamlConfigParser.cs" />
-    <Compile Include="Tasks\Runners\IPowershellRunner.cs" />
-    <Compile Include="Tasks\Runners\PowershellRunner.cs" />
-    <Compile Include="Tasks\Plugins\PowershellTask.cs" />
+    <Compile Include="Tasks\Plugins\Powershell\IPowershellRunner.cs" />
+    <Compile Include="Tasks\Plugins\Powershell\PowershellRunner.cs" />
+    <Compile Include="Tasks\Plugins\Powershell\PowershellTask.cs" />
     <Compile Include="Tasks\Plugins\WindowsFeatureTask.cs" />
     <Compile Include="Tasks\TypeManager.cs" />
   </ItemGroup>

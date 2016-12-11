@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using Autofac;
-using Remy.Core.Tasks.Runners;
+using Remy.Core.Tasks.Plugins.Powershell;
 using Serilog;
 using ILogger = Serilog.ILogger;
 
@@ -47,8 +47,9 @@ namespace Remy.Core.Tasks
 
 			// Powershell
 	        builder.RegisterType<PowershellRunner>().As<IPowershellRunner>();
+			builder.RegisterType<PowershellFileProvider>().As<IPowershellFileProvider>();
 
-	        builder.RegisterAssemblyTypes();		
+			builder.RegisterAssemblyTypes();		
 			var container = builder.Build();
 
 			var registeredTasks = new Dictionary<string, ITask>();
