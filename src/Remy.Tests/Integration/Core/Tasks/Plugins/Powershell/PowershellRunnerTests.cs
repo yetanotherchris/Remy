@@ -71,7 +71,7 @@ namespace Remy.Tests.Integration.Core.Tasks.Plugins.Powershell
 
             // then
             Assert.That(result, Is.False);
-            Assert.That(_logStringBuilder.ToString(), Does.Contain("sparklingdietcoke"));
+            Assert.That(_logStringBuilder.ToString(), Does.Contain("sparklingdietcoke"), _logStringBuilder.ToString());
 		}
 
 		[Test]

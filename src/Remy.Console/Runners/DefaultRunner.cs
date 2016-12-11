@@ -11,11 +11,13 @@ namespace Remy.Console.Runners
 	{
 		private readonly ILogger _logger;
 		private readonly IYamlConfigParser _yamlParser;
+		public string ConfigBaseDirectory { get; set; }
 
 		public DefaultRunner(ILogger logger, IYamlConfigParser yamlParser)
 		{
 			_logger = logger;
 			_yamlParser = yamlParser;
+			ConfigBaseDirectory = Directory.GetCurrentDirectory();
 		}
 
 		public void Run(string[] args)
@@ -37,12 +39,12 @@ namespace Remy.Console.Runners
 				});
 		}
 
-		private static Uri ParseConfigPath(string configPath, ILogger logger)
+		private Uri ParseConfigPath(string configPath, ILogger logger)
 		{
 			string fullPath = configPath;
 			if (string.IsNullOrEmpty(fullPath))
 			{
-				fullPath = Path.Combine(Directory.GetCurrentDirectory(), "remy.yml");
+				fullPath = Path.Combine(ConfigBaseDirectory, "remy.yml");
 			}
 
 			try
@@ -51,7 +53,7 @@ namespace Remy.Console.Runners
 				{
 					if (!fullPath.StartsWith("/") && !fullPath.StartsWith("./"))
 					{
-						fullPath = Path.Combine(Directory.GetCurrentDirectory(), fullPath);
+						fullPath = Path.Combine(ConfigBaseDirectory, fullPath);
 					}
 
 					fullPath = "file://" + fullPath;

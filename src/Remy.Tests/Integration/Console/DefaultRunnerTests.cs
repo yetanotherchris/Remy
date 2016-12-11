@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using NUnit.Framework;
@@ -12,6 +13,8 @@ using Serilog;
 
 namespace Remy.Tests.Integration.Console
 {
+	// While these tests use mocks, they are integration tests are they are testing the 
+	// DefaultRunner's config path lookups.
     [TestFixture]
     public class DefaultRunnerTests
 	{
@@ -44,6 +47,7 @@ namespace Remy.Tests.Integration.Console
 			};
 
 			var runner = new DefaultRunner(_logger, yamlConfigReader);
+			runner.ConfigBaseDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
 			// when
 			runner.Run(new string[0]);
@@ -56,6 +60,7 @@ namespace Remy.Tests.Integration.Console
 		public void Run_should_execute_tasks_from_custom_config()
 		{
 			// given
+
 			var mockTask = new MockTask();
 			var yamlConfigReader = new YamlConfigParserMock();
 			yamlConfigReader.ExpectedTasks = new List<ITask>()
@@ -64,6 +69,7 @@ namespace Remy.Tests.Integration.Console
 			};
 
 			var runner = new DefaultRunner(_logger, yamlConfigReader);
+			runner.ConfigBaseDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
 			// when
 			runner.Run(new string[] {"-c", "test-config.yml" });
@@ -84,6 +90,7 @@ namespace Remy.Tests.Integration.Console
 			};
 
 			var runner = new DefaultRunner(_logger, yamlConfigReader);
+			runner.ConfigBaseDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
 			// when
 			runner.Run(new string[] { "-c", "doesnt-exist.yml" });
