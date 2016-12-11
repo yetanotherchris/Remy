@@ -140,9 +140,7 @@
     <Compile Include="Tasks\Plugins\WindowsFeatureTask.cs" />
     <Compile Include="Tasks\TypeManager.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Tasks\Runners\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
