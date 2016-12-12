@@ -23,7 +23,7 @@ namespace Remy.Console.Runners
 
 		public void Run(string[] args)
 		{
-			var parser = new Parser(config => config.HelpWriter = System.Console.Out);
+			var parser = new Parser(config => config.HelpWriter = null);
 
 			parser.ParseArguments<Options>(args)
 				.WithParsed(options =>
@@ -39,8 +39,7 @@ namespace Remy.Console.Runners
 					}
 
 					System.Console.WriteLine("");
-				})
-				.WithNotParsed<Options>(x => System.Console.Write("test"));
+				});
 		}
 
 		private Uri ParseConfigPath(string configPath, ILogger logger)

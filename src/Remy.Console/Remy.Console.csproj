@@ -115,6 +115,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Help.cs" />
     <Compile Include="Runners\DefaultRunner.cs" />
     <Compile Include="Options.cs" />
     <Compile Include="Runners\PluginRunner.cs" />

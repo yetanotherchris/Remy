@@ -13,10 +13,9 @@ using ILogger = Serilog.ILogger;
 namespace Remy.Console
 {
 	//
+	// TODO: verbose mode
 	// TODO: readme for usage
 	// TODO: readme for plugin authoring
-	// TODO: add help property for plugins
-	// TODO: help for "remy.exe plugins" in console
 	// TODO: refactor program.cs and defaultrunner 
 	//
     public class Program
@@ -30,31 +29,35 @@ namespace Remy.Console
 
 	        try
 			{
-				if (args.Length == 1 && args[0] == "init")
+				if (args.Length == 1)
 				{
-					RunInitCommand(logger);
-					return;
+					if (args[0] == "-h" || args[0] == "--help" || args[0] == "help" || args[0] == "/?")
+					{
+						System.Console.Write(Help.GetHelpText());
+						return;
+					}
+					else if (args[0] == "init")
+					{
+						RunInitCommand(logger);
+						return;
+					}
 				}
-
-				if (args.Length >= 1 && args[0] == "plugins")
+				else if (args.Length >= 1 && args[0] == "plugins")
 				{
 					RunPluginsCommand(args, logger);
 					return;
 				}
-
-				RunMainCommands(args, logger);
+				else
+				{
+					RunMainCommands(args, logger);
+					return;
+				}
 			}
 			catch (Exception e)
 	        {
 		        logger.Error($"Unhandled error: {e.Message}");
 	        }
         }
-
-	    public static void ShowHelp()
-	    {
-		    var builder = new StringBuilder();
-		    builder.AppendLine();
-	    }
 
 		private static void RunMainCommands(string[] args, Serilog.Core.Logger logger)
 		{
