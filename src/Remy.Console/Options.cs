@@ -23,5 +23,5 @@ namespace Remy.Console
                 yield return new Example("Config file from a url", new Options { ConfigFile = "http://www.example.com/remy.yml" });
             }
         }
-    }
+	}
 }

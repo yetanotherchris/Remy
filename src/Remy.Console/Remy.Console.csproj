@@ -131,6 +131,9 @@
       <Name>Remy.Core</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="help.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>del "$(TargetDir)*.xml", "$(TargetDir)*.pdb"</PostBuildEvent>

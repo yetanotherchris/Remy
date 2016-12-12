@@ -29,51 +29,70 @@ namespace Remy.Console
                                 .CreateLogger();
 
 	        try
-	        {
+			{
 				if (args.Length == 1 && args[0] == "init")
 				{
-					var stringbuilder = new StringBuilder();
-					stringbuilder.AppendLine("name: \"Example file\"");
-					stringbuilder.AppendLine("tasks:");
-					stringbuilder.AppendLine("  -");
-					stringbuilder.AppendLine("    description: \"Says hello in powershell\"");
-					stringbuilder.AppendLine("    runner: powershell");
-					stringbuilder.AppendLine("    commands:");
-					stringbuilder.AppendLine("      - echo 'Hello from Remy!'");
-
-
-					string path = Path.Combine(Directory.GetCurrentDirectory(), "remy.yml");
-					File.WriteAllText(path, stringbuilder.ToString());
-					logger.Information("Example remy.yml file written. Now try running remy.exe again.");
-
+					RunInitCommand(logger);
 					return;
 				}
 
 				if (args.Length >= 1 && args[0] == "plugins")
 				{
-					// Parse "remy.exe plugins <command>"
-					var argsParser = new PluginRunner(logger);
-					string repositoryUrl = argsParser.GetNugetSource(args);
-
-					PluginManager pluginManager = CreatePluginManager(logger, repositoryUrl);
-					argsParser.Run(pluginManager, args);
-
+					RunPluginsCommand(args, logger);
 					return;
 				}
 
-				// Parse "remy.exe -c <file>" and defaults
-				Dictionary<string, ITask> registeredTasks = TypeManager.GetRegisteredTaskInstances(logger);
-				var configReader = new ConfigFileReader();
-				var parser = new YamlConfigParser(configReader, registeredTasks, logger);
-
-				var defaultArgsParser = new DefaultRunner(logger, parser);
-				defaultArgsParser.Run(args);
-	        }
-	        catch (Exception e)
+				RunMainCommands(args, logger);
+			}
+			catch (Exception e)
 	        {
 		        logger.Error($"Unhandled error: {e.Message}");
 	        }
         }
+
+	    public static void ShowHelp()
+	    {
+		    var builder = new StringBuilder();
+		    builder.AppendLine();
+	    }
+
+		private static void RunMainCommands(string[] args, Serilog.Core.Logger logger)
+		{
+			// Parse "remy.exe -c <file>" and defaults
+			Dictionary<string, ITask> registeredTasks = TypeManager.GetRegisteredTaskInstances(logger);
+			var configReader = new ConfigFileReader();
+			var parser = new YamlConfigParser(configReader, registeredTasks, logger);
+
+			var defaultArgsParser = new DefaultRunner(logger, parser);
+			defaultArgsParser.Run(args);
+		}
+
+		private static void RunPluginsCommand(string[] args, Serilog.Core.Logger logger)
+		{
+			// Parse "remy.exe plugins <command>"
+			var argsParser = new PluginRunner(logger);
+			string repositoryUrl = argsParser.GetNugetSource(args);
+
+			PluginManager pluginManager = CreatePluginManager(logger, repositoryUrl);
+			argsParser.Run(pluginManager, args);
+		}
+
+		private static void RunInitCommand(Serilog.Core.Logger logger)
+		{
+			var stringbuilder = new StringBuilder();
+			stringbuilder.AppendLine("name: \"Example file\"");
+			stringbuilder.AppendLine("tasks:");
+			stringbuilder.AppendLine("  -");
+			stringbuilder.AppendLine("    description: \"Says hello in powershell\"");
+			stringbuilder.AppendLine("    runner: powershell");
+			stringbuilder.AppendLine("    commands:");
+			stringbuilder.AppendLine("      - echo 'Hello from Remy!'");
+
+
+			string path = Path.Combine(Directory.GetCurrentDirectory(), "remy.yml");
+			File.WriteAllText(path, stringbuilder.ToString());
+			logger.Information("Example remy.yml file written. Now try running remy.exe again.");
+		}
 
 		private static PluginManager CreatePluginManager(ILogger logger, string repositoryUrl)
 		{
