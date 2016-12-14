@@ -124,7 +124,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Integration\Core\Config\ConfigFileReaderTests.cs" />
-    <Compile Include="Integration\Console\DefaultRunnerTests.cs" />
+    <None Include="Integration\Console\DefaultRunnerTests.cs" />
     <Compile Include="Integration\Console\ProgramTests.cs" />
     <Compile Include="Integration\Core\Tasks\Plugins\Powershell\PowershellFileProviderTests.cs" />
     <Compile Include="StubsAndMocks\Core\Tasks\Plugins\Powershell\PowershellFileProviderMock.cs" />
@@ -132,7 +132,7 @@
     <Compile Include="StubsAndMocks\Nuget\PackageRepositoryMock.cs" />
     <Compile Include="StubsAndMocks\Core\Config\Yaml\YamlConfigParserMock.cs" />
     <Compile Include="Unit\Console\HelpTests.cs" />
-    <Compile Include="Unit\Console\PluginRunnerTests.cs" />
+    <None Include="Unit\Console\PluginRunnerTests.cs" />
     <Compile Include="StubsAndMocks\Core\Tasks\PluginManagerMock.cs" />
     <Compile Include="Unit\Core\Config\Yaml\ExampleYaml.cs" />
     <Compile Include="StubsAndMocks\Core\Tasks\MockTask.cs" />
@@ -142,7 +142,7 @@
     <Compile Include="StubsAndMocks\Core\Config\Yaml\ConfigFileReaderMock.cs" />
     <Compile Include="Unit\Core\Tasks\PluginManagerTests.cs" />
     <Compile Include="Unit\Core\Tasks\Plugins\Powershell\PowershellFileTaskTests.cs" />
-    <Compile Include="Integration\Core\Tasks\TypeManagerTests.cs" />
+    <None Include="Integration\Core\Tasks\ServiceLocatorTests.cs" />
     <Compile Include="Unit\Core\Tasks\Plugins\InstallChocolateyTaskTests.cs" />
     <Compile Include="StubsAndMocks\Core\Tasks\Plugins\Powershell\PowershellRunnerMock.cs" />
     <Compile Include="Unit\Core\Tasks\Plugins\Powershell\PowershellTaskTests.cs" />

@@ -11,7 +11,7 @@ namespace Remy.Tests.Integration.Core.Tasks
 {
 	[TestFixture]
 	[Category("Foo")]
-	public class TypeManagerTests
+	public class ServiceLocatorTests
 	{
 		private ILogger _logger;
 		private string _currentDir;
@@ -49,7 +49,7 @@ namespace Remy.Tests.Integration.Core.Tasks
 		public void should_add_tasks_from_plugins_directory()
 		{
 			// given + when
-			Dictionary<string, ITask> tasks = TypeManager.GetRegisteredTaskInstances(_logger);
+			Dictionary<string, ITask> tasks = ServiceLocator.GetRegisteredTaskInstances(_logger);
 
 			// then
 			Assert.That(tasks.Count, Is.EqualTo(5));
