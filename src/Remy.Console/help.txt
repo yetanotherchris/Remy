@@ -1,0 +1,34 @@
+﻿Remy {version}
+A lightweight YAML-based Windows server configuration tool.
+
+[Usage]
+-c --configfile : The YAML configuration file to use.
+-v --verbose: Verbose output (information output).
+-h --help: This help screen
+init: creates a remy.yml file in the current working directory.
+
+[Plugins]
+remy list: lists all plugins found from the nuget server tagged with "remy-plugin".
+remy install <nuget id>: installs a plugin from the nuget server.
+
+You can add --source= to these commands to change the nuget server.
+e.g:
+
+remy.exe plugins install MyPrivatePlugin --source=http://my-nuget-server
+
+[Examples]
+.\remy.exe
+Runs all tasks from the remy.yml file in the current directory.
+
+.\remy.exe -c=c:\somepath\config.yml -v
+Runs all tasks from a remy.yml file in a custom location, with extra info.
+
+.\remy.exe --config=https://myserver.com/someconfig.yml
+Runs all tasks from a remy.yml file from a remote location, downloading.
+
+.\remy.exe init
+Creates a default remy.yml file.
+
+.\remy.exe plugins install MyId
+Installs a remy plugin with the nuget id "MyId"
+ 

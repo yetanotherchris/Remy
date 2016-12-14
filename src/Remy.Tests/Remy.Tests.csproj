@@ -131,6 +131,7 @@
     <Compile Include="StubsAndMocks\Nuget\PackageManagerMock.cs" />
     <Compile Include="StubsAndMocks\Nuget\PackageRepositoryMock.cs" />
     <Compile Include="StubsAndMocks\Core\Config\Yaml\YamlConfigParserMock.cs" />
+    <Compile Include="Unit\Console\HelpTests.cs" />
     <Compile Include="Unit\Console\PluginRunnerTests.cs" />
     <Compile Include="StubsAndMocks\Core\Tasks\PluginManagerMock.cs" />
     <Compile Include="Unit\Core\Config\Yaml\ExampleYaml.cs" />

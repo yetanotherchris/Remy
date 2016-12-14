@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Text;
 using CommandLine;
 using Remy.Core.Config.Yaml;
 using Remy.Core.Tasks;
@@ -22,7 +23,9 @@ namespace Remy.Console.Runners
 
 		public void Run(string[] args)
 		{
-			Parser.Default.ParseArguments<Options>(args)
+			var parser = new Parser(config => config.HelpWriter = null);
+
+			parser.ParseArguments<Options>(args)
 				.WithParsed(options =>
 				{
 					Uri uri = ParseConfigPath(options.ConfigFile, _logger);
@@ -37,6 +40,22 @@ namespace Remy.Console.Runners
 
 					System.Console.WriteLine("");
 				});
+		}
+
+
+		public void RunWithNoArgs()
+		{
+			Uri uri = ParseConfigPath("", _logger);
+			if (uri != null)
+			{
+				var tasks = _yamlParser.Parse(uri);
+				foreach (ITask task in tasks)
+				{
+					task.Run(_logger);
+				}
+			}
+
+			System.Console.WriteLine("");
 		}
 
 		private Uri ParseConfigPath(string configPath, ILogger logger)

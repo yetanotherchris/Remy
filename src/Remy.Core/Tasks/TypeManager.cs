@@ -58,7 +58,7 @@ namespace Remy.Core.Tasks
 			{
 				registeredTasks.Add(task.YamlName, task);
 
-				logger.Information($"Registered '{task.GetType().Name}' for '{task.YamlName}'");
+				logger.Debug($"Registered '{task.GetType().Name}' for '{task.YamlName}'");
 			}
 
 	        return registeredTasks;
