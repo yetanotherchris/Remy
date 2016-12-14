@@ -8,32 +8,43 @@ using Remy.Core.Config;
 using Remy.Core.Config.Yaml;
 using Remy.Core.Tasks;
 using Serilog;
+using Serilog.Core;
 using ILogger = Serilog.ILogger;
 
 namespace Remy.Console
 {
 	//
-	// TODO: verbose mode
 	// TODO: readme for usage
 	// TODO: readme for plugin authoring
-	// TODO: refactor program.cs and defaultrunner 
+	// TODO: refactor program.cs to use command pattern and https://github.com/fschwiet/ManyConsole
 	//
-    public class Program
+	public class Program
     {
         public static void Main(string[] args)
         {
-            var logger = new LoggerConfiguration()
+			var levelSwitch = new LoggingLevelSwitch();
+	        levelSwitch.MinimumLevel = Serilog.Events.LogEventLevel.Information;
+
+			var logger = new LoggerConfiguration()
+								.MinimumLevel.ControlledBy(levelSwitch)
                                 .WriteTo
                                 .LiterateConsole()
                                 .CreateLogger();
 
 	        try
 			{
-				if (args.Length == 1)
+				if (args.Length >= 1)
 				{
+					string allArgs = string.Join(" ", args);
+
+					if (allArgs.Contains("-v") || allArgs.Contains("--verbose"))
+					{
+						levelSwitch.MinimumLevel = Serilog.Events.LogEventLevel.Debug;
+					}
+
 					if (args[0] == "-h" || args[0] == "--help" || args[0] == "help" || args[0] == "/?")
 					{
-						System.Console.Write(Help.GetHelpText());
+						RunHelpCommand();
 						return;
 					}
 					else if (args[0] == "init")
@@ -41,17 +52,15 @@ namespace Remy.Console
 						RunInitCommand(logger);
 						return;
 					}
+					else if (args[0] == "plugins")
+					{
+						RunPluginsCommand(args, logger);
+						return;
+					}
 				}
-				else if (args.Length >= 1 && args[0] == "plugins")
-				{
-					RunPluginsCommand(args, logger);
-					return;
-				}
-				else
-				{
-					RunMainCommands(args, logger);
-					return;
-				}
+
+				RunConfigCommand(args, logger);
+				return;
 			}
 			catch (Exception e)
 	        {
@@ -59,18 +68,39 @@ namespace Remy.Console
 	        }
         }
 
-		private static void RunMainCommands(string[] args, Serilog.Core.Logger logger)
+		private static void RunHelpCommand()
 		{
+			string helpText = Help.GetHelpText();
+			System.Console.Write(helpText);
+		}
+
+		private static void RunConfigCommand(string[] args, ILogger logger)
+		{
+			// Temporary fix until we have Commands
+			string allArgs = "";
+			if (args.Length > 0)
+			{
+				allArgs = string.Join(" ", args);
+			}
+
 			// Parse "remy.exe -c <file>" and defaults
 			Dictionary<string, ITask> registeredTasks = TypeManager.GetRegisteredTaskInstances(logger);
 			var configReader = new ConfigFileReader();
 			var parser = new YamlConfigParser(configReader, registeredTasks, logger);
 
 			var defaultArgsParser = new DefaultRunner(logger, parser);
-			defaultArgsParser.Run(args);
+
+			if (allArgs.Contains("-c") || allArgs.Contains("--config"))
+			{
+				defaultArgsParser.Run(args);
+			}
+			else
+			{
+				defaultArgsParser.RunWithNoArgs();
+			}
 		}
 
-		private static void RunPluginsCommand(string[] args, Serilog.Core.Logger logger)
+		private static void RunPluginsCommand(string[] args, ILogger logger)
 		{
 			// Parse "remy.exe plugins <command>"
 			var argsParser = new PluginRunner(logger);
@@ -80,7 +110,7 @@ namespace Remy.Console
 			argsParser.Run(pluginManager, args);
 		}
 
-		private static void RunInitCommand(Serilog.Core.Logger logger)
+		private static void RunInitCommand(ILogger logger)
 		{
 			var stringbuilder = new StringBuilder();
 			stringbuilder.AppendLine("name: \"Example file\"");

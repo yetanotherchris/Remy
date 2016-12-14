@@ -42,6 +42,22 @@ namespace Remy.Console.Runners
 				});
 		}
 
+
+		public void RunWithNoArgs()
+		{
+			Uri uri = ParseConfigPath("", _logger);
+			if (uri != null)
+			{
+				var tasks = _yamlParser.Parse(uri);
+				foreach (ITask task in tasks)
+				{
+					task.Run(_logger);
+				}
+			}
+
+			System.Console.WriteLine("");
+		}
+
 		private Uri ParseConfigPath(string configPath, ILogger logger)
 		{
 			string fullPath = configPath;
