@@ -15,7 +15,7 @@ namespace Remy.Tests.Unit.Console
 
 			// then
 			Assert.That(helpText, Is.Not.Null.Or.Empty);
-			Assert.That(helpText, Does.Contain("[Usage]"));
+			Assert.That(helpText, Does.Contain("USAGE"));
 			Assert.That(helpText, Does.Contain($"Remy {fileVersionInfo}"));
 		}
 	}

@@ -13,7 +13,7 @@ namespace Remy.Tests.Unit.Core.Tasks.Plugins.Powershell
 	public class PowershellFileTaskTests
     {
 		private PowershellRunnerMock _runnerMock;
-	    private PowershellFileProviderMock _fileProviderMock;
+	    private FileProviderMock _fileProviderMock;
 		private StringBuilder _logStringBuilder;
 		private Logger _logger;
 
@@ -21,7 +21,7 @@ namespace Remy.Tests.Unit.Core.Tasks.Plugins.Powershell
 		public void Setup()
 		{
 			_runnerMock = new PowershellRunnerMock();
-			_fileProviderMock = new PowershellFileProviderMock();
+			_fileProviderMock = new FileProviderMock();
 
 			_logStringBuilder = new StringBuilder();
 			var logMessages = new StringWriter(_logStringBuilder);

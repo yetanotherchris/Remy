@@ -1,34 +1,38 @@
 ﻿Remy {version}
 A lightweight YAML-based Windows server configuration tool.
 
-[Usage]
--c --configfile : The YAML configuration file to use.
--v --verbose: Verbose output (information output).
--h --help: This help screen
-init: creates a remy.yml file in the current working directory.
+USAGE
+help -h --help /?
+   This help screen.
 
-[Plugins]
-remy list: lists all plugins found from the nuget server tagged with "remy-plugin".
-remy install <nuget id>: installs a plugin from the nuget server.
+run
+    Runs all the tasks from a YAML configuration file.
 
-You can add --source= to these commands to change the nuget server.
-e.g:
+    -c --configfile: The YAML configuration file to use (this can be file://, a url or a local path).
+    -v --verbose: Verbose output (debug output).
 
-remy.exe plugins install MyPrivatePlugin --source=http://my-nuget-server
+init
+    Creates an example remy.yml file in the current working directory.
 
-[Examples]
-.\remy.exe
-Runs all tasks from the remy.yml file in the current directory.
+plugins
+    Manages task plugins.
 
-.\remy.exe -c=c:\somepath\config.yml -v
-Runs all tasks from a remy.yml file in a custom location, with extra info.
+    --list: lists all plugins found from the nuget server tagged with "remy-plugin".
+    --install=<nuget id>: installs a plugin from the nuget server.
+    --source=<nuget repo>: change the nuget server.
 
-.\remy.exe --config=https://myserver.com/someconfig.yml
-Runs all tasks from a remy.yml file from a remote location, downloading.
+EXAMPLES
+    .\remy.exe run
+    Runs all tasks from the remy.yml file in the current directory.
 
-.\remy.exe init
-Creates a default remy.yml file.
+    .\remy.exe run -c=c:\somepath\config.yml -v
+    Runs all tasks from a remy.yml file in a custom location, with extra info.
 
-.\remy.exe plugins install MyId
-Installs a remy plugin with the nuget id "MyId"
- 
+    .\remy.exe run --config=https://myserver.com/someconfig.yml
+    Runs all tasks from a remy.yml file from a remote location, downloading.
+
+    .\remy.exe init
+    Creates a default remy.yml file.
+
+    .\remy.exe plugins --install=MyPluginId
+    Installs a remy plugin with the nuget id "MyId"

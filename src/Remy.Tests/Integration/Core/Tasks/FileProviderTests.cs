@@ -2,14 +2,15 @@
 using System.IO;
 using System.Text;
 using NUnit.Framework;
+using Remy.Core.Tasks.Plugins;
 using Remy.Core.Tasks.Plugins.Powershell;
 using Serilog;
 
-namespace Remy.Tests.Integration.Core.Tasks.Plugins.Powershell
+namespace Remy.Tests.Integration.Core.Tasks
 {
     [TestFixture]
-	public class PowershellFileProviderTests
-    {
+	public class FileProviderTests
+	{
 		private ILogger _logger;
 		private StringBuilder _logStringBuilder;
 
@@ -29,7 +30,7 @@ namespace Remy.Tests.Integration.Core.Tasks.Plugins.Powershell
 		public void Download_should_get_remote_content()
 		{
 			// given
-			var provider = new PowershellFileProvider(_logger);
+			var provider = new FileProvider(_logger);
 			Uri uri = new Uri("http://www.example.com");
 			
 			// when
@@ -43,7 +44,7 @@ namespace Remy.Tests.Integration.Core.Tasks.Plugins.Powershell
 		public void GetDefaultDirectory_should_return_current_directory()
 		{
 			// given
-			var provider = new PowershellFileProvider(_logger);
+			var provider = new FileProvider(_logger);
 			string expectedDirectory = Directory.GetCurrentDirectory();
 
 			// when
@@ -57,7 +58,7 @@ namespace Remy.Tests.Integration.Core.Tasks.Plugins.Powershell
 		public void GetTemporaryFilePath_should_write_to_disk_with_ps1_extension()
 		{
 			// given
-			var provider = new PowershellFileProvider(_logger);
+			var provider = new FileProvider(_logger);
 			string tempPath = Path.GetDirectoryName(Path.GetTempFileName());
 
 			// when

@@ -1,61 +1,42 @@
 using System;
 using System.IO;
-using System.Text;
+using Autofac;
 using CommandLine;
 using Remy.Core.Config.Yaml;
 using Remy.Core.Tasks;
-using ILogger = Serilog.ILogger;
+using Serilog;
 
-namespace Remy.Console.Runners
+namespace Remy.Console.Commands
 {
-	public class DefaultRunner
+	public class RunCommand : ICommand
 	{
-		private readonly ILogger _logger;
-		private readonly IYamlConfigParser _yamlParser;
-		public string ConfigBaseDirectory { get; set; }
+		[Option('c', "configfile", Required = false)]
+		public string ConfigFile { get; set; }
 
-		public DefaultRunner(ILogger logger, IYamlConfigParser yamlParser)
+		[Option('v', "verbose", Required = false)]
+		public bool VerboseLogging { get; set; }
+
+		public ILogger Logger { get; set; }
+		internal string ConfigBaseDirectory { get; set; }
+
+		public RunCommand()
 		{
-			_logger = logger;
-			_yamlParser = yamlParser;
 			ConfigBaseDirectory = Directory.GetCurrentDirectory();
 		}
 
-		public void Run(string[] args)
+		public void Run(IServiceLocator serviceLocator)
 		{
-			var parser = new Parser(config => config.HelpWriter = null);
+			var yamlParser = serviceLocator.Container.Resolve<IYamlConfigParser>();
 
-			parser.ParseArguments<Options>(args)
-				.WithParsed(options =>
-				{
-					Uri uri = ParseConfigPath(options.ConfigFile, _logger);
-					if (uri != null)
-					{
-						var tasks = _yamlParser.Parse(uri);
-						foreach (ITask task in tasks)
-						{
-							task.Run(_logger);
-						}
-					}
-
-					System.Console.WriteLine("");
-				});
-		}
-
-
-		public void RunWithNoArgs()
-		{
-			Uri uri = ParseConfigPath("", _logger);
+			Uri uri = ParseConfigPath(ConfigFile, Logger);
 			if (uri != null)
 			{
-				var tasks = _yamlParser.Parse(uri);
+				var tasks = yamlParser.Parse(uri);
 				foreach (ITask task in tasks)
 				{
-					task.Run(_logger);
+					task.Run(Logger);
 				}
 			}
-
-			System.Console.WriteLine("");
 		}
 
 		private Uri ParseConfigPath(string configPath, ILogger logger)
