@@ -115,6 +115,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Help.cs" />
     <Compile Include="Runners\DefaultRunner.cs" />
     <Compile Include="Options.cs" />
     <Compile Include="Runners\PluginRunner.cs" />
@@ -130,6 +131,9 @@
       <Project>{8b73fd1c-33a5-4911-9ad9-632da90cd8c8}</Project>
       <Name>Remy.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="help.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
