@@ -31,3 +31,4 @@ Creates a default remy.yml file.
 
 .\remy.exe plugins install MyId
 Installs a remy plugin with the nuget id "MyId"
+ 

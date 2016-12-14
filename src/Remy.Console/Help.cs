@@ -9,11 +9,8 @@ namespace Remy.Console
 	{
 		public static string GetHelpText()
 		{
-			var fileVersionInfo = FileVersionInfo.GetVersionInfo(typeof(Help).Assembly.Location);
-			string version = fileVersionInfo.ProductVersion;
-			
 			return GetStringFromResource("Remy.Console.help.txt")
-					.Replace("{version}", version);
+					.Replace("{version}", GetVersion());
 		}
 
 		private static string GetStringFromResource(string path)
@@ -32,6 +29,16 @@ namespace Remy.Console
 			}
 
 			return result;
+		}
+
+		/// <summary>
+		/// This version number WILL NOT match the one produced by Appveyor - appveyor patches the AssemblyInfo.cs file.
+		/// The version number here is only ever used for development.
+		/// </summary>
+		/// <returns></returns>
+		internal static string GetVersion()
+		{
+			return typeof(Help).Assembly.GetName().Version.ToString();
 		}
 	}
 }
