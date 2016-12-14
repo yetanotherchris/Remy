@@ -13,10 +13,26 @@ Its not a replacement nor trying to compete with: Chef, Ansible, Puppet or Salt.
 
 ## Getting started
 
-All tasks are defined in a YAML file. By default Remy will look in the current directory for "remy.yml" and use this for configuration. You can also specify a path for the configuration from a file or url:
+Full examples are available with the help command:
 
-    .\remy.exe --config=c:\somepath\config.yml
-    .\remy.exe --config=https://raw.githubusercontent.com/yetanotherchris/Remy/master/someconfig.yml
+    .\remy.exe help
+    .\remy.exe /? ... and other variations
+
+All tasks are defined in a YAML file. By default Remy will look in the current directory for "remy.yml" and use this for configuration. 
+
+	.\remy.exe init
+    .\remy.exe run
+
+You can also specify a path for the configuration from a file or url:
+
+    .\remy.exe run --config=c:\somepath\config.yml
+    .\remy.exe run --config=https://raw.githubusercontent.com/yetanotherchris/Remy/master/someconfig.yml
+
+You can write your own tasks for remy, as plugins (more info below) - these are hosted on a nuget server with the tag "remy-plugin":
+
+	.\remy.exe plugins --list
+    .\remy.exe plugins --install MyPlugin 
+    .\remy.exe run
   
 ## Example YAML configuration
 
@@ -39,15 +55,16 @@ A basic example, this installs IIS and .NET:
           - MSMQ
           - WAS
 
-This is a more advanced example
+This is a more advanced example. Note all Powershell scripts are run with "unrestricted" privileges - you're assumed to be responsible enough to know what you're running. If there is any doubt the remote script isn't trusted, test it first.
 
     name: "Advanced example"
     tasks:
-      - 
-        description: "Update execution policy for Powershell"
-        runner: execution-policy
-        policy: unrestricted
-      - 
+      -
+        description: "powershell example"
+        runner: powershell
+        commands:
+          - echo "Hello world"
+      -
         description: "Install chocolatey"
         runner: install-chocolatey
       -
@@ -60,38 +77,16 @@ This is a more advanced example
           - NET-Framework-Features
           - NET-Framework-45-ASPNET
           - Application-Server
-    - 
-      description: "Install Octopus"
-      runner: octopus-tentacle
-      config:
-        -
-          name: "KEY1"
-          value: "xyz"
-        -
-          name: "KEY2"
-          value: "xyz"
-      - 
-        description: "Set file permissions"
-        runner: acl
-        user: Local Service
-        directory: "c:\windows\temp"
-      - 
-        description: "Disable firewall"
-        runner: toggle-firewall
-        enable: false
-      - 
-        description: "Install WebApi"
-        runner: install-webpi
     
 ## Plugins
 
 You can load custom tasks via plugins in Remy. There are various commands available:
 
 ```
-remy.exe plugins list
-remy.exe plugins install MyPlugin 
-remy.exe plugins list --source=http://my-nuget-server
-remy.exe plugins install MyPrivatePlugin --source=http://my-nuget-server
+remy.exe plugins --list
+remy.exe plugins --install=MyPlugin 
+remy.exe plugins --list --source=http://my-nuget-server
+remy.exe plugins --install=MyPrivatePlugin --source=http://my-nuget-server
 ```
 
 Remy uses Nuget to download and install plugins into the `plugins/` under the directory remy.exe is running from. To find plugins, Remy searches nuget.org (or your custom nuget repository) for all packages with the `remy-plugin` tags.
@@ -99,12 +94,10 @@ Remy uses Nuget to download and install plugins into the `plugins/` under the di
 
 ### Writing your own Plugin
 
-Better docs coming soon.
-
 Plugins are simple to write:
 
 1. `install-package Remy.Core`
 2. Implement `ITask`
 3. If you require custom elements in the YAML file for your task, implement `ITaskConfig`. See the [WindowsFeatureTask](https://github.com/yetanotherchris/Remy/blob/master/src/Remy.Core/Tasks/Plugins/WindowsFeatureTask.cs) and [WindowsFeatureTaskConfig](https://github.com/yetanotherchris/Remy/blob/master/src/Remy.Core/Tasks/Plugins/WindowsFeatureTaskConfig.cs) files for examples. The `SetConfiguration` method is the important part.
-
-You should then pack and push your plugin onto nuget.org or your custom nuget server, and tag it with "remy-plugin" in the nuspec file.
+4. The easiest way to debug is to clone Remy, and add a project dependency in `Remy.Core` to your plugin. It will then find your plugin when loading.
+5. Once you're done, pack and push to nuget with the tag "remy-plugin".

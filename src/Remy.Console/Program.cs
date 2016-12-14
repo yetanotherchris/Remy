@@ -11,7 +11,7 @@ namespace Remy.Console
     {
         public static void Main(string[] args)
         {
-			if (args[0] == "-h" || args[0] == "--help" || args[0] == "help" || args[0] == "/?")
+			if (args.Length == 0 || args[0] == "-h" || args[0] == "--help" || args[0] == "help" || args[0] == "/?")
 			{
 				ShowHelp();
 				return;
@@ -26,8 +26,8 @@ namespace Remy.Console
                                 .LiterateConsole()
                                 .CreateLogger();
 
-			var iocBuilder = new ServiceLocator(logger);
-			iocBuilder.BuildContainer();
+			var serviceLocator = new ServiceLocator(logger);
+			serviceLocator.BuildContainer();
 
 			try
 			{
@@ -57,7 +57,7 @@ namespace Remy.Console
 					}
 
 					command.Logger = logger;
-					command.Run(iocBuilder);
+					command.Run(serviceLocator);
 				}
 			}
 			catch (Exception e)
