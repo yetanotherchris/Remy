@@ -99,6 +99,8 @@ Remy uses Nuget to download and install plugins into the `plugins/` under the di
 
 ### Writing your own Plugin
 
+Better docs coming soon.
+
 Plugins are simple to write:
 
 1. `install-package Remy.Core`
