@@ -133,7 +133,7 @@
     <Compile Include="StubsAndMocks\Core\Config\Yaml\YamlConfigParserMock.cs" />
     <Compile Include="StubsAndMocks\Core\Tasks\ServiceLocatorMock.cs" />
     <Compile Include="Unit\Console\HelpTests.cs" />
-    <None Include="Unit\Console\Commands\PluginCommandTests.cs" />
+    <Compile Include="Unit\Console\Commands\PluginCommandTests.cs" />
     <Compile Include="StubsAndMocks\Core\Tasks\PluginManagerMock.cs" />
     <Compile Include="Unit\Core\Config\Yaml\ExampleYaml.cs" />
     <Compile Include="StubsAndMocks\Core\Tasks\MockTask.cs" />

@@ -38,10 +38,11 @@ namespace Remy.Console.Commands
 
 		public void Run(IServiceLocator serviceLocator)
 		{
-			if (!string.IsNullOrEmpty(Source))
+			if (string.IsNullOrEmpty(Source))
 			{
 				Source = "https://packages.nuget.org/api/v2";
 			}
+
 			Logger.Information($"Using nuget repository '{Source}'");
 
 			if (_pluginManager == null)

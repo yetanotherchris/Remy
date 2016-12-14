@@ -2,11 +2,12 @@
 using System.Text;
 using NuGet;
 using NUnit.Framework;
+using Remy.Console.Commands;
 using Remy.Tests.StubsAndMocks.Core.Tasks;
 using Serilog;
 using ILogger = Serilog.ILogger;
 
-namespace Remy.Tests.Unit.Console
+namespace Remy.Tests.Unit.Console.Commands
 {
 	[TestFixture]
 	public class PluginCommandTests
@@ -30,7 +31,8 @@ namespace Remy.Tests.Unit.Console
 		public void Run_should_parse_list_command()
 		{
 			// Arrange
-			var parser = new PluginRunner(_logger);
+			var locator = new ServiceLocatorMock();
+
 			var pluginManager = new PluginManagerMock();
 			pluginManager.Packages.Add(new DataServicePackage()
 			{
@@ -48,13 +50,15 @@ namespace Remy.Tests.Unit.Console
 				Version = "1.0.1"
 			});
 
-			string[] args = {"plugins", "list"};
+			var command = new PluginsCommand(pluginManager);
+			command.Logger = _logger;
+			command.List = true;
 
 			// Act
-			parser.Run(pluginManager, args);
+			command.Run(locator);
 
 			// Assert
-			Assert.That(_logStringBuilder.ToString(), Does.Contain("Plugins available (tagged 'remy-plugin' on nuget.org):"));
+			Assert.That(_logStringBuilder.ToString(), Does.Contain("Plugins available (tagged 'remy-plugin'):"));
 			Assert.That(_logStringBuilder.ToString(), Does.Contain("SilverBack - This plugin gives the Silverback framework a banana."));
 			Assert.That(_logStringBuilder.ToString(), Does.Contain("BumsOnATrain 1.0.1 - Choo choo."));
 		}
@@ -63,7 +67,8 @@ namespace Remy.Tests.Unit.Console
 		public void Run_should_parse_install_command()
 		{
 			// Arrange
-			var parser = new PluginRunner(_logger);
+			var locator = new ServiceLocatorMock();
+
 			var pluginManager = new PluginManagerMock();
 			pluginManager.Packages.Add(new DataServicePackage()
 			{
@@ -72,10 +77,12 @@ namespace Remy.Tests.Unit.Console
 				IsLatestVersion = true
 			});
 
-			string[] args = { "plugins", "install", "DonkeyKong" };
+			var command = new PluginsCommand(pluginManager);
+			command.Logger = _logger;
+			command.Install = "DonkeyKong";
 
 			// Act
-			parser.Run(pluginManager, args);
+			command.Run(locator);
 
 			// Assert
 			Assert.That(_logStringBuilder.ToString(), Does.Contain("Downloading plugin 'DonkeyKong'"));
@@ -86,32 +93,18 @@ namespace Remy.Tests.Unit.Console
 		public void GetNugetSource_should_default_to_nuget_repo()
 		{
 			// Arrange
-			var parser = new PluginRunner(_logger);
+			var locator = new ServiceLocatorMock();
 			var pluginManager = new PluginManagerMock();
 
-			string[] args = { "plugins", "install", "ThePackage" };
+			var command = new PluginsCommand(pluginManager);
+			command.Logger = _logger;
+			command.Install = "ThePackage";
 
 			// Act
-			string nugetSource = parser.GetNugetSource(args);
+			command.Run(locator);
 
 			// Assert
-			Assert.That(nugetSource, Is.EqualTo("https://packages.nuget.org/api/v2"));
-		}
-
-		[Test]
-		public void GetNugetSource_should_parse_nuget_source_arg()
-		{
-			// Arrange
-			var parser = new PluginRunner(_logger);
-			var pluginManager = new PluginManagerMock();
-
-			string[] args = { "plugins", "install", "ThePackage", "--source=http://www.example.com" };
-
-			// Act
-			string nugetSource = parser.GetNugetSource(args);
-
-			// Assert
-			Assert.That(nugetSource, Is.EqualTo("http://www.example.com"));
+			Assert.That(command.Source, Is.EqualTo("https://packages.nuget.org/api/v2"));
 		}
 	}
 }
