@@ -9,7 +9,7 @@ using ILogger = Serilog.ILogger;
 namespace Remy.Tests.Unit.Console
 {
 	[TestFixture]
-	public class PluginRunnerTests
+	public class PluginCommandTests
 	{
 		private ILogger _logger;
 		private StringBuilder _logStringBuilder;

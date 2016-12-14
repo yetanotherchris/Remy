@@ -25,6 +25,8 @@ namespace Remy.Tests.StubsAndMocks.Core.Tasks
         public void Run(ILogger logger)
         {
 			HasRun = true;
+	        logger.Debug("MockTask run debug log");
+	        logger.Information("MockTask run info log");
         }
     }
 }

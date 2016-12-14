@@ -28,7 +28,7 @@ namespace Remy.Console.Commands
 		{
 			var yamlParser = serviceLocator.Container.Resolve<IYamlConfigParser>();
 
-			Uri uri = ParseConfigPath("", Logger);
+			Uri uri = ParseConfigPath(ConfigFile, Logger);
 			if (uri != null)
 			{
 				var tasks = yamlParser.Parse(uri);

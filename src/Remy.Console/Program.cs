@@ -7,17 +7,13 @@ using Serilog.Core;
 
 namespace Remy.Console
 {
-	//
-	// TODO: readme for usage
-	// TODO: readme for plugin authoring
-	//
 	public class Program
     {
         public static void Main(string[] args)
         {
 			if (args[0] == "-h" || args[0] == "--help" || args[0] == "help" || args[0] == "/?")
 			{
-				RunHelpCommand();
+				ShowHelp();
 				return;
 			}
 
@@ -39,11 +35,19 @@ namespace Remy.Console
 				object invokedVerbInstance = null;
 				var parser = new Parser(config => config.HelpWriter = null);
 
-				bool ok = parser.ParseArguments(args, options, (verb, subOptions) =>
+				// Parse the command line arguments
+				bool parseSuccess = parser.ParseArguments(args, options, (verb, verbInstance) =>
 				{
-					invokedVerbInstance = subOptions;
+					invokedVerbInstance = verbInstance;
 				});
 
+				if (!parseSuccess)
+				{
+					ShowHelp();
+					return;
+				}
+
+				// Execute the ICommand that the CommandLineParser found
 				var command = invokedVerbInstance as ICommand;
 				if (command != null)
 				{
@@ -62,7 +66,7 @@ namespace Remy.Console
 	        }
         }
 
-		private static void RunHelpCommand()
+		private static void ShowHelp()
 		{
 			string helpText = Help.GetHelpText();
 			System.Console.Write(helpText);

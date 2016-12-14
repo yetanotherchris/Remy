@@ -124,15 +124,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Integration\Core\Config\ConfigFileReaderTests.cs" />
-    <None Include="Integration\Console\DefaultRunnerTests.cs" />
+    <Compile Include="Unit\Console\Commands\RunCommandTests.cs" />
     <Compile Include="Integration\Console\ProgramTests.cs" />
     <Compile Include="Integration\Core\Tasks\Plugins\Powershell\PowershellFileProviderTests.cs" />
     <Compile Include="StubsAndMocks\Core\Tasks\Plugins\Powershell\PowershellFileProviderMock.cs" />
     <Compile Include="StubsAndMocks\Nuget\PackageManagerMock.cs" />
     <Compile Include="StubsAndMocks\Nuget\PackageRepositoryMock.cs" />
     <Compile Include="StubsAndMocks\Core\Config\Yaml\YamlConfigParserMock.cs" />
+    <Compile Include="StubsAndMocks\Core\Tasks\ServiceLocatorMock.cs" />
     <Compile Include="Unit\Console\HelpTests.cs" />
-    <None Include="Unit\Console\PluginRunnerTests.cs" />
+    <None Include="Unit\Console\Commands\PluginCommandTests.cs" />
     <Compile Include="StubsAndMocks\Core\Tasks\PluginManagerMock.cs" />
     <Compile Include="Unit\Core\Config\Yaml\ExampleYaml.cs" />
     <Compile Include="StubsAndMocks\Core\Tasks\MockTask.cs" />
