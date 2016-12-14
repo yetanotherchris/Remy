@@ -121,8 +121,8 @@
     <Compile Include="Tasks\IServiceLocator.cs" />
     <Compile Include="Tasks\IPluginManager.cs" />
     <Compile Include="Tasks\PluginManager.cs" />
-    <Compile Include="Tasks\Plugins\Powershell\IPowershellFileProvider.cs" />
-    <Compile Include="Tasks\Plugins\Powershell\PowershellFileProvider.cs" />
+    <Compile Include="Tasks\IFileProvider.cs" />
+    <Compile Include="Tasks\Plugins\FileProvider.cs" />
     <Compile Include="Tasks\Plugins\Powershell\PowershellFileTask.cs" />
     <Compile Include="Tasks\Plugins\Powershell\PowershellFileTaskConfig.cs" />
     <Compile Include="Tasks\Plugins\Powershell\PowershellTaskConfig.cs" />

@@ -10,15 +10,15 @@ namespace Remy.Core.Tasks.Plugins.Powershell
     public class PowershellFileTask : ITask
     {
         private PowershellFileTaskConfig _config;
-	    private readonly IPowershellFileProvider _powershellFileProvider;
+	    private readonly IFileProvider _fileProvider;
 	    private readonly IPowershellRunner _powershellRunner;
 
 	    public ITaskConfig Config => _config;
         public string YamlName => "powershell-file";
 
-		public PowershellFileTask(IPowershellFileProvider powershellFileProvider, IPowershellRunner powershellRunner)
+		public PowershellFileTask(IFileProvider fileProvider, IPowershellRunner powershellRunner)
 		{
-			_powershellFileProvider = powershellFileProvider;
+			_fileProvider = fileProvider;
 			_powershellRunner = powershellRunner;
 		}
 
@@ -63,8 +63,8 @@ namespace Remy.Core.Tasks.Plugins.Powershell
 			    try
 			    {
 				    Uri remoteUri = new Uri(uri);
-				    string powershellText = _powershellFileProvider.Download(remoteUri);
-				    string tempFilename = _powershellFileProvider.WriteTemporaryFile(powershellText);
+				    string powershellText = _fileProvider.Download(remoteUri);
+				    string tempFilename = _fileProvider.WriteTemporaryFile(powershellText);
 
 				    return tempFilename;
 			    }
@@ -86,11 +86,11 @@ namespace Remy.Core.Tasks.Plugins.Powershell
 				//
 			    if (uri.StartsWith("./"))
 			    {
-				    uri = Path.Combine(_powershellFileProvider.GetCurrentDirectory(), uri);
+				    uri = Path.Combine(_fileProvider.GetCurrentDirectory(), uri);
 			    }
 				else if (!uri.Contains(Environment.NewLine))
 			    {
-					uri = Path.Combine(_powershellFileProvider.GetCurrentDirectory(), uri);
+					uri = Path.Combine(_fileProvider.GetCurrentDirectory(), uri);
 				}
 
 			    Uri fileUri = new Uri("file://" + uri);

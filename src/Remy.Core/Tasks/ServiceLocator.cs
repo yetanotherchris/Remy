@@ -5,6 +5,7 @@ using System.Reflection;
 using Autofac;
 using Remy.Core.Config;
 using Remy.Core.Config.Yaml;
+using Remy.Core.Tasks.Plugins;
 using Remy.Core.Tasks.Plugins.Powershell;
 using Serilog.Core;
 using ILogger = Serilog.ILogger;
@@ -54,7 +55,7 @@ namespace Remy.Core.Tasks
 
 			// Powershell
 			_builder.RegisterType<PowershellRunner>().As<IPowershellRunner>();
-			_builder.RegisterType<PowershellFileProvider>().As<IPowershellFileProvider>();
+			_builder.RegisterType<FileProvider>().As<IFileProvider>();
 
 			// YAML
 			_builder.RegisterType<ConfigFileReader>().As<IConfigFileReader>();

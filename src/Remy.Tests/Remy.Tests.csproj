@@ -124,9 +124,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Integration\Core\Config\ConfigFileReaderTests.cs" />
+    <Compile Include="Unit\Console\Commands\InitCommandTests.cs" />
     <Compile Include="Unit\Console\Commands\RunCommandTests.cs" />
     <Compile Include="Integration\Console\ProgramTests.cs" />
-    <Compile Include="Integration\Core\Tasks\Plugins\Powershell\PowershellFileProviderTests.cs" />
+    <Compile Include="Integration\Core\Tasks\FileProviderTests.cs" />
     <Compile Include="StubsAndMocks\Core\Tasks\Plugins\Powershell\PowershellFileProviderMock.cs" />
     <Compile Include="StubsAndMocks\Nuget\PackageManagerMock.cs" />
     <Compile Include="StubsAndMocks\Nuget\PackageRepositoryMock.cs" />
