@@ -8,10 +8,12 @@ namespace Remy.Core.Tasks.Plugins
 	public class FileProvider : IFileProvider
 	{
 		private readonly ILogger _logger;
+		public string TempFileExtension { get; set; }
 
 		public FileProvider(ILogger logger)
 		{
 			_logger = logger;
+			TempFileExtension = ".ps1";
 		}
 
 		public string Download(Uri uri)
@@ -20,11 +22,11 @@ namespace Remy.Core.Tasks.Plugins
 		}
 
 		/// <summary>
-		/// Writes the powershell script contents to a temporary file, and returns the path including the .ps1 extension.
+		/// Writes the powershell script contents to a temporary file, and returns the path (by default including a .ps1 extension).
 		/// </summary>
 		public string WriteTemporaryFile(string fileContent)
 		{
-			string tempFilename = Path.GetTempFileName() + ".ps1";
+			string tempFilename = Path.GetTempFileName() + TempFileExtension;
 
 			if (string.IsNullOrEmpty(tempFilename))
 			{

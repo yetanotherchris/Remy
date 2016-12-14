@@ -7,8 +7,6 @@ using Remy.Console;
 
 namespace Remy.Tests.Integration.Console
 {
-	// Tests with actual Nuget downloads
-
 	[TestFixture]
 	public class ProgramTests
 	{
@@ -21,7 +19,7 @@ namespace Remy.Tests.Integration.Console
 			if (Directory.Exists(pluginsPath))
 				Directory.Delete(pluginsPath, true);
 
-			string[] args = { "plugins", "install", "NUnit" };
+			string[] args = { "plugins", "--install=NUnit" };
 
 			// Act
 			Program.Main(args);

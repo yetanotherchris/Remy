@@ -2,8 +2,13 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Autofac;
 using NUnit.Framework;
+using Remy.Core.Config;
+using Remy.Core.Config.Yaml;
 using Remy.Core.Tasks;
+using Remy.Core.Tasks.Plugins;
+using Remy.Core.Tasks.Plugins.Powershell;
 using Remy.Tests.StubsAndMocks.Core.Tasks;
 using Serilog;
 
@@ -44,12 +49,34 @@ namespace Remy.Tests.Integration.Core.Tasks
 		{
 			Directory.Delete(_pluginsDirectory, true);
 		}
-		
+
+		[Test]
+		public void should_register_remy_types()
+		{
+			// given
+			var serviceLocator = new ServiceLocator(_logger);
+			serviceLocator.BuildContainer();
+
+			// when
+			IContainer container = serviceLocator.Container;
+
+			// then
+			Assert.That(container.Resolve<IPowershellRunner>, Is.TypeOf<PowershellRunner>());
+			Assert.That(container.Resolve<IFileProvider>, Is.TypeOf<FileProvider>());
+			Assert.That(container.Resolve<IConfigFileReader>, Is.TypeOf<ConfigFileReader>());
+			Assert.That(container.Resolve<ILogger>, Is.Not.Null);
+			Assert.That(container.Resolve<IYamlConfigParser>, Is.TypeOf<YamlConfigParser>());
+		}
+
 		[Test]
 		public void should_add_tasks_from_plugins_directory()
 		{
 			// given + when
-			Dictionary<string, ITask> tasks = ServiceLocator.GetRegisteredTaskInstances(_logger);
+			var serviceLocator = new ServiceLocator(_logger);
+			serviceLocator.BuildContainer();
+			IEnumerable<ITask> taskInstances = serviceLocator.Container.Resolve<IEnumerable<ITask>>();
+
+			Dictionary<string, ITask> tasks = serviceLocator.TasksAsDictionary(taskInstances);
 
 			// then
 			Assert.That(tasks.Count, Is.EqualTo(5));

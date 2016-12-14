@@ -144,7 +144,7 @@
     <Compile Include="StubsAndMocks\Core\Config\Yaml\ConfigFileReaderMock.cs" />
     <Compile Include="Unit\Core\Tasks\PluginManagerTests.cs" />
     <Compile Include="Unit\Core\Tasks\Plugins\Powershell\PowershellFileTaskTests.cs" />
-    <None Include="Integration\Core\Tasks\ServiceLocatorTests.cs" />
+    <Compile Include="Integration\Core\Tasks\ServiceLocatorTests.cs" />
     <Compile Include="Unit\Core\Tasks\Plugins\InstallChocolateyTaskTests.cs" />
     <Compile Include="StubsAndMocks\Core\Tasks\Plugins\Powershell\PowershellRunnerMock.cs" />
     <Compile Include="Unit\Core\Tasks\Plugins\Powershell\PowershellTaskTests.cs" />
