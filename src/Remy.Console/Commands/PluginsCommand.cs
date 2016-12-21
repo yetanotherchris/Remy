@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using Autofac;
 using CommandLine;
 using NuGet;
 using Remy.Core.Tasks;

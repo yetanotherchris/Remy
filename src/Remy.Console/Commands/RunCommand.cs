@@ -1,6 +1,5 @@
 using System;
 using System.IO;
-using Autofac;
 using CommandLine;
 using Remy.Core.Config.Yaml;
 using Remy.Core.Tasks;
@@ -26,7 +25,7 @@ namespace Remy.Console.Commands
 
 		public void Run(IServiceLocator serviceLocator)
 		{
-			var yamlParser = serviceLocator.Container.Resolve<IYamlConfigParser>();
+			var yamlParser = serviceLocator.Container.GetInstance<IYamlConfigParser>();
 
 			Uri uri = ParseConfigPath(ConfigFile, Logger);
 			if (uri != null)

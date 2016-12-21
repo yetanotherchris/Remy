@@ -1,76 +1,79 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
-using Autofac;
 using Remy.Core.Config;
 using Remy.Core.Config.Yaml;
 using Remy.Core.Tasks.Plugins;
 using Remy.Core.Tasks.Plugins.Powershell;
 using Serilog.Core;
+using StructureMap;
+using StructureMap.Graph;
 using ILogger = Serilog.ILogger;
 
 namespace Remy.Core.Tasks
 {
-    public class ServiceLocator : IServiceLocator
+	public class ServiceLocator : IServiceLocator
 	{
-	    private readonly ILogger _logger;
-	    private readonly ContainerBuilder _builder;
-	    public IContainer Container { get; set; }
+		private readonly ILogger _logger;
+		public IContainer Container { get; set; }
 
-	    public ServiceLocator(ILogger logger)
-	    {
-		    _logger = logger;
-		    _builder = new ContainerBuilder();
+		public ServiceLocator(ILogger logger)
+		{
+			_logger = logger;
 		}
 
-	    public void BuildContainer()
-	    {
-			Type type = typeof(ITask);
-			List<Assembly> assemblies = new List<Assembly>();
-			assemblies.Add(typeof(ITask).Assembly);
-
-			string pluginDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "plugins");
-			if (Directory.Exists(pluginDirectory))
+		public void BuildContainer()
+		{
+			Container = new Container(c =>
 			{
-				IEnumerable<string> assemblyPaths = Directory.EnumerateFiles(pluginDirectory, "*.dll", SearchOption.AllDirectories);
+				c.AddRegistry(new PluginsRegistry(_logger));
+			});
+		}
 
-				foreach (string path in assemblyPaths)
-				{
-					var fullPath = new FileInfo(path);
-					if (fullPath.Directory.Name == "net461")
-					{
-						assemblies.Add(Assembly.LoadFrom(path));
-					}
-				}
-			}
+		public Dictionary<string, ITask> TasksAsDictionary(IEnumerable<ITask> allTaskInstances)
+		{
+			return Container.GetInstance<Dictionary<string, ITask>>();
+		}
+	}
 
-			// Plugins
-			_builder.RegisterAssemblyTypes(assemblies.ToArray())
-				.Where(t => type.IsAssignableFrom(t) && t.IsClass)
-				.As<ITask>();
+	public class PluginsRegistry : Registry
+	{
+		private readonly ILogger _logger;
+
+		public PluginsRegistry(ILogger logger)
+		{
+			_logger = logger;
+			Scan(ScanTypes);
+		}
+
+		private void ScanTypes(IAssemblyScanner scanner)
+		{
+			scanner.AssembliesFromApplicationBaseDirectory();
+			scanner.AddAllTypesOf<ITask>();
 
 			// Logging
-			_builder.Register(c => _logger).As<ILogger>();
+			For<ILogger>().Use(x => _logger);
 
 			// Powershell
-			_builder.RegisterType<PowershellRunner>().As<IPowershellRunner>();
-			_builder.RegisterType<FileProvider>().As<IFileProvider>();
+			For<IPowershellRunner>().Use<PowershellRunner>();
+			For<IFileProvider>().Use<FileProvider>();
 
 			// YAML
-			_builder.RegisterType<ConfigFileReader>().As<IConfigFileReader>();
-			_builder.Register(c =>
+			For<IConfigFileReader>().Use<ConfigFileReader>();
+			For<Dictionary<string, ITask>>().Use("TasksAsDictionary", context =>
 			{
-				var configFileReader = c.Resolve<IConfigFileReader>();
-				var tasks = TasksAsDictionary(c.Resolve<IEnumerable<ITask>>());
+				return TasksAsDictionary(context.GetAllInstances<ITask>());
+			});
+			For<IYamlConfigParser>().Use("IYamlConfigParser", context =>
+			{
+				var configFileReader = context.GetInstance<IConfigFileReader>();
+				var tasks = context.GetInstance<Dictionary<string, ITask>>();
 
 				return new YamlConfigParser(configFileReader, tasks, _logger);
-			}).As<IYamlConfigParser>();
-
-
-			_builder.RegisterAssemblyTypes();
-		    Container = _builder.Build();
-	    }
+			});
+		}
 
 		public Dictionary<string, ITask> TasksAsDictionary(IEnumerable<ITask> allTaskInstances)
 		{
@@ -78,7 +81,7 @@ namespace Remy.Core.Tasks
 			foreach (ITask task in allTaskInstances)
 			{
 				registeredTasks.Add(task.YamlName, task);
-				_logger.Debug($"Found '{task.GetType().Name}' for '{task.YamlName}'");
+				_logger.Debug($"  - Registered '{task.YamlName}' '{task.GetType().Name}'");
 			}
 
 			return registeredTasks;

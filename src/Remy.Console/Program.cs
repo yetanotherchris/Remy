@@ -26,8 +26,6 @@ namespace Remy.Console
                                 .LiterateConsole()
                                 .CreateLogger();
 
-			var serviceLocator = new ServiceLocator(logger);
-			serviceLocator.BuildContainer();
 
 			try
 			{
@@ -55,6 +53,9 @@ namespace Remy.Console
 					{
 						levelSwitch.MinimumLevel = Serilog.Events.LogEventLevel.Debug;
 					}
+
+					var serviceLocator = new ServiceLocator(logger);
+					serviceLocator.BuildContainer();
 
 					command.Logger = logger;
 					command.Run(serviceLocator);

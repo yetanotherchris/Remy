@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Autofac;
+using StructureMap;
 
 namespace Remy.Core.Tasks
 {
