@@ -1,34 +1,28 @@
 using System.Collections.Generic;
-using Autofac;
 using Remy.Core.Tasks;
+using StructureMap;
 
 namespace Remy.Tests.StubsAndMocks.Core.Tasks
 {
 	public class ServiceLocatorMock : IServiceLocator
 	{
-		private ContainerBuilder _containerBuilder;
-
-		public IContainer Container
-		{
-			get { return _containerBuilder.Build(); }
-			set { }
-		}
+		public IContainer Container { get; set; }
 
 		public Dictionary<string, ITask> Tasks { get; set; }
 
 		public ServiceLocatorMock()
 		{
-			_containerBuilder = new ContainerBuilder();
+			Container = new Container();
 		}
 
-		public void Register<T>(T child)
+		public void Register<T>(T instance)
 		{
-			_containerBuilder.Register(c => child).As<T>();
+			Container.Configure(x => x.For<T>().Use(() => instance));
 		}
 
 		public void BuildContainer()
 		{
-			Container = _containerBuilder.Build();
+			
 		}
 
 		public Dictionary<string, ITask> TasksAsDictionary(IEnumerable<ITask> allTaskInstances)

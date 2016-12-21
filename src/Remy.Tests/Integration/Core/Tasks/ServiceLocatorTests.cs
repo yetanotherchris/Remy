@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Autofac;
 using NUnit.Framework;
 using Remy.Core.Config;
 using Remy.Core.Config.Yaml;
@@ -11,6 +10,7 @@ using Remy.Core.Tasks.Plugins;
 using Remy.Core.Tasks.Plugins.Powershell;
 using Remy.Tests.StubsAndMocks.Core.Tasks;
 using Serilog;
+using StructureMap;
 
 namespace Remy.Tests.Integration.Core.Tasks
 {
@@ -61,11 +61,11 @@ namespace Remy.Tests.Integration.Core.Tasks
 			IContainer container = serviceLocator.Container;
 
 			// then
-			Assert.That(container.Resolve<IPowershellRunner>, Is.TypeOf<PowershellRunner>());
-			Assert.That(container.Resolve<IFileProvider>, Is.TypeOf<FileProvider>());
-			Assert.That(container.Resolve<IConfigFileReader>, Is.TypeOf<ConfigFileReader>());
-			Assert.That(container.Resolve<ILogger>, Is.Not.Null);
-			Assert.That(container.Resolve<IYamlConfigParser>, Is.TypeOf<YamlConfigParser>());
+			Assert.That(container.GetInstance<IPowershellRunner>, Is.TypeOf<PowershellRunner>());
+			Assert.That(container.GetInstance<IFileProvider>, Is.TypeOf<FileProvider>());
+			Assert.That(container.GetInstance<IConfigFileReader>, Is.TypeOf<ConfigFileReader>());
+			Assert.That(container.GetInstance<ILogger>, Is.Not.Null);
+			Assert.That(container.GetInstance<IYamlConfigParser>, Is.TypeOf<YamlConfigParser>());
 		}
 
 		[Test]
@@ -74,7 +74,7 @@ namespace Remy.Tests.Integration.Core.Tasks
 			// given + when
 			var serviceLocator = new ServiceLocator(_logger);
 			serviceLocator.BuildContainer();
-			IEnumerable<ITask> taskInstances = serviceLocator.Container.Resolve<IEnumerable<ITask>>();
+			IEnumerable<ITask> taskInstances = serviceLocator.Container.GetInstance<IEnumerable<ITask>>();
 
 			Dictionary<string, ITask> tasks = serviceLocator.TasksAsDictionary(taskInstances);
 

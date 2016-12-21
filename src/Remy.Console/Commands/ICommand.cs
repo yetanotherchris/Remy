@@ -1,4 +1,3 @@
-using Autofac;
 using Remy.Core.Tasks;
 using Serilog;
 

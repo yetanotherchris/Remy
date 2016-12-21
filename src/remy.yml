@@ -1,7 +1,0 @@
-name: "Example file"
-tasks:
-  -
-    description: "Says hello in powershell"
-    runner: powershell
-    commands:
-      - echo 'Hello from Remy!'
