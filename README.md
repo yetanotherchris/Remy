@@ -77,8 +77,20 @@ This is a more advanced example. Note all Powershell scripts are run with "unres
           - NET-Framework-Features
           - NET-Framework-45-ASPNET
           - Application-Server
+
+## Built in plugins
+
+Remy comes with a number of built in task plugins:
+
+- `'install-chocolatey'` - Installs Chocolatey via Powershell.
+- `'windows-feature'` - Installs a Windows feature via Powershell.
+- `'powershell-file'` - Runs a single Powershell script from a local or remote source.
+- `'powershell'` - Runs powershell commands.
+- `'octopus-tentacle'` - Configures a pre-installed Octopus Tentacle.
+
+See PLUGINS.md for documentation about each plugin's configuration.
     
-## Plugins
+## Installing custom plugins
 
 You can load custom tasks via plugins in Remy. There are various commands available:
 
@@ -87,6 +99,7 @@ remy.exe plugins --list
 remy.exe plugins --install=MyPlugin 
 remy.exe plugins --list --source=http://my-nuget-server
 remy.exe plugins --install=MyPrivatePlugin --source=http://my-nuget-server
+remy.exe run --verbose
 ```
 
 Remy uses Nuget to download and install plugins into the `plugins/` under the directory remy.exe is running from. To find plugins, Remy searches nuget.org (or your custom nuget repository) for all packages with the `remy-plugin` tags.

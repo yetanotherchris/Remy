@@ -59,6 +59,7 @@ namespace Remy.Console
 
 					command.Logger = logger;
 					command.Run(serviceLocator);
+					System.Console.WriteLine();
 				}
 			}
 			catch (Exception e)
