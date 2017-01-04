@@ -5,6 +5,8 @@
 [![Chocolatey](https://img.shields.io/chocolatey/dt/Remy.svg)](https://chocolatey.org/packages/remy)
 [![Nuget.org](https://img.shields.io/nuget/v/Remy.Core.svg?style=flat)](https://www.nuget.org/packages/Remy.Core)
 
+![logo](https://raw.githubusercontent.com/yetanotherchris/Remy/master/icon.png)
+
 Remy (like the rat Chef) is a lightweight YAML-based Windows server configuration tool, written in C#. Its sole purpose is to provision a Windows Server 2012 upwards, running on the server itself.
 
 It's heavily inspired by Travis and Appveyor YML configuration files, and design goal is to be as simple to use as possible.
