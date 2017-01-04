@@ -4,7 +4,7 @@ namespace Remy.Core
 {
     public class RemyException : Exception
     {
-        public RemyException(string message)
+        public RemyException(string message) : base(message)
         {
         }
 

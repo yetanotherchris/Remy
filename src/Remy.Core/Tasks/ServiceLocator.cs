@@ -81,7 +81,10 @@ namespace Remy.Core.Tasks
 			foreach (ITask task in allTaskInstances)
 			{
 				registeredTasks.Add(task.YamlName, task);
-				_logger.Debug($"  - Registered '{task.YamlName}' '{task.GetType().Name}'");
+
+				Type taskType = task.GetType();
+				string assemblyVersion = taskType.Name +","+ taskType.Assembly.GetName().Name + " "+ taskType.Assembly.GetName().Version;
+				_logger.Debug($"  - Registered '{task.YamlName}' ({taskType.Name}, {assemblyVersion})");
 			}
 
 			return registeredTasks;

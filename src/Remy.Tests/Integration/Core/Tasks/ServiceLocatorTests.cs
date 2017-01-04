@@ -79,7 +79,7 @@ namespace Remy.Tests.Integration.Core.Tasks
 			Dictionary<string, ITask> tasks = serviceLocator.TasksAsDictionary(taskInstances);
 
 			// then
-			Assert.That(tasks.Count, Is.EqualTo(5));
+			Assert.That(tasks.Count, Is.EqualTo(6));
 
 			KeyValuePair<string, ITask> task = tasks.FirstOrDefault(x => x.Key == "mock-task");
 			Assert.That(task, Is.Not.Null);
