@@ -106,7 +106,7 @@ namespace Remy.Tests.Unit.Core.Config.Yaml
             Assert.That(config.Config["KEY2"], Is.EqualTo("xyz"));
         }
 
-        [Test]
+		[Test]
         public void should_ignore_duplicate_config_keys()
         {
             // given
