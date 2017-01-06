@@ -50,22 +50,25 @@ namespace Remy.Console.Commands
 			{
 				if (!fullPath.StartsWith("http"))
 				{
+					// Local files: add a file:// prefix and check it exists.
 					if (!fullPath.StartsWith("/") && !fullPath.StartsWith("./"))
 					{
 						fullPath = Path.Combine(ConfigBaseDirectory, fullPath);
 					}
 
 					fullPath = "file://" + fullPath;
+
+					Uri uri = new Uri(fullPath);
+					if (uri.IsAbsoluteUri && !File.Exists(uri.LocalPath))
+					{
+						logger.Error($"The Yaml config file '{uri.LocalPath}' does not exist");
+						return null;
+					}
+
+					return new Uri(fullPath);
 				}
 
-				Uri uri = new Uri(fullPath);
-				if (uri.IsAbsoluteUri && !File.Exists(uri.LocalPath))
-				{
-					logger.Error($"The Yaml config file '{uri.LocalPath}' does not exist");
-					return null;
-				}
-
-				return uri;
+				return new Uri(fullPath);
 			}
 			catch (FormatException)
 			{
