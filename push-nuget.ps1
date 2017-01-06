@@ -15,6 +15,7 @@ $pwd = pwd
 $content = [IO.File]::ReadAllText("$pwd\Remy.Core.template.nuspec")
 $content = $content.Replace("{VERSION}", $versionNumber)
 [IO.File]::WriteAllText("$pwd\Remy.Core.nuspec", $content)
+rm "$pwd\Remy.Core.template.nuspec"
 
 nuget pack .\Remy.Core.csproj -properties Configuration=release
 nuget push *.nupkg $apiKey -source https://www.nuget.org/api/v2/package
