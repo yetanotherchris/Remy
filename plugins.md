@@ -89,15 +89,15 @@ Configures a pre-installed Octopus tentacle.
 
 ### Options
 
-- octopusServer: 
-- environment: 
-- role: 
-- apiKey: 
-- thumbprint: 
+- octopusServer:  (Required) 
+- environment:  (Required) 
+- role: (Required) 
+- apiKey: (Required) 
+- thumbprint: (Required) 
 - tentacleExePath: 
 - configPath: 
 - certText: 
 - port: 
 - homeDirectory: 
 - appDirectory: 
-- tentacleName: 
+- tentacleName: (Required) name for the tentacle.
