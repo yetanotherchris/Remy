@@ -45,7 +45,7 @@ tasks:
         value: ""xyz""
     ";
 
-        public const string DuplicateConfigKeys = @"
+		public const string DuplicateConfigKeys = @"
 name: ""Basic example""
 tasks:
   -
