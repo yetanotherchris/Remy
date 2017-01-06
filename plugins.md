@@ -89,13 +89,20 @@ Configures a pre-installed Octopus tentacle.
 
 ### Options
 
+Defaults:
+
+        HomeDirectory = @"C:\Octopus";
+        AppDirectory = @"C:\Octopus\Applications";
+        ConfigPath = @"C:\Octopus\Tentacle\Tentacle.config";
+        TentacleExePath = @"C:\Program Files\Octopus Deploy\Tentacle\Tentacle.exe";
+
 - octopusServer:  (Required) 
 - environment:  (Required) 
 - role: (Required) 
 - apiKey: (Required) 
 - thumbprint: (Required) 
 - tentacleExePath: 
-- configPath: 
+- configPath: The Tentacle config path
 - certText: 
 - port: 
 - homeDirectory: 
