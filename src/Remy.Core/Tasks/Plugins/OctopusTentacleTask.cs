@@ -79,9 +79,14 @@ namespace Remy.Core.Tasks.Plugins
 
 			if (!string.IsNullOrEmpty(_config.CertText))
 			{
+				// Import a certificate - this is required when running Remy via WinRM
 				string tempCertPath = Path.GetTempFileName() + ".txt";
 				File.WriteAllText(tempCertPath, _config.CertText);
 				success &= RunCommand(logger, $@"import-certificate --instance ""Tentacle"" -f ""{tempCertPath}"" --console");
+			}
+			else
+			{
+				success &= RunCommand(logger, "--new-certificate");
 			}
 
 			success &= RunCommand(logger, $@"configure --instance ""Tentacle"" --home=""{_config.HomeDirectory}"" --console");
