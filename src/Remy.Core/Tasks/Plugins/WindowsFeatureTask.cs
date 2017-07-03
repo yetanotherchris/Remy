@@ -5,13 +5,13 @@ using Serilog;
 
 namespace Remy.Core.Tasks.Plugins
 {
-    public class WindowsFeatureTask : ITask
-    {
-        private WindowsFeatureTaskConfig _config;
-	    private IPowershellRunner _powershellRunner;
+	public class WindowsFeatureTask : ITask
+	{
+		private WindowsFeatureTaskConfig _config;
+		private readonly IPowershellRunner _powershellRunner;
 
-	    public ITaskConfig Config => _config;
-        public string YamlName => "windows-feature";
+		public ITaskConfig Config => _config;
+		public string YamlName => "windows-feature";
 
 		public WindowsFeatureTask(IPowershellRunner powershellRunner)
 		{
@@ -19,40 +19,73 @@ namespace Remy.Core.Tasks.Plugins
 		}
 
 		public void SetConfiguration(ITaskConfig config, Dictionary<object, object> properties)
-        {
-            _config = new WindowsFeatureTaskConfig();
-            _config.Description = config.Description;
+		{
+			_config = new WindowsFeatureTaskConfig();
+			_config.Description = config.Description;
 
-            if (properties.ContainsKey("includeAllSubFeatures"))
-                _config.IncludeAllSubFeatures = bool.Parse(properties["includeAllSubFeatures"].ToString());
+			if (properties.ContainsKey("includeAllSubFeatures"))
+				_config.IncludeAllSubFeatures = bool.Parse(properties["includeAllSubFeatures"].ToString());
 
-            _config.Features = new List<string>();
+			if (properties.ContainsKey("windows10"))
+				_config.IsWindows10 = bool.Parse(properties["windows10"].ToString());
 
-            if (properties.ContainsKey("features") && properties["features"] != null)
-            {
-                var features = properties["features"] as List<object>;
+			if (properties.ContainsKey("remove"))
+				_config.ShouldRemove = bool.Parse(properties["remove"].ToString());
 
-                if (features != null)
-                {
-                    foreach (object feature in features)
-                    {
-                        _config.Features.Add(feature.ToString());
-                    }
-                }
-            }
-        }
+			_config.Features = new List<string>();
 
-        public void Run(ILogger logger)
-        {
-            var commands = new List<string>();
-            string includeAllSubfeature = (_config.IncludeAllSubFeatures) ? " -IncludeAllSubFeature" : "";
-            foreach (string feature in _config.Features)
-            {
-                string command = $"Install-WindowsFeature {feature}{includeAllSubfeature}";
-                commands.Add(command);
-            }
+			if (properties.ContainsKey("features") && properties["features"] != null)
+			{
+				var features = properties["features"] as List<object>;
+
+				if (features != null)
+				{
+					foreach (object feature in features)
+					{
+						_config.Features.Add(feature.ToString());
+					}
+				}
+			}
+		}
+
+		public void Run(ILogger logger)
+		{
+			var commands = new List<string>();
+			foreach (string feature in _config.Features)
+			{
+				string command = "";
+				string extraArgs = "";
+
+				if (_config.IsWindows10)
+				{
+					extraArgs = (_config.IncludeAllSubFeatures) ? " -All" : "";
+
+					if (_config.ShouldRemove)
+					{
+						command = $"Disable-WindowsOptionalFeature -Online{extraArgs} -Featurename {feature}";
+					}
+					else
+					{
+						command = $"Enable-WindowsOptionalFeature -Online{extraArgs} -Featurename {feature}";
+					}
+				}
+				else
+				{
+					extraArgs = (_config.IncludeAllSubFeatures) ? " -IncludeAllSubFeature" : "";
+					if (_config.ShouldRemove)
+					{
+						command = $"Uninstall-WindowsFeature {feature}{extraArgs}";
+					}
+					else
+					{
+						command = $"Install-WindowsFeature {feature}{extraArgs}";
+					}
+				}
+
+				commands.Add(command);
+			}
 
 			_powershellRunner.RunCommands(commands.ToArray());
-        }
-    }
+		}
+	}
 }
